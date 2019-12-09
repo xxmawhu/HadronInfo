@@ -11,7 +11,7 @@
 #include <iostream>
 
 using namespace std;
-class Pi0Info : public AvailableInfo {
+class Pi0Info : public GGInfo {
    public:
     Pi0Info();
     Pi0Info(EvtRecTrack *, EvtRecTrack *);
@@ -53,16 +53,5 @@ class Pi0Info : public AvailableInfo {
     double m_openAngle;
     double m_chisq;
     bool m_isgoodpi0, m_calculate;
-    void initAvialableInfo() {
-        AvailableInfo::add("mass", "double");
-        AvailableInfo::add("mass1C", "double");
-        AvailableInfo::add("angle", "double");
-        AvailableInfo::add("openAngle", "double");
-        AvailableInfo::add("helicity", "double");
-        AvailableInfo::add("p4", "HepLorentzVector");
-        AvailableInfo::add("p41C", "HepLorentzVector");
-        AvailableInfo::add("p4GammaHigh", "HepLorentzVector");
-        AvailableInfo::add("p4GammaLow", "HepLorentzVector");
-    }
 };
 #endif

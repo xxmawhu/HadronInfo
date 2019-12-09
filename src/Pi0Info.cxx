@@ -65,7 +65,7 @@ bool Pi0Info::calculate() {
 
     m_kmfit->AddTrack(0, 0.0, photon1);
     m_kmfit->AddTrack(1, 0.0, photon2);
-    m_kmfit->AddResonance(0, 0.1349766, 0, 1);
+    m_kmfit->AddResonance(0, 0.135, 0, 1);
 
     m_kmfit->Fit(0);  // Perform fit
     m_chisq = m_kmfit->chisq(0);

@@ -1,3 +1,15 @@
+/* ====================================================
+#   Copyright (C)2019 All rights reserved.
+#
+#   Author        : Xin-Xin MA
+#   Email         : xxmawhu@163.com
+#   File Name     : GGInfo.h
+#   Create Time   : 2019-12-09 20:49
+#   Last Modified : 2019-12-09 20:49
+#   Describe      :
+#
+# ====================================================*/
+
 #ifndef CLASS_HadronInfo_GGInfo_H
 #define CLASS_HadronInfo_GGInfo_H
 
@@ -17,44 +29,52 @@ class GGInfo : public AvailableInfo {
     }
     ~GGInfo(){};
     virtual double GetDoubleInfo(const string & info_name){
+        if (info_name == "helicity") return this->helicity();
+        if (info_name == "openAngle") return this->openAngle();
+        if (info_name == "mass") return this->m();
         return -999;
     }
     virtual HepLorentzVector GetLorentzVector(const string &info_name){
+        if (info_name == "p4") return this->p4();
+        if (info_name == "p41C") return this->p41C();
+        if (info_name == "p4GammaHigh") return this->p4GammaHigh();
+        if (info_name == "p4GammaLow") return this->p4GammaLow();
         return HepLorentzVector(0, 0, 0, -999);
     }
-    double m(){
+    const double& m(){
+        // turn the invarin mass of two gamma before 1C fit
         if (!m_calculate) calculate();
         return m_mpi0;
     }
-    double m1c(){
+    const double& m1c(){
         if (!m_calculate) calculate();
         return m_mpi01c;
     }
-    double angle(){
+    const double& angle(){
         if (!m_calculate) calculate();
         return m_pi0_heliAngle;
     }
-    double openAngle(){
+    const double& openAngle(){
         if (!m_calculate) calculate();
         return m_openAngle;
     }
-    double helicity(){
+    const double& helicity(){
         if (!m_calculate) calculate();
         return m_helicity;
     }
-    HepLorentzVector p4(){
+    const HepLorentzVector& p4(){
         if (!m_calculate) calculate();
         return m_rawP4; 
     }
-    HepLorentzVector p41c(){
+    const HepLorentzVector& p41C(){
         if (!m_calculate) calculate();
         return m_P41C; 
     }
-    HepLorentzVector p4child(const int &i){
+    const HepLorentzVector& p4child(const int &i){
         if (!m_calculate) calculate();
         return m_rawP4Child[i];
     }
-    HepLorentzVector p4GammHigh(){
+    const HepLorentzVector& p4GammaHigh(){
         if (!m_calculate) calculate();
         if (m_rawP4Child[0].e()  > m_rawP4Child[1].e()){
             return m_rawP4Child[0];
@@ -63,7 +83,7 @@ class GGInfo : public AvailableInfo {
         }
     }
 
-    HepLorentzVector p4GammLow(){
+    const HepLorentzVector& p4GammaLow(){
         if (!m_calculate) calculate();
         if (m_rawP4Child[0].e()  < m_rawP4Child[1].e()){
             return m_rawP4Child[0];
@@ -71,15 +91,15 @@ class GGInfo : public AvailableInfo {
             return m_rawP4Child[1];
         }
     }
-    double chisq(){
+    const double& chisq(){
         if (!m_calculate) calculate();
         return m_chisq;
     }
-    bool isGood(){
+    const bool& isGood(){
         if (!m_calculate) calculate();
         return m_isgoodpi0;
     }
-    WTrackParameter wtrk(){
+    const WTrackParameter& wtrk(){
         if (!m_calculate) calculate();
         return m_wtrk; 
     }
@@ -128,8 +148,8 @@ class GGInfo : public AvailableInfo {
     bool m_isgoodpi0, m_calculate;
     void initAvialableInfo() {
         AvailableInfo::add("mass", "double");
-        AvailableInfo::add("mass1C", "double");
-        AvailableInfo::add("angle", "double");
+        // AvailableInfo::add("mass1C", "double");
+        // AvailableInfo::add("angle", "double");
         AvailableInfo::add("openAngle", "double");
         AvailableInfo::add("helicity", "double");
         AvailableInfo::add("p4", "HepLorentzVector");
