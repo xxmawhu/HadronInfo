@@ -25,7 +25,7 @@ class ShowerInfo : public AvailableInfo {
 
     void setchilds(EvtRecTrack *shower) { m_shower = shower; }
     EvtRecTrack *getchild() { return m_shower; }
-    HepLorentzVector p4() { return m_p4; }
+    HepLorentzVector p4(); 
     void setEnergyThreshold(double energyThreshold_b,
                             double energyThreshold_e) {
         m_energyThreshold_b = energyThreshold_b;
@@ -37,7 +37,7 @@ class ShowerInfo : public AvailableInfo {
         m_costheta_e1 = costheta_e1;
         m_costheta_e2 = costheta_e2;
     }
-    bool isBad() { return m_badpi0; }
+    bool isBad() { return m_badshower; }
     ShowerInfo &operator=(ShowerInfo &aShowerInfo);
     bool calculate();
 
@@ -50,6 +50,10 @@ class ShowerInfo : public AvailableInfo {
     double m_costheta_b;
     double m_costheta_e1;
     double m_costheta_e2;
-    bool m_badpi0;
+    bool m_badshower;
+    bool m_cal;
+    void initAvialableInfo() {
+        AvailableInfo::add("p4", "HepLorentzVector");
+    }
 };
 #endif

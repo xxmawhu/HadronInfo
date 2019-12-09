@@ -1,5 +1,17 @@
-#ifndef CLASS_TrackINFO_H
-#define CLASS_TrackINFO_H
+/* ====================================================
+#   Copyright (C)2019 All rights reserved.
+#
+#   Author        : Xin-Xin MA
+#   Email         : xxmawhu@163.com
+#   File Name     : TrackInfo.h
+#   Create Time   : 2019-12-09 19:19
+#   Last Modified : 2019-12-09 19:19
+#   Describe      :
+#
+# ====================================================*/
+
+#ifndef CLASS_HadronInfo_TrackINFO_H
+#define CLASS_HadronInfo_TrackINFO_H
 
 #include "EvtRecEvent/EvtRecTrack.h"
 
@@ -35,16 +47,19 @@ class TrackInfo : public AvailableInfo {
     WTrackParameter wtrk(EvtRecTrack *, const int &);
     WTrackParameter wtrk(const int &PID);
     WTrackParameter wtrkc(const EvtRecTrack *, const int &);
+    const HepPoint3D& getIP();
 
    private:
     void calculate();
     EvtRecTrack *m_track;
     WTrackParameter m_wtrk;
     int m_parId;
+    double m_Rxy, m_Rz, m_costheta;
     HepLorentzVector m_p4;
     void initAvialableInfo() {
         AvailableInfo::add("Rxy", "double");
         AvailableInfo::add("Rz", "double");
+        AvailableInfo::add("CosTheta", "double");
         AvailableInfo::add("p4", "HepLorentzVector");
     }
 };
