@@ -1,6 +1,6 @@
 package HadronInfo 
 author "Xiaoshuai Qin"  <qinxs@ihep.ac.cn>
-# updated by "Xin-Xin Ma"  <maxx@ihep.ac.cn>
+# Developed by "Xin-Xin Ma"  <maxx@ihep.ac.cn>
  
 branches cmt src HadronInfo 
  
@@ -29,7 +29,6 @@ use ParticleID   ParticleID-*  Analysis
 library HadronInfo *.cxx
  
 macro_remove fflags "-fmessage-length=0 2"
-
  
 #apply_pattern component_library
 apply_pattern installed_library
