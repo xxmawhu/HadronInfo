@@ -13,50 +13,112 @@
 using namespace std;
 class GGInfo : public AvailableInfo {
    public:
-    GGInfo();
-    GGInfo(EvtRecTrack *, EvtRecTrack *);
-    GGInfo(vector<const EvtRecTrack *>);
-    GGInfo(const CDCandidate &);
+    GGInfo():AvailableInfo(){
+    }
+    ~GGInfo(){};
+    virtual double GetDoubleInfo(const string & info_name){
+        return -999;
+    }
+    virtual HepLorentzVector GetLorentzVector(const string &info_name){
+        return HepLorentzVector(0, 0, 0, -999);
+    }
+    double m(){
+        if (!m_calculate) calculate();
+        return m_mpi0;
+    }
+    double m1c(){
+        if (!m_calculate) calculate();
+        return m_mpi01c;
+    }
+    double angle(){
+        if (!m_calculate) calculate();
+        return m_pi0_heliAngle;
+    }
+    double openAngle(){
+        if (!m_calculate) calculate();
+        return m_openAngle;
+    }
+    double helicity(){
+        if (!m_calculate) calculate();
+        return m_helicity;
+    }
+    HepLorentzVector p4(){
+        if (!m_calculate) calculate();
+        return m_rawP4; 
+    }
+    HepLorentzVector p41c(){
+        if (!m_calculate) calculate();
+        return m_P41C; 
+    }
+    HepLorentzVector p4child(const int &i){
+        if (!m_calculate) calculate();
+        return m_rawP4Child[i];
+    }
+    HepLorentzVector p4GammHigh(){
+        if (!m_calculate) calculate();
+        if (m_rawP4Child[0].e()  > m_rawP4Child[1].e()){
+            return m_rawP4Child[0];
+        } else {
+            return m_rawP4Child[1];
+        }
+    }
 
-    ~GGInfo();
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
-    void setchild(int, EvtRecTrack *);
-    void setchilds(EvtRecTrack *, EvtRecTrack *);
-    EvtRecTrack *getchild(int n);
-    double m();
-    double m1c();
-    double angle();
-    double openAngle();
-    double helicity();
-    HepLorentzVector p4();
-    HepLorentzVector p41c();
-    HepLorentzVector p4child(const int &);
-    double chisq();
-    bool isGoodPi0();
-    WTrackParameter wtrk();
+    HepLorentzVector p4GammLow(){
+        if (!m_calculate) calculate();
+        if (m_rawP4Child[0].e()  < m_rawP4Child[1].e()){
+            return m_rawP4Child[0];
+        } else {
+            return m_rawP4Child[1];
+        }
+    }
+    double chisq(){
+        if (!m_calculate) calculate();
+        return m_chisq;
+    }
+    bool isGood(){
+        if (!m_calculate) calculate();
+        return m_isgoodpi0;
+    }
+    WTrackParameter wtrk(){
+        if (!m_calculate) calculate();
+        return m_wtrk; 
+    }
     // GGInfo &operator=(GGInfo &aGGInfo);
-    bool calculate();
-    void setWTrackParameter(const WTrackParameter&);
-    void setRawMass(const double&);
-    void setHelicity(const double&);
-    void setOpenAngle(const double&);
-    void setChisq(const double&);
-    void setP41C(const HepLorentzVector&);
-    void setRawP4(const HepLorentzVector&);
-    void setRawP4(const HepLorentzVector&);
-    void setP4Child(const HepLorentzVector&, const int&);
+    virtual bool calculate(){
+        m_calculate = true;
+    }
+    void setWTrackParameter(const WTrackParameter& wtrk){
+        m_wtrk = wtrk;
+    }
+    void setRawMass(const double& mass){
+        m_mpi0 = mass;
+    }
+    void setHelicity(const double& helicity){
+        m_helicity = helicity;
+    }
+    void setOpenAngle(const double& openangle){
+        m_openAngle = openangle;
+    }
+    void setChisq(const double& chisq){
+        m_chisq = chisq;
+    }
+    void setP41C(const HepLorentzVector& p4) {
+        m_P41C = p4;
+    }
+    void setRawP4(const HepLorentzVector& p4){
+        m_rawP4 = p4;
+    }
+    void setP4Child(const HepLorentzVector& p4, const int& i){
+        m_rawP4Child[i] = p4;
+    }
 
    private:
-    EvtRecTrack *m_shower0;
-    EvtRecTrack *m_shower1;
     WTrackParameter m_wtrk;
     bool isGoodPhoton(EvtRecTrack *);
-    HepLorentzVector m_p4;
-    HepLorentzVector m_p41c;
-    HepLorentzVector m_p4Child[2];
-    HepLorentzVector m_rawp4;
-    double GGInfo_mpi0;
+    HepLorentzVector m_rawP4;
+    HepLorentzVector m_P41C;
+    HepLorentzVector m_rawP4Child[2];
+    double constrain_mass;
     double m_mpi0;
     double m_mpi01c;
     double m_pi0_heliAngle;
