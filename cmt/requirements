@@ -1,6 +1,6 @@
 package HadronInfo 
 author "Xiaoshuai Qin"  <qinxs@ihep.ac.cn>
- 
+# updated by "Xin-Xin Ma"  <maxx@ihep.ac.cn>
  
 branches cmt src HadronInfo 
  
@@ -33,6 +33,6 @@ macro_remove fflags "-fmessage-length=0 2"
  
 #apply_pattern component_library
 apply_pattern installed_library
-#apply_pattern package_linkopts
-macro_append HadronInfo_cppflags " -DYDEBUG -DMEMWATCH -DMEMWATCH_STDIO  -Df2cFortran -w"
-macro_append HadronInfo_fflags "  -fno-automatic -ffixed-line-length-132 -fbackslash  -w"
+# apply_pattern package_linkopts
+# macro_append HadronInfo_cppflags " -DYDEBUG -DMEMWATCH -DMEMWATCH_STDIO  -Df2cFortran -w"
+# macro_append HadronInfo_fflags "  -fno-automatic -ffixed-line-length-132 -fbackslash  -w"
