@@ -12,9 +12,12 @@
 # ====================================================*/
 #ifndef  HadronInfo_COMBINFO_H
 #define  HadronInfo_COMBINFO_H
-
+#include "TupleSvc/DecayTree.h"
 class CombInfo: public AvailableInfo {
-
+    public:
+        CombInfo();
+    private:
+        DecayTree m_decayTree;
 };
 
 #endif // _COMBINFO_H
