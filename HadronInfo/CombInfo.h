@@ -7,10 +7,15 @@
 #   Create Time   : 2019-12-11 10:37
 #   Last Modified : 2019-12-11 10:37
 #   Describe      :
-#
+# get the combinate information of two particles, three particles
+# for example, (pi0, pi0), (pi+, pi-, eta)
 # ====================================================*/
-#ifndef  _COMBINFO_H
-#define  _COMBINFO_H
+#ifndef  HadronInfo_COMBINFO_H
+#define  HadronInfo_COMBINFO_H
+
+class CombInfo: public AvailableInfo {
+
+};
 
 #endif // _COMBINFO_H
 
