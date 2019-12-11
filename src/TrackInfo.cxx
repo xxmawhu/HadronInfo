@@ -1,10 +1,13 @@
+#include "VertexFit/IVertexDbSvc.h"
+#include "VertexFit/VertexFit.h"
+#include "VertexFit/Helix.h"
+#include "GaudiKernel/Bootstrap.h"
+
 #include "HadronInfo/TrackInfo.h"
 
 TrackInfo::TrackInfo() : m_track(0), m_parId(0), m_p4(0) {}
 
-TrackInfo::TrackInfo(const int& pid): m_parId(pid){
-
-}
+TrackInfo::TrackInfo(const int &pid) : m_parId(pid) {}
 
 TrackInfo::TrackInfo(const EvtRecTrack *track) {
     m_track = const_cast<EvtRecTrack *>(track);
@@ -69,12 +72,12 @@ WTrackParameter TrackInfo::wtrk(const int &pid) {
     return m_wtrk;
 }
 
-const HepPoint3D& TrackInfo::getIP(){
+const HepPoint3D &TrackInfo::getIP() {
     Hep3Vector xorigin(0, 0, 0);
-    IVertexDbSvc* vtxsvc;
+    IVertexDbSvc *vtxsvc;
     Gaudi::svcLocator()->service("VertexDbSvc", vtxsvc);
     if (vtxsvc->isVertexValid()) {
-        double* dbv = vtxsvc->PrimaryVertex();
+        double *dbv = vtxsvc->PrimaryVertex();
         xorigin.setX(dbv[0]);
         xorigin.setY(dbv[1]);
         xorigin.setZ(dbv[2]);
@@ -102,7 +105,7 @@ void TrackInfo::calculate() {
         return;
     } else {
         RecMdcKalTrack *mdcTrk = m_track->mdcKalTrack();
-        const HepPoint3D& ip = getIP();
+        const HepPoint3D &ip = getIP();
         HepPoint3D point0(0., 0., 0.);
         HepVector a;
         HepSymMatrix Ea;
@@ -112,13 +115,13 @@ void TrackInfo::calculate() {
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixE(),
                                      mdcTrk->getZErrorE());
-            a = mdcKalTrack->getZHelixE();
-            Ea = mdcKalTrack->getZErrorE();
+            a = mdcTrk->getZHelixE();
+            Ea = mdcTrk->getZErrorE();
             VFHelix helixip3(point0, a, Ea);
             HepVector vecipa = helixip3.a();
             m_Rxy = fabs(vecipa[0]);
             m_Rz = fabs(vecipa[3]);
-            m_costheta = cos(mdcKalTrack->theta());
+            m_costheta = cos(mdcTrk->theta());
             return;
         }
         if (m_parId == 13) {
@@ -127,13 +130,13 @@ void TrackInfo::calculate() {
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixMu(),
                                      mdcTrk->getZErrorMu());
-            a = mdcKalTrack->getZHelixMu();
-            Ea = mdcKalTrack->getZErrorMu();
+            a = mdcTrk->getZHelixMu();
+            Ea = mdcTrk->getZErrorMu();
             VFHelix helixip3(point0, a, Ea);
             HepVector vecipa = helixip3.a();
             m_Rxy = fabs(vecipa[0]);
             m_Rz = fabs(vecipa[3]);
-            m_costheta = cos(mdcKalTrack->theta());
+            m_costheta = cos(mdcTrk->theta());
             return;
         }
         if (m_parId == 211) {
@@ -142,13 +145,13 @@ void TrackInfo::calculate() {
             m_p4 = mdcTrk->p4(mass);
             m_wtrk =
                 WTrackParameter(mass, mdcTrk->getZHelix(), mdcTrk->getZError());
-            a = mdcKalTrack->getZHelix();
-            Ea = mdcKalTrack->getZError();
+            a = mdcTrk->getZHelix();
+            Ea = mdcTrk->getZError();
             VFHelix helixip3(point0, a, Ea);
             HepVector vecipa = helixip3.a();
             m_Rxy = fabs(vecipa[0]);
             m_Rz = fabs(vecipa[3]);
-            m_costheta = cos(mdcKalTrack->theta());
+            m_costheta = cos(mdcTrk->theta());
             return;
         }
         if (m_parId == 321) {
@@ -157,13 +160,13 @@ void TrackInfo::calculate() {
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixK(),
                                      mdcTrk->getZErrorK());
-            a = mdcKalTrack->getZHelixK();
-            Ea = mdcKalTrack->getZErrorK();
+            a = mdcTrk->getZHelixK();
+            Ea = mdcTrk->getZErrorK();
             VFHelix helixip3(point0, a, Ea);
             HepVector vecipa = helixip3.a();
             m_Rxy = fabs(vecipa[0]);
             m_Rz = fabs(vecipa[3]);
-            m_costheta = cos(mdcKalTrack->theta());
+            m_costheta = cos(mdcTrk->theta());
             return;
         }
         if (m_parId == 2212) {
@@ -172,13 +175,13 @@ void TrackInfo::calculate() {
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixP(),
                                      mdcTrk->getZErrorP());
-            a = mdcKalTrack->getZHelixP();
-            Ea = mdcKalTrack->getZErrorP();
+            a = mdcTrk->getZHelixP();
+            Ea = mdcTrk->getZErrorP();
             VFHelix helixip3(point0, a, Ea);
             HepVector vecipa = helixip3.a();
             m_Rxy = fabs(vecipa[0]);
             m_Rz = fabs(vecipa[3]);
-            m_costheta = cos(mdcKalTrack->theta());
+            m_costheta = cos(mdcTrk->theta());
             return;
         }
     }
@@ -199,4 +202,3 @@ HepLorentzVector TrackInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -110);
 }
-

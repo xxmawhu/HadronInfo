@@ -159,11 +159,12 @@ WTrackParameter EtaInfo::wtrk() {
     return m_wtrk;
 }
 
-HepLorentzVector EtaInfo::p4child(const int& id) {
-    if (id==0) {
+HepLorentzVector EtaInfo::p4child(const int &id) {
+    if (id == 0) {
         // return high energy
         EvtRecTrack *trk = m_shower0;
-        if (m_shower0->emcShower()->energy() < m_shower1->emcShower()->energy()) {
+        if (m_shower0->emcShower()->energy() <
+            m_shower1->emcShower()->energy()) {
             trk = m_shower1;
         }
         TrackInfo showerInfo(trk);
@@ -171,7 +172,8 @@ HepLorentzVector EtaInfo::p4child(const int& id) {
     } else {
         // return low energy
         EvtRecTrack *trk = m_shower0;
-        if (m_shower0->emcShower()->energy() < m_shower1->emcShower()->energy()) {
+        if (m_shower0->emcShower()->energy() <
+            m_shower1->emcShower()->energy()) {
             trk = m_shower1;
         }
         TrackInfo showerInfo(trk);
@@ -194,4 +196,3 @@ HepLorentzVector EtaInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4GammaLow") return this->p4child(1);
     return HepLorentzVector(0, 0, 0, -110);
 }
-

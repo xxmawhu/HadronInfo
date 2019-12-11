@@ -8,14 +8,14 @@
 #include "GaudiKernel/ISvcLocator.h"
 
 #include "HadronInfo/LamInfo.h"
-OmegaInfo::OmegaInfo() : m_track0(0), m_track1(0), m_track2(0) { m_cal = false; }
-
-OmegaInfo::OmegaInfo(const EvtRecTrack *track0,
-        const EvtRecTrack *track1,
-        const EvtRecTrack *track2) {
-    this->setchilds(track0, track1, track2);
+OmegaInfo::OmegaInfo() : m_track0(0), m_track1(0), m_track2(0) {
+    m_cal = false;
 }
 
+OmegaInfo::OmegaInfo(const EvtRecTrack *track0, const EvtRecTrack *track1,
+                     const EvtRecTrack *track2) {
+    this->setchilds(track0, track1, track2);
+}
 
 OmegaInfo::OmegaInfo(const CDCandidate &aOmega) {
     const EvtRecTrack *trk0 = aOmega.finalChildren().first[0];
@@ -33,7 +33,6 @@ OmegaInfo::~OmegaInfo() {
     m_track2 = 0;
     m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
-
 
 bool OmegaInfo::calculate() {
     if (m_cal) {
@@ -53,13 +52,12 @@ bool OmegaInfo::calculate() {
     m_momegap4 = omegap4.m();
 
     WTrackParameter wKaon(Omegainfo_mkaonm, kaonmTrk->getZHelixK(),
-                           kaonmTrk->getZErrorK());
+                          kaonmTrk->getZErrorK());
 
-    const EvtRecTrack * trk0 = m_track0;
-    const EvtRecTrack * trk1 = m_track1;
+    const EvtRecTrack *trk0 = m_track0;
+    const EvtRecTrack *trk1 = m_track1;
     LamInfo lamInfo(trk0, trk1);
     WTrackParameter lamWtrk = lamInfo.wtrk();
-
 
     VertexParameter wideVertex;
     HepPoint3D vWideVertex(0., 0., 0.);
@@ -131,16 +129,16 @@ bool OmegaInfo::calculate() {
     if (m_2ndVtxFit->decayLengthError() == 0) {
         m_vromega = -999;
     } else {
-        m_vromega = m_2ndVtxFit->decayLength() / m_2ndVtxFit->decayLengthError();
+        m_vromega =
+            m_2ndVtxFit->decayLength() / m_2ndVtxFit->decayLengthError();
     }
     m_veomega = m_2ndVtxFit->decayLengthError();
     m_2ndVtx = m_2ndVtxFit->crossPoint();
     return true;
 }
 
-
 void OmegaInfo::setchilds(const EvtRecTrack *track0, const EvtRecTrack *track1,
-        const EvtRecTrack *track2) {
+                          const EvtRecTrack *track2) {
     m_track0 = const_cast<EvtRecTrack *>(track0);
     m_track1 = const_cast<EvtRecTrack *>(track1);
     m_track2 = const_cast<EvtRecTrack *>(track2);
@@ -165,9 +163,7 @@ EvtRecTrack *OmegaInfo::getchild(const int &n) {
     } else if (n == 2) {
         return m_track2;
     }
-
 }
-
 
 double OmegaInfo::m() {
     if (!m_cal) {
@@ -184,7 +180,6 @@ double OmegaInfo::momegap4() {
     return m_momegap4;
 }
 
-
 double OmegaInfo::vtxChi2() {
     if (!m_cal) {
         calculate();
@@ -192,7 +187,6 @@ double OmegaInfo::vtxChi2() {
     }
     return m_vchi2omega1;
 }
-
 
 double OmegaInfo::chi2() {
     if (!m_cal) {
@@ -313,4 +307,3 @@ HepLorentzVector OmegaInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4Pion") return this->p4child(1);
     return HepLorentzVector(0, 0, 0, -110);
 }
-

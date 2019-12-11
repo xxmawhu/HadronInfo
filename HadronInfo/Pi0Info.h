@@ -7,6 +7,7 @@
 #include "VertexFit/KalmanKinematicFit.h"
 #include "BesDChain/CDDecay.h"
 #include "HadronInfo/AvailableInfo.h"
+#include "HadronInfo/GGInfo.h"
 
 #include <iostream>
 
