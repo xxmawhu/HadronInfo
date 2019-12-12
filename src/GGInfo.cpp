@@ -37,8 +37,8 @@ const double& GGInfo::GetDoubleInfo(const string& info_name) {
     // if (info_name == "helicity") return this->helicityAngle();
     if (info_name == "openAngle") return this->openAngle();
     if (info_name == "mass") return this->m();
-    // the default value is set at a very large number, however it can not 
-    // prevent someone taking it as a very reasonal value. Hope you could 
+    // the default value is set at a very large number, however it can not
+    // prevent someone taking it as a very reasonal value. Hope you could
     // understand my purpose here.
     return -999;
 }
@@ -48,12 +48,11 @@ const HepLorentzVector& GGInfo::GetLorentzVector(const string& info_name) {
     if (info_name == "p41C") return this->p41C();
     if (info_name == "p4GammaHigh") return this->p4GammaHigh();
     if (info_name == "p4GammaLow") return this->p4GammaLow();
-    // the default value is set at a very large number, however it can not 
-    // prevent someone taking it as a very reasonal value. Hope you could 
+    // the default value is set at a very large number, however it can not
+    // prevent someone taking it as a very reasonal value. Hope you could
     // understand my purpose here.
     return HepLorentzVector(0, 0, 0, -999);
 }
-
 
 const double& GGInfo::m() {
     // turn the invarin mass of two gamma before 1C fit
@@ -133,9 +132,9 @@ void GGInfo::setP4Child(const HepLorentzVector& p4, const int& i) {
     m_rawP4Child[i] = p4;
 }
 
-bool GGInfo::isGoodPhoton(EvtRecTrack *track) {
+bool GGInfo::isGoodPhoton(EvtRecTrack* track) {
     if (!track->isEmcShowerValid()) return false;
-    const RecEmcShower *photon = track->emcShower();
+    const RecEmcShower* photon = track->emcShower();
     double eraw = photon->energy();
     double theta = photon->theta();
     double costheta = fabs(cos(theta));

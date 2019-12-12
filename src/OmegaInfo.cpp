@@ -292,7 +292,7 @@ WTrackParameter &OmegaInfo::wtrk(const int &n) {
     }
     return m_wtrk[n];
 }
-const double& OmegaInfo::GetDoubleInfo(const string &info_name) {
+const double &OmegaInfo::GetDoubleInfo(const string &info_name) {
     if (info_name == "mass") return this->m();
     if (info_name == "vtxChi2") return this->vtxChi2();
     if (info_name == "chisq") return this->chisq();
@@ -302,7 +302,7 @@ const double& OmegaInfo::GetDoubleInfo(const string &info_name) {
     return -999;
 }
 
-const HepLorentzVector& OmegaInfo::GetLorentzVector(const string &info_name) {
+const HepLorentzVector &OmegaInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     if (info_name == "p4Proton") return this->p4child(0);
     if (info_name == "p4Pion") return this->p4child(1);

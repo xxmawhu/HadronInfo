@@ -55,12 +55,12 @@ ShowerInfo &ShowerInfo::operator=(ShowerInfo &aShowerInfo) {
     m_p4 = aShowerInfo.p4();
     return *this;
 }
-const double& ShowerInfo::GetDoubleInfo(const string &info_name) {
+const double &ShowerInfo::GetDoubleInfo(const string &info_name) {
     // if (info_name == "decayLengthError") return this->decayLengthError();
     return -110;
 }
 
-const HepLorentzVector& ShowerInfo::GetLorentzVector(const string &info_name) {
+const HepLorentzVector &ShowerInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -110);
 }

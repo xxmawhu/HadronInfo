@@ -14,11 +14,11 @@
 #include <iostream>
 /*
 template <class FirstInfo, class SecondInfo,  bool n>
-CombInfo<FirstInfo, SecondInfo, n>::CombInfo(FirstInfo firstInfo, SecondInfo secondInfo){
+CombInfo<FirstInfo, SecondInfo, n>::CombInfo(FirstInfo firstInfo, SecondInfo
+secondInfo){
     std::cout << "init CombInfo successful" << std::endl;
     if (n) {
     std::cout << "did not perform vertexfit!!!" << std::endl;
     }
 }
 */
-

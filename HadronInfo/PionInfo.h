@@ -27,10 +27,10 @@
 using namespace std;
 class PionInfo : public TrackInfo {
    public:
-       PionInfo(): TrackInfo(211) {
-           cout << "TrackInfo::GetName()" << TrackInfo::GetName() << endl;
-           cout << "PionInfo::GetName()" << GetName() << endl;
-       }
+    PionInfo() : TrackInfo(211) {
+        cout << "TrackInfo::GetName()" << TrackInfo::GetName() << endl;
+        cout << "PionInfo::GetName()" << GetName() << endl;
+    }
     PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(211); }
     PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(211); }
     ~PionInfo() {};

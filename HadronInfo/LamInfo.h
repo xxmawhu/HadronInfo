@@ -47,15 +47,15 @@ class LamInfo : public VeeInfo {
         // VeeInfo::setChildName(0, name1);
         // VeeInfo::setChildName(1, name2);
     }
-    virtual const string GetName() { 
+    virtual const string GetName() {
         // m_name = "Lambda";
         return "Lambda";
     }
-    string getName() { 
-         string name = "Lambda";
-         return name;
+    string getName() {
+        string name = "Lambda";
+        return name;
     }
-    ~LamInfo(){};
+    ~LamInfo() {};
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name) {
         if (info_name == "p4") return this->p4();
         if (info_name == "p4" + getChildName(0)) return this->p4child(0);

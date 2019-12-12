@@ -9,14 +9,12 @@
 #   Describe      :
 #
 # ====================================================*/
-#ifndef  HadronInfo_OmegamINFO_H
-#define  HadronInfo_OmegamINFO_H
+#ifndef HadronInfo_OmegamINFO_H
+#define HadronInfo_OmegamINFO_H
 #include "HadronInfo/CombInfo.h"
 #include "HadronInfo/LamInfo.h"
 #include "HadronInfo/KaonInfo.h"
 bool doVertexFit = true;
 typedef CombInfo<LamInfo, KaonInfo, 3334, doVertexFit> OmegamInfo;
 
-#endif // _SIGMA0INFO_H
-
-
+#endif  // _SIGMA0INFO_H

@@ -33,8 +33,8 @@ class TrackInfo : public AvailableInfo {
     ~TrackInfo();
 
     virtual const string GetName() { return "ChargedTrack"; }
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual const double &GetDoubleInfo(const string &);
+    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);

@@ -9,14 +9,12 @@
 #   Describe      :
 #
 # ====================================================*/
-#ifndef  _Xi0INFO_H
-#define  _Xi0INFO_H
+#ifndef _Xi0INFO_H
+#define _Xi0INFO_H
 #include "HadronInfo/CombInfo.h"
 #include "HadronInfo/LamInfo.h"
 #include "HadronInfo/Pi0Info.h"
 bool doVertexFit = false;
 typedef CombInfo<LamInfo, Pi0Info, 3322, doVertexFit> Sigma0Info;
 
-#endif // _SIGMA0INFO_H
-
-
+#endif  // _SIGMA0INFO_H
