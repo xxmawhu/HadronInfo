@@ -42,8 +42,8 @@ class KsInfo : public VeeInfo {
         VeeInfo::setChildName(1, name2);
     }
     ~KsInfo();
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
 
     // KsInfo &operator=(KsInfo &aKsInfo);
 

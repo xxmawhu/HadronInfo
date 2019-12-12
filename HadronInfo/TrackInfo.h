@@ -32,8 +32,8 @@ class TrackInfo : public AvailableInfo {
     TrackInfo(const CDCandidate &aTrk);
     ~TrackInfo();
 
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);

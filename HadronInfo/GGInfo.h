@@ -27,8 +27,8 @@ class GGInfo : public AvailableInfo {
    public:
     GGInfo():AvailableInfo(){};
     ~GGInfo(){};
-    virtual double GetDoubleInfo(const string & info_name);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual const double& GetDoubleInfo(const string & info_name);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
     const double& m();
     const double& m1c();
     const double& angle();
@@ -44,6 +44,7 @@ class GGInfo : public AvailableInfo {
     const WTrackParameter& wtrk();
 
     virtual bool calculate();
+    virtual bool isGoodPhoton(EvtRecTrack *);
     void setWTrackParameter(const WTrackParameter& wtrk);
     void setRawMass(const double& mass);
     void setHelicity(const double& helicity);
@@ -55,7 +56,6 @@ class GGInfo : public AvailableInfo {
     void setP4Child(const HepLorentzVector& p4, const int& i);
 
    private:
-    bool isGoodPhoton(EvtRecTrack *);
     WTrackParameter m_wtrk;
     HepLorentzVector m_rawP4;
     HepLorentzVector m_P41C;

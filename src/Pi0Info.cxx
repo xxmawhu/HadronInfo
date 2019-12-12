@@ -1,38 +1,52 @@
 #include "HadronInfo/Pi0Info.h"
-#include "HadronInfo/TrackInfo.h"
 #include "HadronInfo/ShowerInfo.h"
 #include "HadronInfo/GGInfo.h"
 #include <iostream>
 #include <vector>
 using std::vector;
 
-Pi0Info::Pi0Info() : m_shower0(0), m_shower1(0), m_p4(0), m_mpi0(0) {
+Pi0Info::Pi0Info(){
     m_calculate = false;
+    m_shower[0] = NULL;
+    m_shower[1] = NULL;
+}
+void Pi0Info::setchild(const int& i, const EvtRecTrack *shower) {
+    m_calculate = false;
+    m_shower[i] = const_cast<EvtRecTrack *>(shower);
+}
+void Pi0Info::setchilds(const EvtRecTrack *shower0, 
+        const EvtRecTrack *shower1) {
+    m_calculate = false;
+    this->setchild(0, shower0);
+    this->setchild(1, shower1);
+}
+EvtRecTrack *Pi0Info::getchild(const int& n) {
+    return m_shower[n];
 }
 Pi0Info::Pi0Info(vector<const EvtRecTrack *> shower) {
     m_calculate = false;
-    m_shower0 = const_cast<EvtRecTrack *>(shower[0]);
-    m_shower1 = const_cast<EvtRecTrack *>(shower[1]);
+    this->setchild(0, shower[0]);
+    this->setchild(1, shower[1]);
 }
-Pi0Info::Pi0Info(EvtRecTrack *shower0, EvtRecTrack *shower1) {
-    m_shower0 = shower0;
-    m_shower1 = shower1;
+
+Pi0Info::Pi0Info(const EvtRecTrack *shower0, 
+        const EvtRecTrack *shower1) {
     m_calculate = false;
+    this->setchild(0, shower0);
+    this->setchild(1, shower1);
 }
+
 Pi0Info::Pi0Info(const CDCandidate &aPi0) {
-    const EvtRecTrack *trk0 = aPi0.finalChildren().second[0];
-    const EvtRecTrack *trk1 = aPi0.finalChildren().second[1];
-    m_shower0 = const_cast<EvtRecTrack *>(trk0);
-    m_shower1 = const_cast<EvtRecTrack *>(trk1);
     m_calculate = false;
+    this->setchild(0, aPi0.finalChildren().second[0]);
+    this->setchild(1, aPi0.finalChildren().second[1]);
 }
 
 Pi0Info::~Pi0Info() {
-    m_shower0 = 0;
-    m_shower1 = 0;
-    m_p4 = HepLorentzVector(0, 0, 0, 0);
-    m_mpi0 = 0;
+    m_shower[0] = NULL;
+    m_shower[1] = NULL;
 }
+/*
 bool Pi0Info::isGoodPhoton(EvtRecTrack *track) {
     if (!track->isEmcShowerValid()) return false;
     const RecEmcShower *photon = track->emcShower();
@@ -47,21 +61,31 @@ bool Pi0Info::isGoodPhoton(EvtRecTrack *track) {
         return true;
     }
     return false;
-}
+}*/
 bool Pi0Info::calculate() {
     if (m_calculate) return true;
-    if (isGoodPhoton(m_shower0) && isGoodPhoton(m_shower1)) {
+    if (isGoodPhoton(m_shower[0]) && isGoodPhoton(m_shower[1])) {
         m_isgoodpi0 = true;
     } else {
         m_isgoodpi0 = false;
     }
-    TrackInfo trkInf;
+    // update the raw momentum which is not performed kinemitic fit yet.
+    ShowerInfo showerInfo;
+    showerInfo.setchild(m_shower[0]);
+    HepLorentzVector p4raw1 = showerInfo.p4();
+    showerInfo.setchild(m_shower[1]);
+    HepLorentzVector p4raw2 = showerInfo.p4();
+    GGInfo::setRawP4(p4raw1 + p4raw2);
+    GGInfo::setRawMass((p4raw1 + p4raw2).m());
+    GGInfo::setP4Child(p4raw1, 0);
+    GGInfo::setP4Child(p4raw2, 1);
+
     KalmanKinematicFit *m_kmfit;
     m_kmfit = KalmanKinematicFit::instance();
     m_kmfit->init();
 
-    RecEmcShower *photon1 = m_shower0->emcShower();
-    RecEmcShower *photon2 = m_shower1->emcShower();
+    RecEmcShower *photon1 = m_shower[0]->emcShower();
+    RecEmcShower *photon2 = m_shower[1]->emcShower();
 
     m_kmfit->AddTrack(0, 0.0, photon1);
     m_kmfit->AddTrack(1, 0.0, photon2);
@@ -82,38 +106,12 @@ bool Pi0Info::calculate() {
     GGInfo::setOpenAngle(cos(pfit1.vect().angle(pfit2.vect())));
     GGInfo::setHelicity((pfit1.e() - pfit2.e()) / ppi0.rho());
 
-    HepLorentzVector p4raw1 = trkInf.p4(m_shower0, 22);
-    HepLorentzVector p4raw2 = trkInf.p4(m_shower1, 22);
-    GGInfo::setRawP4(p4raw1 + p4raw2);
-    GGInfo::setRawMass((p4raw1 + p4raw2).m());
-    GGInfo::setP4Child(p4raw1, 0);
-    GGInfo::setP4Child(p4raw2, 1);
     const Hep3Vector bvpi0 = -(ppi0.boostVector());
     HepLorentzVector pfit1Bv = pfit1;
     pfit1Bv.boost(bvpi0);
     GGInfo::setHelicityAngle(pfit1Bv.vect().angle(-ppi0.vect()));
     m_calculate = true;
     return true;
-}
-void Pi0Info::setchild(int n, EvtRecTrack *shower) {
-    m_calculate = false;
-    if (n == 0) {
-        m_shower0 = shower;
-    } else if (n == 1) {
-        m_shower1 = shower;
-    }
-}
-void Pi0Info::setchilds(EvtRecTrack *shower0, EvtRecTrack *shower1) {
-    m_calculate = false;
-    m_shower0 = shower0;
-    m_shower1 = shower1;
-}
-EvtRecTrack *Pi0Info::getchild(int n) {
-    if (n == 0) {
-        return m_shower0;
-    } else if (n == 1) {
-        return m_shower1;
-    }
 }
 /*
 double Pi0Info::m() {
@@ -179,7 +177,7 @@ HepLorentzVector Pi0Info::p4child(const int& id) {
     }
 }
 
-double Pi0Info::GetDoubleInfo(const string &info_name) {
+const double& Pi0Info::GetDoubleInfo(const string &info_name) {
     if (info_name == "mass") return this->m();
     if (info_name == "mass1C") return this->m1c();
     if (info_name == "angle") return this->angle();
@@ -188,7 +186,7 @@ double Pi0Info::GetDoubleInfo(const string &info_name) {
     return -110;
 }
 
-HepLorentzVector Pi0Info::GetLorentzVector(const string &info_name) {
+const HepLorentzVector& Pi0Info::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     if (info_name == "p41C") return this->p41c();
     if (info_name == "p4GammaHigh") return this->p4child(0);

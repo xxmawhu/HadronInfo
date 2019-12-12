@@ -47,7 +47,7 @@ class LamInfo : public VeeInfo {
         // VeeInfo::setChildName(1, name2);
     }
     ~LamInfo() {};
-    virtual HepLorentzVector GetLorentzVector(const string &info_name) {
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name) {
         if (info_name == "p4") return this->p4();
         if (info_name == "p4" + getChildName(0)) return this->p4child(0);
         if (info_name == "p4" + getChildName(1)) return this->p4child(1);
@@ -55,7 +55,7 @@ class LamInfo : public VeeInfo {
         if (info_name == "p4Fit" + getChildName(1)) return this->p4fit(1);
         return HepLorentzVector(0, 0, 0, -110);
     }
-    virtual double GetDoubleInfo(const string &info_name) {
+    virtual const double& GetDoubleInfo(const string &info_name) {
         if (info_name == "mass") return this->m();
         if (info_name == "vtxChi2") return this->vtxChi2();
         if (info_name == "chisq") return this->chisq();

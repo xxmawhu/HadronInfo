@@ -32,7 +32,7 @@ void GGInfo::addAvialInfo() {
     AvailableInfo::add("p4GammaLow", "HepLorentzVector");
 }
 
-double GGInfo::GetDoubleInfo(const string& info_name) {
+const double& GGInfo::GetDoubleInfo(const string& info_name) {
     if (info_name == "helicity") return this->helicity();
     // if (info_name == "helicity") return this->helicityAngle();
     if (info_name == "openAngle") return this->openAngle();
@@ -43,7 +43,7 @@ double GGInfo::GetDoubleInfo(const string& info_name) {
     return -999;
 }
 
-HepLorentzVector GGInfo::GetLorentzVector(const string& info_name) {
+const HepLorentzVector& GGInfo::GetLorentzVector(const string& info_name) {
     if (info_name == "p4") return this->p4();
     if (info_name == "p41C") return this->p41C();
     if (info_name == "p4GammaHigh") return this->p4GammaHigh();
@@ -133,4 +133,18 @@ void GGInfo::setP4Child(const HepLorentzVector& p4, const int& i) {
     m_rawP4Child[i] = p4;
 }
 
-bool GGInfo::isGoodPhoton(EvtRecTrack*) { return true; }
+bool GGInfo::isGoodPhoton(EvtRecTrack *track) {
+    if (!track->isEmcShowerValid()) return false;
+    const RecEmcShower *photon = track->emcShower();
+    double eraw = photon->energy();
+    double theta = photon->theta();
+    double costheta = fabs(cos(theta));
+    // barrel: costheta < 0.80
+    if (costheta <= 0.80 && eraw >= 0.025) {
+        return true;
+    }
+    if (costheta >= 0.86 && costheta <= 0.92 && eraw >= 0.05) {
+        return true;
+    }
+    return false;
+}

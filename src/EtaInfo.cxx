@@ -118,6 +118,9 @@ EvtRecTrack *EtaInfo::getchild(int n) {
         return m_shower1;
     }
 }
+
+
+/*
 double EtaInfo::m() {
     if (!m_calculate) calculate();
     return m_mpi0;
@@ -196,3 +199,4 @@ HepLorentzVector EtaInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4GammaLow") return this->p4child(1);
     return HepLorentzVector(0, 0, 0, -110);
 }
+*/

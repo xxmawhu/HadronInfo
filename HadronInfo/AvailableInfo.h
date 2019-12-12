@@ -13,7 +13,9 @@
 #define _AVAILABLEINFO_H
 #include "CLHEP/Vector/LorentzVector.h"
 #include <string>
+#include <vector>
 using std::string;
+using std::vector;
 using CLHEP::HepLorentzVector;
 class AvailableInfo {
    public:

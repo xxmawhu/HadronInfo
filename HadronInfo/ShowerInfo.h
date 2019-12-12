@@ -20,10 +20,10 @@ class ShowerInfo : public AvailableInfo {
    public:
     ShowerInfo();
     ~ShowerInfo();
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
 
-    void setchilds(EvtRecTrack *shower) { m_shower = shower; }
+    void setchild(EvtRecTrack *shower) { m_shower = shower; }
     EvtRecTrack *getchild() { return m_shower; }
     HepLorentzVector p4(); 
     void setEnergyThreshold(double energyThreshold_b,

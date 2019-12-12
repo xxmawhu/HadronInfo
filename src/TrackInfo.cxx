@@ -23,6 +23,18 @@ TrackInfo::~TrackInfo() {
     m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
 
+const double& TrackInfo::GetDoubleInfo(const string &info_name) {
+    if (info_name == "Rxy") return this->m_Rxy;
+    if (info_name == "Rz") return this->m_Rz;
+    if (info_name == "CosTheta") return this->m_costheta;
+    return -999;
+}
+
+const HepLorentzVector& TrackInfo::GetLorentzVector(const string &info_name){
+    if (info_name == "p4") return this->p4();
+    return HepLorentzVector(0, 0, 0, -999);
+}
+
 void TrackInfo::SetTrack(const int &parId, const EvtRecTrack *track) {
     m_parId = abs(parId);
     m_track = const_cast<EvtRecTrack *>(track);
@@ -190,15 +202,4 @@ void TrackInfo::calculate() {
 TrackInfo &TrackInfo::operator=(TrackInfo &aTrackInfo) {
     m_track = aTrackInfo.m_track;
     return *this;
-}
-double TrackInfo::GetDoubleInfo(const string &info_name) {
-    if (info_name == "Rxy") return this->m_Rxy;
-    if (info_name == "Rz") return this->m_Rz;
-    if (info_name == "CosTheta") return this->m_costheta;
-    return -110;
-}
-
-HepLorentzVector TrackInfo::GetLorentzVector(const string &info_name) {
-    if (info_name == "p4") return this->p4();
-    return HepLorentzVector(0, 0, 0, -110);
 }

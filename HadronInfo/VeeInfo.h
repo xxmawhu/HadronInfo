@@ -74,7 +74,7 @@ class VeeInfo : public AvailableInfo {
         m_childName[1] = name2;
     }
     ~VeeInfo() {}
-    virtual double GetDoubleInfo(const string &info_name) {
+    virtual const double& GetDoubleInfo(const string &info_name) {
         if (info_name == "mass") return this->m();
         if (info_name == "vtxChi2") return this->vtxChi2();
         if (info_name == "chisq") return this->chisq();
@@ -83,7 +83,7 @@ class VeeInfo : public AvailableInfo {
         if (info_name == "decayLengthError") return this->decayLengthError();
         return -110;
     }
-    virtual HepLorentzVector GetLorentzVector(const string &info_name) {
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name){
         if (info_name == "p4") return this->p4();
         if (info_name == "p4" + getChildName(0)) return this->p4child(0);
         if (info_name == "p4" + getChildName(1)) return this->p4child(1);

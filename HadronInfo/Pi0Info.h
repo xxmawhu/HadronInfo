@@ -18,13 +18,14 @@ class Pi0Info : public GGInfo {
     Pi0Info(const EvtRecTrack *, const EvtRecTrack *);
     Pi0Info(vector<const EvtRecTrack *>);
     Pi0Info(const CDCandidate &);
-
     ~Pi0Info();
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual bool calculate();
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
    void setchild(const int&, const EvtRecTrack *);
    void setchilds(const EvtRecTrack *, const EvtRecTrack *);
     EvtRecTrack *getchild(const int& i);
+ virtual bool isGoodPhoton(EvtRecTrack *);
    //double m();
    //double m1c();
    //double angle();
@@ -37,13 +38,11 @@ class Pi0Info : public GGInfo {
   // bool isGoodPi0();
   // WTrackParameter wtrk();
   // Pi0Info &operator=(Pi0Info &aPi0Info);
-    bool calculate();
 
    private:
-    EvtRecTrack *m_shower0;
-    EvtRecTrack *m_shower1;
+    EvtRecTrack *m_shower[2];
     WTrackParameter m_wtrk;
- // bool isGoodPhoton(EvtRecTrack *);
+    bool m_calculate, m_isgoodpi0;
  // HepLorentzVector m_p4;
  // HepLorentzVector m_p41c;
  // double Pi0Info_mpi0;
@@ -53,6 +52,5 @@ class Pi0Info : public GGInfo {
  // double m_helicity;
  // double m_openAngle;
  // double m_chisq;
-  bool m_calculate;
 };
 #endif

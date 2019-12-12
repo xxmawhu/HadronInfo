@@ -20,8 +20,8 @@ class EtaInfo : public AvailableInfo {
     EtaInfo(vector<const EvtRecTrack *>);
     EtaInfo(const CDCandidate &);
     ~EtaInfo();
-    virtual double GetDoubleInfo(const string &);
-    virtual HepLorentzVector GetLorentzVector(const string &info_name);
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
     void setchild(int, EvtRecTrack *);
     void setchilds(EvtRecTrack *, EvtRecTrack *);
     EvtRecTrack *getchild(int n);
