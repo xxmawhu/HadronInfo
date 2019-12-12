@@ -56,7 +56,7 @@ class TrackInfo : public AvailableInfo {
     int m_parId;
     double m_Rxy, m_Rz, m_costheta;
     HepLorentzVector m_p4;
-    void initAvialableInfo() {
+    void addAvialInfo() {
         AvailableInfo::add("Rxy", "double");
         AvailableInfo::add("Rz", "double");
         AvailableInfo::add("CosTheta", "double");

@@ -52,7 +52,7 @@ class ShowerInfo : public AvailableInfo {
     double m_costheta_e2;
     bool m_badshower;
     bool m_cal;
-    void initAvialableInfo() {
+    void addAvialInfo() {
         AvailableInfo::add("p4", "HepLorentzVector");
     }
 };

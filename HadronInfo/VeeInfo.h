@@ -28,7 +28,7 @@ class VeeInfo : public AvailableInfo {
         m_cal = false;
         m_childName[0] = name1;
         m_childName[1] = name2;
-        initAvialableInfo();
+        addAvialInfo();
     }
     VeeInfo(const CDCandidate &aVee, const string &name1 = "First",
             const string &name2 = "Second")
@@ -40,7 +40,7 @@ class VeeInfo : public AvailableInfo {
         m_cal = false;
         m_childName[0] = name1;
         m_childName[1] = name2;
-        initAvialableInfo();
+        addAvialInfo();
     }
     VeeInfo(const EvtRecTrack *track0, const EvtRecTrack *track1,
             const string &name1 = "First", const string &name2 = "Second")
@@ -49,7 +49,7 @@ class VeeInfo : public AvailableInfo {
         this->setchild(1, track1);
         m_childName[0] = name1;
         m_childName[1] = name2;
-        initAvialableInfo();
+        addAvialInfo();
     }
     void setchild(const int &n, const EvtRecTrack *track) {
         if (n == 0) {
@@ -291,7 +291,7 @@ class VeeInfo : public AvailableInfo {
     double m_decayLength, m_decayLengthError, m_decayLengthRatio;
     string m_childName[2];
     EvtRecTrack *m_track0, *m_track1;
-    virtual void initAvialableInfo() {
+    virtual void addAvialInfo() {
         AvailableInfo::add("mass", "double");
         AvailableInfo::add("rawmass", "double");
         AvailableInfo::add("vertexFitChisq", "double");

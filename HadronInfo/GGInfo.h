@@ -42,6 +42,7 @@ class GGInfo : public AvailableInfo {
     const double& chisq();
     const bool& isGood();
     const WTrackParameter& wtrk();
+
     virtual bool calculate();
     void setWTrackParameter(const WTrackParameter& wtrk);
     void setRawMass(const double& mass);
@@ -54,8 +55,8 @@ class GGInfo : public AvailableInfo {
     void setP4Child(const HepLorentzVector& p4, const int& i);
 
    private:
-    WTrackParameter m_wtrk;
     bool isGoodPhoton(EvtRecTrack *);
+    WTrackParameter m_wtrk;
     HepLorentzVector m_rawP4;
     HepLorentzVector m_P41C;
     HepLorentzVector m_rawP4Child[2];
@@ -66,6 +67,6 @@ class GGInfo : public AvailableInfo {
     double m_openAngle, m_helicityAngle;
     double m_chisq;
     bool m_isgoodpi0, m_calculate;
-    void initAvialableInfo();
+    void addAvialInfo();
 };
 #endif

@@ -20,7 +20,7 @@
 
 #include <iostream>
 using namespace std;
-void GGInfo::initAvialableInfo() {
+void GGInfo::addAvialInfo() {
     AvailableInfo::add("mass", "double");
     // AvailableInfo::add("mass1C", "double");
     // AvailableInfo::add("angle", "double");
@@ -37,13 +37,20 @@ double GGInfo::GetDoubleInfo(const string& info_name) {
     // if (info_name == "helicity") return this->helicityAngle();
     if (info_name == "openAngle") return this->openAngle();
     if (info_name == "mass") return this->m();
+    // the default value is set at a very large number, however it can not 
+    // prevent someone taking it as a very reasonal value. Hope you could 
+    // understand my purpose here.
     return -999;
 }
+
 HepLorentzVector GGInfo::GetLorentzVector(const string& info_name) {
     if (info_name == "p4") return this->p4();
     if (info_name == "p41C") return this->p41C();
     if (info_name == "p4GammaHigh") return this->p4GammaHigh();
     if (info_name == "p4GammaLow") return this->p4GammaLow();
+    // the default value is set at a very large number, however it can not 
+    // prevent someone taking it as a very reasonal value. Hope you could 
+    // understand my purpose here.
     return HepLorentzVector(0, 0, 0, -999);
 }
 

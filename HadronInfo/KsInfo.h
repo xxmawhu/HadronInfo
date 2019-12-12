@@ -111,7 +111,7 @@ class KsInfo : public VeeInfo {
     }
 
    private:
-    void initAvialableInfo() {
+    void addAvialInfo() {
         add("mass", "double");
         add("mksp4", "double");
         add("vtxChi2", "double");

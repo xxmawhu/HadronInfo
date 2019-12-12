@@ -18,26 +18,13 @@ using CLHEP::HepLorentzVector;
 class AvailableInfo {
    public:
     AvailableInfo() {};
-    ~AvailableInfo() {
-        m_doubleInfo.clear();
-        m_P4Info.clear();
-    }
-    virtual double GetDoubleInfo(const string &) { return -999.0; }
-    virtual HepLorentzVector GetLorentzVector(const string &) {
-        return HepLorentzVector(0, 0, 0, -999.9);
-    }
-    const vector<string>& GetDoubleInf() { return m_doubleInfo; }
-    const vector<string>& GetIntInf() { return m_intInfo; }
-    const vector<string>& GetP4Inf() { return m_P4Info; }
-    void add(const string &info_name, const string &type = "double") {
-        if (type == "double") {
-            m_doubleInfo.push_back(info_name);
-        } else if (type == "int") {
-            m_intInfo.push_back(info_name);
-        } else {
-            m_P4Info.push_back(info_name);
-        }
-    }
+    ~AvailableInfo();
+    virtual const double& GetDoubleInfo(const string&);
+    virtual const HepLorentzVector& GetLorentzVector(const string&);
+    const vector<string>& GetDoubleInf();
+    const vector<string>& GetIntInf();
+    const vector<string>& GetP4Inf();
+    void add(const string& info_name, const string& type = "double");
 
    private:
     vector<string> m_doubleInfo;
