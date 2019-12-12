@@ -31,6 +31,6 @@ class KaonInfo : public TrackInfo {
     KaonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(321); }
     ~KaonInfo() {};
 
-    virtual const string& GetName() { return "Kaon"; }
+    virtual const string GetName() { return "Kaon"; }
 };
 #endif

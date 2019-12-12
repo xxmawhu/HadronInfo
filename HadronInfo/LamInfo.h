@@ -26,6 +26,7 @@ using namespace std;
 class LamInfo : public VeeInfo {
    public:
     // LamInfo();
+    // LamInfo(); : VeeInfo("Proton", "Pion"){};
     // VeeInfo::VeeInfo(track0, track1);
     LamInfo(const string &name1 = "Proton", const string &name2 = "Pion")
         : VeeInfo(name1, name2) {
@@ -46,8 +47,15 @@ class LamInfo : public VeeInfo {
         // VeeInfo::setChildName(0, name1);
         // VeeInfo::setChildName(1, name2);
     }
-    virtual const string &GetName() { return "Lambda"; }
-    ~LamInfo() {};
+    virtual const string GetName() { 
+        // m_name = "Lambda";
+        return "Lambda";
+    }
+    string getName() { 
+         string name = "Lambda";
+         return name;
+    }
+    ~LamInfo(){};
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name) {
         if (info_name == "p4") return this->p4();
         if (info_name == "p4" + getChildName(0)) return this->p4child(0);
@@ -133,6 +141,7 @@ class LamInfo : public VeeInfo {
     }
 
    private:
+    string m_name;
     virtual void addAvialInfo() {
         add("mass", "double");
         add("mksp4", "double");

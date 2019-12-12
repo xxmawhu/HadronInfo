@@ -203,8 +203,8 @@ void TrackInfo::calculate() {
         }
     }
 }
-
+/*
 TrackInfo &TrackInfo::operator=(TrackInfo &aTrackInfo) {
     m_track = aTrackInfo.m_track;
     return *this;
-}
+}*/

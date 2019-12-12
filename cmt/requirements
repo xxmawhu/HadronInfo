@@ -2,11 +2,11 @@ package HadronInfo
 # author "Xiaoshuai Qin"  <qinxs@ihep.ac.cn>
 # Developed by "Xin-Xin Ma"  <maxx@ihep.ac.cn>
  
+branches cmt src HadronInfo 
 use EvtRecEvent  EvtRecEvent-* Event
 use BesDChain    BesDChain-*   Event
 use VertexFit    VertexFit-*   Analysis
  
-# branches cmt src HadronInfo 
 # use BesPolicy           BesPolicy-01-*
 # use GaudiInterface      GaudiInterface-01-*  External
 # use CERNLIB             CERNLIB-*            External
@@ -32,7 +32,7 @@ use VertexFit    VertexFit-*   Analysis
  
 apply_pattern component_library
 library HadronInfo *.cxx *.cpp
-# apply_pattern installed_library
+#apply_pattern installed_library
 # apply_pattern package_linkopts
 # macro_append HadronInfo_cppflags " -DYDEBUG -DMEMWATCH -DMEMWATCH_STDIO  -Df2cFortran -w"
 # macro_append HadronInfo_fflags "  -fno-automatic -ffixed-line-length-132 -fbackslash  -w"

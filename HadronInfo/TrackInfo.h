@@ -32,13 +32,13 @@ class TrackInfo : public AvailableInfo {
     TrackInfo(const CDCandidate &aTrk);
     ~TrackInfo();
 
-    virtual const string &GetName() { return "ChargedTrack"; }
-    virtual const double &GetDoubleInfo(const string &);
-    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+    virtual const string GetName() { return "ChargedTrack"; }
+    virtual const double& GetDoubleInfo(const string &);
+    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);
-    TrackInfo &operator=(TrackInfo &aTrackInfo);
+    // TrackInfo &operator=(TrackInfo &aTrackInfo);
 
     void setPID(const int &pid) { m_parId = pid; }
     HepLorentzVector p4();

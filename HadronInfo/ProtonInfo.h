@@ -31,6 +31,6 @@ class ProtonInfo : public TrackInfo {
     ProtonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(2212); }
     ~ProtonInfo() {};
 
-    virtual const string& GetName() { return "Proton"; }
+    virtual const string GetName() { return "Proton"; }
 };
 #endif

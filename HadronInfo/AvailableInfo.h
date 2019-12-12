@@ -21,7 +21,7 @@ class AvailableInfo {
    public:
     AvailableInfo() {};
     ~AvailableInfo();
-    virtual const string& GetName() {
+    virtual const string GetName() {
         return "AvailableInfo";
     };
     virtual const double& GetDoubleInfo(const string&);

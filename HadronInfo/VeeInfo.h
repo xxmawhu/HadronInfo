@@ -64,7 +64,7 @@ class VeeInfo : public AvailableInfo {
         m_track1 = const_cast<EvtRecTrack *>(track1);
         m_cal = false;
     }
-    virtual const string &GetName() { return "Vee"; }
+    virtual const string GetName() { return "Vee";}
 
     string getChildName(const int &i) { return m_childName[i]; }
     void setChildName(const int &i, const string &name) {

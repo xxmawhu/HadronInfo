@@ -20,7 +20,7 @@ class ShowerInfo : public AvailableInfo {
    public:
     ShowerInfo();
     ~ShowerInfo();
-    virtual const string &GetName() { return "Shower"; }
+    virtual const string GetName() { return "Shower"; }
     virtual const double &GetDoubleInfo(const string &);
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
 

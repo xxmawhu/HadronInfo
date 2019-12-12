@@ -24,7 +24,7 @@ class EtaInfo : public GGInfo {
     //  virtual const double& GetDoubleInfo(const string &);
     //  virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);
-    virtual const string &GetName() { return "Eta"; }
+    virtual const string GetName() { return "Eta"; }
     void setchild(const int &, const EvtRecTrack *);
     void setchilds(const EvtRecTrack *, const EvtRecTrack *);
     EvtRecTrack *getchild(const int &i);

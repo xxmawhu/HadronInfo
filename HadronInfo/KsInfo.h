@@ -42,7 +42,7 @@ class KsInfo : public VeeInfo {
         VeeInfo::setChildName(1, name2);
     }
     ~KsInfo() {};
-    virtual const string &GetName() { return "Ks"; }
+    virtual const string GetName() { return "Ks"; }
     virtual const double &GetDoubleInfo(const string &) {
         return -999;
     };
