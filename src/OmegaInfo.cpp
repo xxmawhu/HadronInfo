@@ -263,6 +263,7 @@ void OmegaInfo::setPrimaryVtxPar(VertexParameter &privtxpar) {
     m_isSetPriVtx = true;
     m_cal = false;
 }
+/*
 OmegaInfo &OmegaInfo::operator=(OmegaInfo &aOmegaInfo) {
     setchild(0, aOmegaInfo.getchild(0));
     setchild(1, aOmegaInfo.getchild(1));
@@ -276,7 +277,7 @@ OmegaInfo &OmegaInfo::operator=(OmegaInfo &aOmegaInfo) {
     m_veomega = aOmegaInfo.decayLengthError();
     init();
     return *this;
-}
+}*/
 WTrackParameter OmegaInfo::wtrk() {
     if (!m_cal) {
         calculate();
@@ -298,7 +299,7 @@ const double& OmegaInfo::GetDoubleInfo(const string &info_name) {
     if (info_name == "decayLength") return this->decayLength();
     if (info_name == "decayLengthRatio") return this->decayLengthRatio();
     if (info_name == "decayLengthError") return this->decayLengthError();
-    return -110;
+    return -999;
 }
 
 const HepLorentzVector& OmegaInfo::GetLorentzVector(const string &info_name) {

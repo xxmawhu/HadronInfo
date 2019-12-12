@@ -46,7 +46,7 @@ Pi0Info::~Pi0Info() {
     m_shower[0] = NULL;
     m_shower[1] = NULL;
 }
-/*
+
 bool Pi0Info::isGoodPhoton(EvtRecTrack *track) {
     if (!track->isEmcShowerValid()) return false;
     const RecEmcShower *photon = track->emcShower();
@@ -61,7 +61,8 @@ bool Pi0Info::isGoodPhoton(EvtRecTrack *track) {
         return true;
     }
     return false;
-}*/
+}
+
 bool Pi0Info::calculate() {
     if (m_calculate) return true;
     if (isGoodPhoton(m_shower[0]) && isGoodPhoton(m_shower[1])) {
@@ -188,7 +189,7 @@ const double& Pi0Info::GetDoubleInfo(const string &info_name) {
 
 const HepLorentzVector& Pi0Info::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
-    if (info_name == "p41C") return this->p41c();
+    if (info_name == "p41C") return this->p41C();
     if (info_name == "p4GammaHigh") return this->p4child(0);
     if (info_name == "p4GammaLow") return this->p4child(1);
     return HepLorentzVector(0, 0, 0, -110);

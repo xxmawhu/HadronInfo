@@ -30,7 +30,7 @@ class OmegaInfo : public AvailableInfo {
 
     virtual const double& GetDoubleInfo(const string &);
     virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
-    OmegaInfo &operator=(OmegaInfo &aOmegaInfo);
+    // OmegaInfo &operator=(OmegaInfo &aOmegaInfo);
 
     void setchild(const int &n, const EvtRecTrack *track);
     void setchilds(const EvtRecTrack *track0, const EvtRecTrack *track1,
@@ -55,7 +55,7 @@ class OmegaInfo : public AvailableInfo {
     WTrackParameter &wtrk(const int &);
     VertexParameter primaryVtxPar();
     void setPrimaryVtxPar(VertexParameter &privtxpar);
-    bool init();
+    // bool init();
 
    private:
     EvtRecTrack *m_track0;

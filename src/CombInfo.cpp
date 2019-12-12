@@ -10,18 +10,13 @@
 # get the combinate information of two particles, three particles
 # for example, (pi0, pi0), (pi+, pi-, eta)
 # ====================================================*/
-#ifndef  HadronInfo_COMBINFO_H
-#define  HadronInfo_COMBINFO_H
-// #include "TupleSvc/DecayTree.h"
-#include "HadronInfo/AvailableInfo.h"
-
-template <class FirstInfo, class SecondInfo,  bool n=true>
-class CombInfo: public AvailableInfo {
-    public:
-        CombInfo(FirstInfo, SecondInfo);
-    private:
-};
-
-#endif
-
+#include "HadronInfo/CombInfo.h"
+#include <iostream>
+template <class FirstInfo, class SecondInfo,  bool n>
+CombInfo<FirstInfo, SecondInfo, n>::CombInfo(FirstInfo firstInfo, SecondInfo secondInfo){
+    std::cout << "init CombInfo successful" << std::endl;
+    if (n) {
+    std::cout << "did not perform vertexfit!!!" << std::endl;
+    }
+}
 

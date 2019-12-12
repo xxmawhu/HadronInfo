@@ -20,12 +20,12 @@ class Pi0Info : public GGInfo {
     Pi0Info(const CDCandidate &);
     ~Pi0Info();
     virtual bool calculate();
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual bool isGoodPhoton(EvtRecTrack *);
+    // virtual const double& GetDoubleInfo(const string &);
+    // virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
    void setchild(const int&, const EvtRecTrack *);
    void setchilds(const EvtRecTrack *, const EvtRecTrack *);
     EvtRecTrack *getchild(const int& i);
- virtual bool isGoodPhoton(EvtRecTrack *);
    //double m();
    //double m1c();
    //double angle();
