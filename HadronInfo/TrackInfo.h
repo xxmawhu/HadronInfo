@@ -47,6 +47,7 @@ class TrackInfo : public AvailableInfo {
     HepLorentzVector p4c(const EvtRecTrack *, const int &);
     WTrackParameter wtrk(EvtRecTrack *, const int &);
     WTrackParameter wtrk(const int &PID);
+    WTrackParameter wtrk();
     WTrackParameter wtrkc(const EvtRecTrack *, const int &);
     const HepPoint3D &getIP();
 

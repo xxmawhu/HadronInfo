@@ -26,7 +26,7 @@
 using namespace std;
 class PionInfo : public TrackInfo {
    public:
-    PionInfo() : TrackInfo(211) {};
+    PionInfo(): TrackInfo(211) {};
     PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(211); }
     PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(211); }
     ~PionInfo() {};

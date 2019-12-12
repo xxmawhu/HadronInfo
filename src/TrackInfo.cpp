@@ -84,6 +84,11 @@ WTrackParameter TrackInfo::wtrk(const int &pid) {
     return m_wtrk;
 }
 
+WTrackParameter TrackInfo::wtrk() {
+    calculate();
+    return m_wtrk;
+}
+
 const HepPoint3D &TrackInfo::getIP() {
     Hep3Vector xorigin(0, 0, 0);
     IVertexDbSvc *vtxsvc;
