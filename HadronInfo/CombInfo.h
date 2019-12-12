@@ -32,7 +32,8 @@ class CombInfo : public AvailableInfo {
         m_secondInfo = secondInfo;
         m_pid = pid;
         std::cout << "init CombInfo successful" << std::endl;
-        cout << "CombInfo " << firsInfo.GetName() << " and"
+        std::cout << "CombInfo " << endl;
+        std::cout <<  firsInfo.GetName() << " and"
             << secondInfo.GetName() << endl;
         cout << "name : "  << m_pid <<  endl;
         if (!doVertexFit) {
