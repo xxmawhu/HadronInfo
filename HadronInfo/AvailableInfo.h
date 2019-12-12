@@ -21,6 +21,9 @@ class AvailableInfo {
    public:
     AvailableInfo() {};
     ~AvailableInfo();
+    virtual const string& GetName() {
+        return "AvailableInfo";
+    };
     virtual const double& GetDoubleInfo(const string&);
     virtual const HepLorentzVector& GetLorentzVector(const string&);
     const vector<string>& GetDoubleInf();

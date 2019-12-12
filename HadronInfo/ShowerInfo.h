@@ -20,12 +20,13 @@ class ShowerInfo : public AvailableInfo {
    public:
     ShowerInfo();
     ~ShowerInfo();
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual const string &GetName() { return "Shower"; }
+    virtual const double &GetDoubleInfo(const string &);
+    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
 
     void setchild(EvtRecTrack *shower) { m_shower = shower; }
     EvtRecTrack *getchild() { return m_shower; }
-    HepLorentzVector p4(); 
+    HepLorentzVector p4();
     void setEnergyThreshold(double energyThreshold_b,
                             double energyThreshold_e) {
         m_energyThreshold_b = energyThreshold_b;
@@ -52,8 +53,6 @@ class ShowerInfo : public AvailableInfo {
     double m_costheta_e2;
     bool m_badshower;
     bool m_cal;
-    void addAvialInfo() {
-        AvailableInfo::add("p4", "HepLorentzVector");
-    }
+    void addAvialInfo() { AvailableInfo::add("p4", "HepLorentzVector"); }
 };
 #endif

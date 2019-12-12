@@ -9,9 +9,7 @@
 #   Describe      :
 #
 # ====================================================*/
-#ifndef  _COMBVEE_H
-#define  _COMBVEE_H
+#ifndef _COMBVEE_H
+#define _COMBVEE_H
 
-#endif // _COMBVEE_H
-
-
+#endif  // _COMBVEE_H

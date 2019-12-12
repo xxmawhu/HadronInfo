@@ -27,13 +27,14 @@ using namespace std;
 class TrackInfo : public AvailableInfo {
    public:
     TrackInfo();
-    TrackInfo(const int&);
+    TrackInfo(const int &);
     TrackInfo(const EvtRecTrack *);
     TrackInfo(const CDCandidate &aTrk);
     ~TrackInfo();
 
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual const string &GetName() { return "ChargedTrack"; }
+    virtual const double &GetDoubleInfo(const string &);
+    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);
@@ -47,7 +48,7 @@ class TrackInfo : public AvailableInfo {
     WTrackParameter wtrk(EvtRecTrack *, const int &);
     WTrackParameter wtrk(const int &PID);
     WTrackParameter wtrkc(const EvtRecTrack *, const int &);
-    const HepPoint3D& getIP();
+    const HepPoint3D &getIP();
 
    private:
     void calculate();

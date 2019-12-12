@@ -28,8 +28,8 @@ class OmegaInfo : public AvailableInfo {
     OmegaInfo(const CDCandidate &aOmega);
     ~OmegaInfo();
 
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual const double &GetDoubleInfo(const string &);
+    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
     // OmegaInfo &operator=(OmegaInfo &aOmegaInfo);
 
     void setchild(const int &n, const EvtRecTrack *track);

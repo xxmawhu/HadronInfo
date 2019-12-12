@@ -25,10 +25,11 @@
 using namespace std;
 class GGInfo : public AvailableInfo {
    public:
-    GGInfo():AvailableInfo(){};
-    ~GGInfo(){};
-    virtual const double& GetDoubleInfo(const string & info_name);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    GGInfo() : AvailableInfo() {};
+    ~GGInfo() {};
+    virtual const string& GetName() { return "GG"; }
+    virtual const double& GetDoubleInfo(const string& info_name);
+    virtual const HepLorentzVector& GetLorentzVector(const string& info_name);
     const double& m();
     const double& m1c();
     const double& angle();
@@ -36,7 +37,7 @@ class GGInfo : public AvailableInfo {
     const double& helicity();
     const HepLorentzVector& p4();
     const HepLorentzVector& p41C();
-    const HepLorentzVector& p4child(const int &i);
+    const HepLorentzVector& p4child(const int& i);
     const HepLorentzVector& p4GammaHigh();
     const HepLorentzVector& p4GammaLow();
     const double& chisq();
@@ -44,7 +45,7 @@ class GGInfo : public AvailableInfo {
     const WTrackParameter& wtrk();
 
     virtual bool calculate();
-    virtual bool isGoodPhoton(EvtRecTrack *);
+    virtual bool isGoodPhoton(EvtRecTrack*);
     void setWTrackParameter(const WTrackParameter& wtrk);
     void setRawMass(const double& mass);
     void setHelicity(const double& helicity);

@@ -21,11 +21,13 @@ class EtaInfo : public GGInfo {
     ~EtaInfo();
     virtual bool calculate();
     // virtual bool isGoodPhoton(EvtRecTrack *);
-  //  virtual const double& GetDoubleInfo(const string &);
-  //  virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
-    void setchild(const int&, const EvtRecTrack *);
+    //  virtual const double& GetDoubleInfo(const string &);
+    //  virtual const HepLorentzVector& GetLorentzVector(const string
+    // &info_name);
+    virtual const string &GetName() { return "Eta"; }
+    void setchild(const int &, const EvtRecTrack *);
     void setchilds(const EvtRecTrack *, const EvtRecTrack *);
-    EvtRecTrack *getchild(const int& i);
+    EvtRecTrack *getchild(const int &i);
 
    private:
     EvtRecTrack *m_shower[2];

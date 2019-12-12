@@ -12,6 +12,7 @@
 # ====================================================*/
 #include "HadronInfo/CombInfo.h"
 #include <iostream>
+/*
 template <class FirstInfo, class SecondInfo,  bool n>
 CombInfo<FirstInfo, SecondInfo, n>::CombInfo(FirstInfo firstInfo, SecondInfo secondInfo){
     std::cout << "init CombInfo successful" << std::endl;
@@ -19,4 +20,5 @@ CombInfo<FirstInfo, SecondInfo, n>::CombInfo(FirstInfo firstInfo, SecondInfo sec
     std::cout << "did not perform vertexfit!!!" << std::endl;
     }
 }
+*/
 

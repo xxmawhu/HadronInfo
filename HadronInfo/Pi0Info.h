@@ -21,36 +21,38 @@ class Pi0Info : public GGInfo {
     ~Pi0Info();
     virtual bool calculate();
     virtual bool isGoodPhoton(EvtRecTrack *);
+    virtual const string &GetName() { return "Pi0"; }
     // virtual const double& GetDoubleInfo(const string &);
-    // virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
-   void setchild(const int&, const EvtRecTrack *);
-   void setchilds(const EvtRecTrack *, const EvtRecTrack *);
-    EvtRecTrack *getchild(const int& i);
-   //double m();
-   //double m1c();
-   //double angle();
-   //double openAngle();
-   //double helicity();
-   //HepLorentzVector p4();
-   //HepLorentzVector p41c();
-   //HepLorentzVector p4child(const int &);
-  // double chisq();
-  // bool isGoodPi0();
-  // WTrackParameter wtrk();
-  // Pi0Info &operator=(Pi0Info &aPi0Info);
+    // virtual const HepLorentzVector& GetLorentzVector(const string
+    // &info_name);
+    void setchild(const int &, const EvtRecTrack *);
+    void setchilds(const EvtRecTrack *, const EvtRecTrack *);
+    EvtRecTrack *getchild(const int &i);
+    // double m();
+    // double m1c();
+    // double angle();
+    // double openAngle();
+    // double helicity();
+    // HepLorentzVector p4();
+    // HepLorentzVector p41c();
+    // HepLorentzVector p4child(const int &);
+    // double chisq();
+    // bool isGoodPi0();
+    // WTrackParameter wtrk();
+    // Pi0Info &operator=(Pi0Info &aPi0Info);
 
    private:
     EvtRecTrack *m_shower[2];
     WTrackParameter m_wtrk;
     bool m_calculate, m_isgoodpi0;
- // HepLorentzVector m_p4;
- // HepLorentzVector m_p41c;
- // double Pi0Info_mpi0;
- // double m_mpi0;
- // double m_mpi01c;
- // double m_pi0_heliAngle;
- // double m_helicity;
- // double m_openAngle;
- // double m_chisq;
+    // HepLorentzVector m_p4;
+    // HepLorentzVector m_p41c;
+    // double Pi0Info_mpi0;
+    // double m_mpi0;
+    // double m_mpi01c;
+    // double m_pi0_heliAngle;
+    // double m_helicity;
+    // double m_openAngle;
+    // double m_chisq;
 };
 #endif

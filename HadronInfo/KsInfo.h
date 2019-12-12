@@ -21,29 +21,34 @@ using namespace std;
 
 class KsInfo : public VeeInfo {
    public:
-    // KsInfo();
-    KsInfo(const string &name1 = "Proton", const string &name2 = "Pion")
+    KsInfo() : VeeInfo("Pionp", "Pionm") {};
+    KsInfo(const string &name1 = "Pionp", const string &name2 = "Pion")
         : VeeInfo(name1, name2) {
         VeeInfo::setChildName(0, name1);
         VeeInfo::setChildName(1, name2);
     }
 
     KsInfo(const EvtRecTrack *track0, const EvtRecTrack *track1,
-           const string &name1 = "Proton", const string &name2 = "Pion")
+           const string &name1 = "Pionp", const string &name2 = "Pion")
         : VeeInfo(track0, track1, name1, name2) {
         VeeInfo::setChildName(0, name1);
         VeeInfo::setChildName(1, name2);
     }
 
-    KsInfo(const CDCandidate &aLambda, const string &name1 = "Proton",
+    KsInfo(const CDCandidate &aLambda, const string &name1 = "Pionp",
            const string &name2 = "Pion")
         : VeeInfo(aLambda, name1, name2) {
         VeeInfo::setChildName(0, name1);
         VeeInfo::setChildName(1, name2);
     }
-    ~KsInfo();
-    virtual const double& GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    ~KsInfo() {};
+    virtual const string &GetName() { return "Ks"; }
+    virtual const double &GetDoubleInfo(const string &) {
+        return -999;
+    };
+    virtual const HepLorentzVector &GetLorentzVector(const string &info_name) {
+        return HepLorentzVector(0, 0, 0, -999);
+    };
 
     // KsInfo &operator=(KsInfo &aKsInfo);
 
