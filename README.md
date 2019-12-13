@@ -15,7 +15,7 @@ lines code, then debug to make sure the momentum is obtained properly.
 However, it's both luck and terrible that we have many short-life particle, 
 `Lambda`, `Ks` , `eta`, `phi`, `omega`,... 
 
-This motevita us to create this package, `"to make people access to the short-life
+This motevita us to create this package, `"Make people access to the short-life
 particle easyly and reliably and save our life"`
 
 ## How
