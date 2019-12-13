@@ -9,11 +9,11 @@ double mass = 0.000511;
 HepLorentzVector p4 = mdcTrk->p4(mass);
 ```
 When we encounter a short-life particle, we must find its decay final tracks,
-then add all information together, sometime a `VertexFit` is necessary, sometime
-not. At this case, we have to write down even 100 lines, then debug to make sure
-the momentum is obtained properly.
+then add all information of them one by one together, sometime a `VertexFit` is
+necessary, sometime not. At this case, we have to write down even more than 100
+lines code, then debug to make sure the momentum is obtained properly.
 However, it's both luck and terrible that we have many short-life particle, 
-`Lambda`, `Ks` , `eta`, `phi`, `omega`... 
+`Lambda`, `Ks` , `eta`, `phi`, `omega`,... 
 
 This motevita us to create this package, `make people access to the short-life
 particle easyly and reliably and save our life`
