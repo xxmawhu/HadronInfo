@@ -49,7 +49,7 @@ necessary information of the short-life particles.
 
 * GetName() 
 
-        the name is important to show our respect to the particles.
+>        the name is important to show our respect to the particles.
 
 * p4()
 * mass()
