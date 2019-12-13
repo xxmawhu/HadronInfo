@@ -47,7 +47,7 @@ It's cool! Is not it?
 One principle is that all class must pose some methods to providing
 necessary information of the short-life particles. 
 
-* GetName() 
+* ``GetName``() 
 
 > The name is important to show our respect to the particles.
 
