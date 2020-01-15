@@ -3,15 +3,15 @@
 #
 #   Author        : Xin-Xin MA
 #   Email         : xxmawhu@163.com
-#   File Name     : CombInfoDev.h
+#   File Name     : CombFourDev.h
 #   Create Time   : 2019-12-11 10:37
 #   Last Modified : 2019-12-12 12:33
 #   Describe      :
 # get the combinate information of two particles, three particles
 # for example, (pi0, pi0), (pi+, pi-, eta)
 # ====================================================*/
-#ifndef HadronInfoDev_COMBINFODev_H
-#define HadronInfoDev_COMBINFODev_H
+#ifndef HadronInfoDev_COMFourDev_H
+#define HadronInfoDev_COMFourDev_H
 // #include "TupleSvc/DecayTree.h"
 #include "VertexFit/VertexFit.h"
 #include "CLHEP/Vector/LorentzVector.h"
@@ -25,11 +25,13 @@ using CLHEP::HepLorentzVector;
 using std::string;
 using std::cout;
 using std::endl;
-template <class FirstInfoDev, class SecondInfoDev, int pid = 0,
+template <class FirstInfoDev, class SecondInfoDev,  class ThirdInfoDev,
+         class FourInfoDev,
+         int pid = 0,
           int doVertexFit = 0>
-class CombInfoDev : public AvailableInfoDev {
+class CombFourDev : public AvailableInfoDev {
    public:
-       CombInfoDev(const CDCandidate& combParticle) {
+       CombFourDev(const CDCandidate& combParticle) {
            if (combParticle.decay().children().size()!=2) {
                 cout << "Error: the numberChildren is not equal 2!" << endl;
            }
@@ -38,13 +40,13 @@ class CombInfoDev : public AvailableInfoDev {
            m_secondInfoDev = SecondInfoDev(combParticle.decay().child(1));
            m_calculate = false;
        }
-    CombInfoDev(FirstInfoDev& firsInfoDev, SecondInfoDev& secondInfoDev) {
+    CombFourDev(FirstInfoDev& firsInfoDev, SecondInfoDev& secondInfoDev) {
         m_firstInfoDev = firsInfoDev;
         m_secondInfoDev = secondInfoDev;
         m_pid = pid;
-        std::cout << "init CombInfoDev successful" << std::endl;
+        std::cout << "init CombFourDev successful" << std::endl;
         m_calculate = false;
-        // std::cout << "CombInfoDev " << endl;
+        // std::cout << "CombFourDev " << endl;
         // std::cout <<  firsInfoDev.GetName() << " and"
         //    << secondInfoDev.GetName() << endl;
         // cout << "name : "  << m_pid <<  endl;
@@ -65,20 +67,20 @@ class CombInfoDev : public AvailableInfoDev {
         }
         // do vertex fit now!
         // please make sure that the two candidates could be performd vertexfit
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         VertexFit* m_vertexFit = VertexFit::instance();
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_vertexFit->init();
         // m_vertexFit -> setChisqCut(1000);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_vertexFit->AddTrack(0, m_firstInfoDev.wtrk());
         m_vertexFit->AddTrack(1, m_secondInfoDev.wtrk());
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
 
         VertexParameter wideVertex;
         HepPoint3D vWideVertex(0., 0., 0.);
         HepSymMatrix evWideVertex(3, 0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
 
         evWideVertex[0][0] = 1.0e12;
         evWideVertex[1][1] = 1.0e12;
@@ -89,17 +91,17 @@ class CombInfoDev : public AvailableInfoDev {
 
         m_vertexFit->AddVertex(0, wideVertex, 0, 1);
         m_vertexFit->Fit(0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_vertexFit->Swim(0);
         m_vertexFit->BuildVirtualParticle(0);
         m_wVirtualTrack = m_vertexFit->wVirtualTrack(0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_p4 = m_vertexFit->pfit(0) + m_vertexFit->pfit(1);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_mass = m_p4.m();
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         m_calculate = true;
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        cout << "CombFourDev " << __func__ << __LINE__ << endl;
         return true;
     }
 
