@@ -1,9 +1,0 @@
-KsInfoDev:
-VeeInfoDev overload calculate()
-
-1. add more class
-    ElectronInfoDev
-    KaonInfoDev
-    PionInfoDev
-    ProtonInfoDev
-
