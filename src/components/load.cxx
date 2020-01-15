@@ -1,3 +1,3 @@
 #include "GaudiKernel/LoadFactoryEntries.h"
 
-LOAD_FACTORY_ENTRIES( HadronInfo )
+LOAD_FACTORY_ENTRIES( HadronInfoDev )

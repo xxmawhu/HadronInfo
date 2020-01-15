@@ -1,4 +1,4 @@
-#include "HadronInfo/LambdacModeInf.h"
+#include "HadronInfoDev/LambdacModeInf.h"
 
 vector<int> LambdacModeInf::getFinalPid(int mode, int charge) {
     vector<int> m_pid;

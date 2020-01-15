@@ -1,4 +1,4 @@
-#include "HadronInfo/DecayInf.h"
+#include "HadronInfoDev/DecayInf.h"
 #include <iostream>
 #include "math.h"
 using namespace std;

@@ -1,4 +1,4 @@
-#include "HadronInfo/DTagFunc.h"
+#include "HadronInfoDev/DTagFunc.h"
 #include "EvtRecEvent/EvtRecDTag.h"
 #include "EvtRecEvent/EvtRecTrack.h"
 #include "BesDChain/CDCandidate.h"

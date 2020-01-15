@@ -1,4 +1,4 @@
-package HadronInfo
+package HadronInfoDev
 author "Xiaoshuai Qin"  <qinxs@ihep.ac.cn>
 author "Xin-Xin MA" <xxmawhu@163.com>
 author "Hao-Kai SUN" <spin.hk@outlook.com>
@@ -31,6 +31,10 @@ use BesPolicy           BesPolicy-01-*
  
 # macro_remove fflags "-fmessage-length=0 2"
  
-apply_pattern component_library
-library HadronInfo *.cxx *.cpp
-#apply_pattern installed_library
+apply_pattern installed_linkopts
+#apply_pattern component_library
+library HadronInfoDev *.cpp 
+apply_pattern package_linkopts
+apply_pattern package_stamps
+apply_pattern ld_library_path
+apply_pattern package_shlibflags
