@@ -14,7 +14,6 @@
 #include "HadronInfoDev/CombInfoDev.h"
 #include "HadronInfoDev/ProtonInfoDev.h"
 #include "HadronInfoDev/PionInfoDev.h"
-bool doVertexFit = true;
-typedef CombInfoDev<ProtonInfoDev, PionInfoDev, 3122, doVertexFit> NewLamInfoDev;
+typedef CombInfoDev<ProtonInfoDev, PionInfoDev, 3122, 1> NewLamInfoDev;
 
 #endif

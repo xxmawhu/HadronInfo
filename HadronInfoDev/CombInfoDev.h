@@ -26,7 +26,7 @@ using std::string;
 using std::cout;
 using std::endl;
 template <class FirstInfoDev, class SecondInfoDev, int pid = 0,
-          bool doVertexFit = false>
+          int doVertexFit = 0>
 class CombInfoDev : public AvailableInfoDev {
    public:
        CombInfoDev(const CDCandidate& combParticle) {
