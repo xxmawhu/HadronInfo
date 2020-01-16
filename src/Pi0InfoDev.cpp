@@ -1,6 +1,7 @@
 #include "HadronInfoDev/Pi0InfoDev.h"
 #include "HadronInfoDev/ShowerInfoDev.h"
 #include "HadronInfoDev/GGInfoDev.h"
+#include "HadronInfoDev/util.h"
 #include <iostream>
 #include <vector>
 using std::vector;
@@ -87,9 +88,9 @@ bool Pi0InfoDev::calculate() {
 
     m_kmfit->AddTrack(0, 0.0, photon1);
     m_kmfit->AddTrack(1, 0.0, photon2);
-    m_kmfit->AddResonance(0, 0.1349770, 0, 1);
+    m_kmfit->AddResonance(0, PDG::mPi0, 0, 1);
 
-    m_kmfit->Fit(0);  // Perform fit
+    m_kmfit->Fit(0);
 
     setChisq(m_kmfit->chisq(0));
 

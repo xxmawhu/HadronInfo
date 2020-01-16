@@ -21,8 +21,8 @@
 #include "HadronInfoDev/AvailableInfoDev.h"
 
 #include <iostream>
+#include <string>
 
-using namespace std;
 class GGInfoDev : public AvailableInfoDev {
    public:
     GGInfoDev() : AvailableInfoDev() {};

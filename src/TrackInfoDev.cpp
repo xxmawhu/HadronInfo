@@ -4,6 +4,7 @@
 #include "GaudiKernel/Bootstrap.h"
 
 #include "HadronInfoDev/TrackInfoDev.h"
+#include "HadronInfoDev/util.h"
 
 TrackInfoDev::TrackInfoDev() : m_track(0), m_parId(0), m_p4(0) {}
 
@@ -127,7 +128,7 @@ void TrackInfoDev::calculate() {
         HepVector a;
         HepSymMatrix Ea;
         if (m_parId == 11) {
-            double mass = 0.000511;
+            double mass = PDG::mElectron;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::electron);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixE(),
@@ -142,7 +143,7 @@ void TrackInfoDev::calculate() {
             return;
         }
         if (m_parId == 13) {
-            double mass = 0.105658;
+            double mass = PDG::mMuon;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::muon);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixMu(),
@@ -157,7 +158,7 @@ void TrackInfoDev::calculate() {
             return;
         }
         if (m_parId == 211) {
-            double mass = 0.13957018;
+            double mass = PDG::mPion;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::pion);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk =
@@ -172,7 +173,7 @@ void TrackInfoDev::calculate() {
             return;
         }
         if (m_parId == 321) {
-            double mass = 0.493677;
+            double mass = PDG::mKaon;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::kaon);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixK(),
@@ -187,7 +188,7 @@ void TrackInfoDev::calculate() {
             return;
         }
         if (m_parId == 2212) {
-            double mass = 0.938272;
+            double mass = PDG::mProton;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::proton);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk = WTrackParameter(mass, mdcTrk->getZHelixP(),
