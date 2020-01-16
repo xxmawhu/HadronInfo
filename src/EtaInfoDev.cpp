@@ -1,6 +1,7 @@
 #include "HadronInfoDev/EtaInfoDev.h"
 #include "HadronInfoDev/ShowerInfoDev.h"
 #include "HadronInfoDev/GGInfoDev.h"
+#include "HadronInfoDev/util.h"
 #include <iostream>
 #include <vector>
 using std::vector;

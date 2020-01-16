@@ -50,16 +50,16 @@ inline string Name(const int &pid) {
 }
 
 namespace PDG {
-const mPion = 139.57061E-3;
-const mPi0 = 134.9770E-3;
-const mEta = 547.862E-3;
-const mKaon = 493.677E-3;
-const mKs = 497.611E-3;
-const mElectron = 0.5109989461E-3;
-const mMuon = 105.6583745E-3;
-const mProton = 938.272013E-3;
-const mN = 939.5654133E-3;
-const mLambda = 1115.683E-3;
+const double mPion = 139.57061E-3;
+const double mPi0 = 134.9770E-3;
+const double mEta = 547.862E-3;
+const double mKaon = 493.677E-3;
+const double mKs = 497.611E-3;
+const double mElectron = 0.5109989461E-3;
+const double mMuon = 105.6583745E-3;
+const double mProton = 938.272013E-3;
+const double mN = 939.5654133E-3;
+const double mLambda = 1115.683E-3;
 }
 
 #endif

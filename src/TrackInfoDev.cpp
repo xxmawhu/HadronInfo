@@ -31,7 +31,7 @@ const double &TrackInfoDev::GetDoubleInfoDev(const string &info_name) {
     return -999;
 }
 
-HepLorentzVector TrackInfoDev::GetLorentzVector(const string &info_name) {
+const HepLorentzVector& TrackInfoDev::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -999);
 }
