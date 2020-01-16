@@ -29,15 +29,15 @@ template <class FirstInfoDev, class SecondInfoDev, int pid = 0,
           int doVertexFit = 0>
 class CombInfoDev : public AvailableInfoDev {
    public:
-       CombInfoDev(const CDCandidate& combParticle) {
-           if (combParticle.decay().children().size()!=2) {
-                cout << "Error: the numberChildren is not equal 2!" << endl;
-           }
-           cout << "init with CDCandidate" << endl;
-           m_firstInfoDev = FirstInfoDev(combParticle.decay().child(0)); 
-           m_secondInfoDev = SecondInfoDev(combParticle.decay().child(1));
-           m_calculate = false;
-       }
+    CombInfoDev(const CDCandidate& combParticle) {
+        if (combParticle.decay().children().size() != 2) {
+            cout << "Error: the numberChildren is not equal 2!" << endl;
+        }
+        cout << "init with CDCandidate" << endl;
+        m_firstInfoDev = FirstInfoDev(combParticle.decay().child(0));
+        m_secondInfoDev = SecondInfoDev(combParticle.decay().child(1));
+        m_calculate = false;
+    }
     CombInfoDev(FirstInfoDev& firsInfoDev, SecondInfoDev& secondInfoDev) {
         m_firstInfoDev = firsInfoDev;
         m_secondInfoDev = secondInfoDev;
@@ -53,6 +53,12 @@ class CombInfoDev : public AvailableInfoDev {
         // }
     }
     virtual const string GetName() { return HadronTool::Name(m_pid); }
+    virtual const bool& DoVertexFit() {
+        // do vertexfit
+        // after vertex the children information will be update,
+        // except pi0, eta, kaon...
+        return doVertexFit;    
+    }
     virtual bool calculate() {
         if (m_calculate) {
             return true;
@@ -91,6 +97,7 @@ class CombInfoDev : public AvailableInfoDev {
         m_mass = m_p4.m();
         m_calculate = true;
         // cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        // perform second vertex fit now!
         return true;
     }
 
@@ -111,9 +118,7 @@ class CombInfoDev : public AvailableInfoDev {
         if (!m_calculate) calculate();
         return m_mass;
     }
-    inline const double& m() {
-        return this->mass();
-    }
+    inline const double& m() { return this->mass(); }
     void setP4(const HepLorentzVector& p4) {
         m_p4 = p4;
         m_mass = p4.m();
