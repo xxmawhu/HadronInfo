@@ -65,20 +65,15 @@ class CombInfoDev : public AvailableInfoDev {
         }
         // do vertex fit now!
         // please make sure that the two candidates could be performd vertexfit
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         VertexFit* m_vertexFit = VertexFit::instance();
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_vertexFit->init();
         // m_vertexFit -> setChisqCut(1000);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_vertexFit->AddTrack(0, m_firstInfoDev.wtrk());
         m_vertexFit->AddTrack(1, m_secondInfoDev.wtrk());
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
 
-        VertexParameter wideVertex;
+        static VertexParameter wideVertex;
         HepPoint3D vWideVertex(0., 0., 0.);
         HepSymMatrix evWideVertex(3, 0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
 
         evWideVertex[0][0] = 1.0e12;
         evWideVertex[1][1] = 1.0e12;
@@ -89,17 +84,13 @@ class CombInfoDev : public AvailableInfoDev {
 
         m_vertexFit->AddVertex(0, wideVertex, 0, 1);
         m_vertexFit->Fit(0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_vertexFit->Swim(0);
         m_vertexFit->BuildVirtualParticle(0);
         m_wVirtualTrack = m_vertexFit->wVirtualTrack(0);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_p4 = m_vertexFit->pfit(0) + m_vertexFit->pfit(1);
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_mass = m_p4.m();
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         m_calculate = true;
-        cout << "CombInfoDev " << __func__ << __LINE__ << endl;
+        // cout << "CombInfoDev " << __func__ << __LINE__ << endl;
         return true;
     }
 

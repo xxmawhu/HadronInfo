@@ -32,7 +32,6 @@ use BesPolicy           BesPolicy-01-*
 # macro_remove fflags "-fmessage-length=0 2"
  
 apply_pattern installed_linkopts
-#apply_pattern component_library
 library HadronInfoDev *.cpp 
 apply_pattern package_linkopts
 apply_pattern package_stamps

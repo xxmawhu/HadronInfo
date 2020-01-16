@@ -12,7 +12,7 @@
 #ifndef _UTIL_H
 #define _UTIL_H
 namespace HadronTool {
-const string& Name(const int& pid) {
+inline string Name(const int& pid) {
     if (pid == 11) return string("Elem");
     if (pid == -11) return string("Elep");
     if (pid == 13) return string("Muonm");
@@ -46,6 +46,10 @@ const string& Name(const int& pid) {
     if (pid == 3334) return string("Omegam");
     if (pid == -3334) return string("OmegaBarp");
     return string("NULL");
+}
+inline double GetMass(const int& pid) {
+    if (abs(pid) == 211 ) return 0.13957018;
+    else return 911;
 }
 }
 

@@ -28,13 +28,20 @@ using namespace std;
 class PionInfoDev : public TrackInfoDev {
    public:
     PionInfoDev() : TrackInfoDev(211) {
-        cout << "TrackInfoDev::GetName()" << TrackInfoDev::GetName() << endl;
-        cout << "PionInfoDev::GetName()" << GetName() << endl;
+       //cout << "TrackInfoDev::GetName()" << TrackInfoDev::GetName() << endl;
+       //cout << "PionInfoDev::GetName()" << GetName() << endl;
     }
     PionInfoDev(const EvtRecTrack* aTrack) : TrackInfoDev(aTrack) { setPID(211); }
     PionInfoDev(const CDCandidate& aTrk) : TrackInfoDev(aTrk) { setPID(211); }
     ~PionInfoDev() {};
 
-    virtual const string GetName() { return "Pion"; }
+    virtual const string GetName() {
+        if (TrackInfoDev::Charge() > 0) {
+            return "PionP"; 
+        }
+        else {
+            return "PionM";
+        }
+    }
 };
 #endif

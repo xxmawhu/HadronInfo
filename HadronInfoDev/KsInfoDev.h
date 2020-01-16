@@ -72,7 +72,7 @@ class KsInfoDev : public VeeInfoDev {
         WTrackParameter wvTrk2(mpion, pion2Trk->getZHelix(),
                                pion2Trk->getZError());
 
-        VertexParameter &wideVertex = getWideVertex();
+        VertexParameter wideVertex = getWideVertex();
         // the vertex fit to get the `primary vertex` or `second vertex`, or
         // `third vertex`
         VertexFit *m_vertexFit = VertexFit::instance();
@@ -94,7 +94,7 @@ class KsInfoDev : public VeeInfoDev {
         setP4(p4Ks);
         setVtxChi2(m_vertexFit->chisq(0));
 
-        VertexParameter &primaryVertex = getPrimaryVertex();
+        VertexParameter primaryVertex = getPrimaryVertex();
         SecondVertexFit *m_secondVertexFit = SecondVertexFit::instance();
         m_secondVertexFit->init();
         m_secondVertexFit->AddTrack(0, m_vertexFit->wVirtualTrack(0));

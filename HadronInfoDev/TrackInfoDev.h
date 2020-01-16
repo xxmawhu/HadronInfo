@@ -32,6 +32,9 @@ class TrackInfoDev : public AvailableInfoDev {
     TrackInfoDev(const CDCandidate &aTrk);
     ~TrackInfoDev();
 
+    inline const int Charge() {
+        return m_track->mdcKalTrack()->charge();
+    }
     virtual const string GetName() { return "ChargedTrack"; }
     virtual const double &GetDoubleInfoDev(const string &);
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name);

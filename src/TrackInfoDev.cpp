@@ -30,7 +30,7 @@ const double &TrackInfoDev::GetDoubleInfoDev(const string &info_name) {
     return -999;
 }
 
-const HepLorentzVector &TrackInfoDev::GetLorentzVector(const string &info_name) {
+HepLorentzVector TrackInfoDev::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -999);
 }
@@ -157,7 +157,7 @@ void TrackInfoDev::calculate() {
             return;
         }
         if (m_parId == 211) {
-            double mass = 0.139570;
+            double mass = 0.13957018;
             RecMdcKalTrack::setPidType(RecMdcKalTrack::pion);
             m_p4 = mdcTrk->p4(mass);
             m_wtrk =
