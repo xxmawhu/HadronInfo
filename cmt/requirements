@@ -3,7 +3,7 @@ author "Xiaoshuai Qin"  <qinxs@ihep.ac.cn>
 author "Xin-Xin MA" <xxmawhu@163.com>
 author "Hao-Kai SUN" <spin.hk@outlook.com>
  
-branches cmt src HadronInfo 
+branches cmt src HadronInfoDev 
 use EvtRecEvent  EvtRecEvent-* Event
 use BesDChain    BesDChain-*   Event
 use VertexFit    VertexFit-*   Analysis
