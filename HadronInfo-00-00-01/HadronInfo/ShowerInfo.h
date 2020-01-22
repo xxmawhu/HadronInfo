@@ -23,7 +23,7 @@ class ShowerInfo : public AvailableInfo {
     ShowerInfo(const CDCandidate &aTrk);
     ~ShowerInfo();
     virtual const string GetName() { return "Shower"; }
-    virtual const double& GetDoubleInfo(const string &);
+    virtual const double &GetDoubleInfo(const string &);
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
 
     void setchild(EvtRecTrack *shower) { m_shower = shower; }

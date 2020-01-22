@@ -19,7 +19,7 @@ using std::vector;
 using CLHEP::HepLorentzVector;
 class AvailableInfo {
    public:
-    AvailableInfo(){};
+    AvailableInfo() {};
     ~AvailableInfo();
     virtual const string GetName() {
         return "AvailableInfo";

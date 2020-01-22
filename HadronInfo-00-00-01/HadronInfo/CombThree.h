@@ -25,20 +25,19 @@ using CLHEP::HepLorentzVector;
 using std::string;
 using std::cout;
 using std::endl;
-template <class FirstInfo, class SecondInfo,  class ThirdInfo,
-         int pid = 0,
+template <class FirstInfo, class SecondInfo, class ThirdInfo, int pid = 0,
           int doVertexFit = 0>
 class CombThree : public AvailableInfo {
    public:
-       CombThree(const CDCandidate& combParticle) {
-           if (combParticle.decay().children().size()!=2) {
-                cout << "Error: the numberChildren is not equal 2!" << endl;
-           }
-           cout << "init with CDCandidate" << endl;
-           m_firstInfo = FirstInfo(combParticle.decay().child(0)); 
-           m_secondInfo = SecondInfo(combParticle.decay().child(1));
-           m_calculate = false;
-       }
+    CombThree(const CDCandidate& combParticle) {
+        if (combParticle.decay().children().size() != 2) {
+            cout << "Error: the numberChildren is not equal 2!" << endl;
+        }
+        cout << "init with CDCandidate" << endl;
+        m_firstInfo = FirstInfo(combParticle.decay().child(0));
+        m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_calculate = false;
+    }
     CombThree(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
@@ -121,9 +120,7 @@ class CombThree : public AvailableInfo {
         if (!m_calculate) calculate();
         return m_mass;
     }
-    inline const double& m() {
-        return this->mass();
-    }
+    inline const double& m() { return this->mass(); }
     void setP4(const HepLorentzVector& p4) {
         m_p4 = p4;
         m_mass = p4.m();

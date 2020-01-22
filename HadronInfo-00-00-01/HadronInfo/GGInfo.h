@@ -37,6 +37,7 @@ class GGInfo : public AvailableInfo {
     const double& helicity();
     const HepLorentzVector& p4();
     const HepLorentzVector& p41C();
+    const HepLorentzVector& p41c() { return this->p41C(); }
     const HepLorentzVector& p4child(const int& i);
     const HepLorentzVector& p4GammaHigh();
     const HepLorentzVector& p4GammaLow();

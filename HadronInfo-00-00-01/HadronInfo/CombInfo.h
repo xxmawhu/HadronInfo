@@ -13,7 +13,10 @@
 #ifndef HadronInfo_COMBInfo_H
 #define HadronInfo_COMBInfo_H
 // #include "TupleSvc/DecayTree.h"
+#include "GaudiKernel/Bootstrap.h"
 #include "VertexFit/VertexFit.h"
+#include "VertexFit/SecondVertexFit.h"
+#include "VertexFit/IVertexDbSvc.h"
 #include "CLHEP/Vector/LorentzVector.h"
 #include "BesDChain/CDCandidate.h"
 #include "BesDChain/CDDecay.h"
@@ -25,15 +28,14 @@ using CLHEP::HepLorentzVector;
 using std::string;
 using std::cout;
 using std::endl;
-template <class FirstInfo, class SecondInfo, int pid = 0,
-          int doVertexFit = 0>
+template <class FirstInfo, class SecondInfo, int pid = 0, int doVertexFit = 0>
 class CombInfo : public AvailableInfo {
    public:
     CombInfo(const CDCandidate& combParticle) {
         if (combParticle.decay().children().size() != 2) {
             cout << "Error: the numberChildren is not equal 2!" << endl;
         }
-        cout << "init with CDCandidate" << endl;
+        // cout << "init with CDCandidate" << endl;
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
         m_calculate = false;
@@ -57,7 +59,7 @@ class CombInfo : public AvailableInfo {
         // do vertexfit
         // after vertex the children information will be update,
         // except pi0, eta, kaon...
-        return doVertexFit;    
+        return doVertexFit;
     }
     virtual bool calculate() {
         if (m_calculate) {
@@ -77,7 +79,7 @@ class CombInfo : public AvailableInfo {
         m_vertexFit->AddTrack(0, m_firstInfo.wtrk());
         m_vertexFit->AddTrack(1, m_secondInfo.wtrk());
 
-        static VertexParameter wideVertex;
+        VertexParameter wideVertex;
         HepPoint3D vWideVertex(0., 0., 0.);
         HepSymMatrix evWideVertex(3, 0);
 
@@ -93,11 +95,49 @@ class CombInfo : public AvailableInfo {
         m_vertexFit->Swim(0);
         m_vertexFit->BuildVirtualParticle(0);
         m_wVirtualTrack = m_vertexFit->wVirtualTrack(0);
-        m_p4 = m_vertexFit->pfit(0) + m_vertexFit->pfit(1);
+        m_p4Child[0] = m_vertexFit->pfit(0);
+        m_p4Child[1] = m_vertexFit->pfit(1);
+        m_p4 = m_p4Child[0] + m_p4Child[1];
+        m_vpar = m_vertexFit->vpar(0);
+        // m_wtrk[0]       = m_vertexFit->wtrk(0);
+        // m_wtrk[1]       = m_vertexFit->wtrk(1);
         m_mass = m_p4.m();
+        m_vertexFitChisq = m_vertexFit->chisq(0);
         m_calculate = true;
         // cout << "CombInfo " << __func__ << __LINE__ << endl;
         // perform second vertex fit now!
+        SecondVertexFit* m_2ndVtxFit = SecondVertexFit::instance();
+        m_2ndVtxFit->init();
+        // m_2ndVtxFit -> setChisqCut(1000);
+        m_2ndVtxFit->AddTrack(0, m_wVirtualTrack);
+        m_2ndVtxFit->setVpar(m_vpar);
+        // set the primary Vertex
+        VertexParameter primaryVertex;
+        if (!m_isSetPriVtx) {
+            VertexParameter beamSpot;
+            HepPoint3D vBeamSpot(0., 0., 0.);
+            HepSymMatrix evBeamSpot(3, 0);
+
+            IVertexDbSvc* vtxsvc;
+            Gaudi::svcLocator()->service("VertexDbSvc", vtxsvc);
+            double* dbv = vtxsvc->PrimaryVertex();
+            double* vv = vtxsvc->SigmaPrimaryVertex();
+            for (unsigned int ivx = 0; ivx < 3; ivx++) {
+                vBeamSpot[ivx] = dbv[ivx];
+                evBeamSpot[ivx][ivx] = vv[ivx] * vv[ivx];
+            }
+
+            beamSpot.setVx(vBeamSpot);
+            beamSpot.setEvx(evBeamSpot);
+            primaryVertex = VertexParameter(beamSpot);
+        } else {
+            primaryVertex = m_privtxpar;
+        }
+        m_2ndVtxFit->setPrimaryVertex(primaryVertex);
+        m_2ndVtxFit->Fit();
+        m_secondVertexFitChisq = m_2ndVtxFit->chisq();
+        m_decayLength = m_2ndVtxFit->decayLength();
+        m_decayLError = m_2ndVtxFit->decayLengthError();
         return true;
     }
 
@@ -108,29 +148,71 @@ class CombInfo : public AvailableInfo {
     }
     const WTrackParameter& wtrk() {
         if (!m_calculate) calculate();
-        return m_p4;
+        return m_wVirtualTrack;
     }
     const HepLorentzVector& p4() {
         if (!m_calculate) calculate();
         return m_p4;
     }
+    const HepLorentzVector& p4child(const int& i) {
+        if (i!=0 && i!= 1) {
+            std::cout << "Error no child for index " << i << std::endl;
+            return HepLorentzVector(0, 0, 0, 999);
+        }
+        if (!m_calculate) calculate();
+        return m_p4Child[i];
+    }
     const double& mass() {
         if (!m_calculate) calculate();
         return m_mass;
     }
-    inline const double& m() { return this->mass(); }
+    // for convenence
+    const double& m() { return this->mass(); }
     void setP4(const HepLorentzVector& p4) {
         m_p4 = p4;
         m_mass = p4.m();
     }
+    const double& decayLength() {
+        if (!m_calculate) calculate();
+        return m_decayLength;
+    }
+    const double& decayLengthError() {
+        if (!m_calculate) calculate();
+        return m_decayLError;
+    }
+    const double& decayLengthRatio() {
+        if (!m_calculate) calculate();
+        return m_decayLength / m_decayLError;
+    }
+    const double& vtxChi2() { return this->VertexFitChisq(); }
+    const double& chisq() { return this->VertexFitChisq(); }
+    const double& VertexFitChisq() {
+        if (!m_calculate) calculate();
+        return m_vertexFitChisq;
+    }
+    const double& SecondVertexFitChisq() {
+        if (!m_calculate) calculate();
+        return m_secondVertexFitChisq;
+    }
+    const double& chi2() { return this->SecondVertexFitChisq(); }
+    void setPrimaryVertex(VertexParameter& privtxpar) {
+        m_privtxpar = privtxpar;
+        m_isSetPriVtx = true;
+        m_calculate = false;
+    }
 
    private:
+    bool m_calculate, m_isSetPriVtx;
     int m_pid;
     HepLorentzVector m_p4;
+    HepLorentzVector m_p4Child[2];
     double m_mass;
-    bool m_calculate;
+    double m_decayLength, m_decayLError;
+    double m_vertexFitChisq, m_secondVertexFitChisq;
     FirstInfo m_firstInfo;
     SecondInfo m_secondInfo;
     WTrackParameter m_wVirtualTrack;
+    VertexParameter m_vpar;
+    VertexParameter m_privtxpar;
 };
 #endif

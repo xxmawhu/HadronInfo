@@ -28,8 +28,8 @@ using namespace std;
 class PionInfo : public TrackInfo {
    public:
     PionInfo() : TrackInfo(211) {
-       //cout << "TrackInfo::GetName()" << TrackInfo::GetName() << endl;
-       //cout << "PionInfo::GetName()" << GetName() << endl;
+        // cout << "TrackInfo::GetName()" << TrackInfo::GetName() << endl;
+        // cout << "PionInfo::GetName()" << GetName() << endl;
     }
     PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(211); }
     PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(211); }
@@ -37,9 +37,8 @@ class PionInfo : public TrackInfo {
 
     virtual const string GetName() {
         if (TrackInfo::Charge() > 0) {
-            return "PionP"; 
-        }
-        else {
+            return "PionP";
+        } else {
             return "PionM";
         }
     }
