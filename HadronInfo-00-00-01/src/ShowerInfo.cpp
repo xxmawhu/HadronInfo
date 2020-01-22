@@ -9,7 +9,7 @@ ShowerInfo::ShowerInfo() : m_shower(0) {
     m_cal = false;
 }
 ShowerInfo::ShowerInfo(const CDCandidate &aTrk) {
-    m_shower= const_cast<EvtRecTrack* >(aTrk.finalChildren().second[0]);
+    m_shower = const_cast<EvtRecTrack *>(aTrk.finalChildren().second[0]);
 }
 
 ShowerInfo::~ShowerInfo() {

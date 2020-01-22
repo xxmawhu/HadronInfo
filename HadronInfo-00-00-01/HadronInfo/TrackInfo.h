@@ -51,14 +51,18 @@ class TrackInfo : public AvailableInfo {
     WTrackParameter wtrk();
     WTrackParameter wtrkc(const EvtRecTrack *, const int &);
     const HepPoint3D &getIP();
+    void updateWTrk(const WTrackParameter* newWtrk);
 
    private:
+    bool m_cal;
+    bool m_updateWTrk;
     void calculate();
     EvtRecTrack *m_track;
-    WTrackParameter m_wtrk;
+    WTrackParameter* m_wtrk;
     int m_parId;
     double m_Rxy, m_Rz, m_costheta;
     HepLorentzVector m_p4;
+    double m_mass;
     void addAvialInfo() {
         AvailableInfo::add("Rxy", "double");
         AvailableInfo::add("Rz", "double");

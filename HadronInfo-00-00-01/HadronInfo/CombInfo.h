@@ -99,8 +99,9 @@ class CombInfo : public AvailableInfo {
         m_p4Child[1] = m_vertexFit->pfit(1);
         m_p4 = m_p4Child[0] + m_p4Child[1];
         m_vpar = m_vertexFit->vpar(0);
-        // m_wtrk[0]       = m_vertexFit->wtrk(0);
-        // m_wtrk[1]       = m_vertexFit->wtrk(1);
+        m_firstInfo.updateWTrk(m_vertexFit->wtrk(0));
+        m_secondInfo.updateWTrk(m_vertexFit->wtrk(1));
+
         m_mass = m_p4.m();
         m_vertexFitChisq = m_vertexFit->chisq(0);
         m_calculate = true;
@@ -199,6 +200,9 @@ class CombInfo : public AvailableInfo {
         m_privtxpar = privtxpar;
         m_isSetPriVtx = true;
         m_calculate = false;
+    }
+    std::pair<FirstInfo, SecondInfo>& decay() {
+        return std::make_pair<m_firstInfo, m_secondInfo>;
     }
 
    private:
