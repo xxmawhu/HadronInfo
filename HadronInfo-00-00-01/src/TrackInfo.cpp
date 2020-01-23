@@ -11,18 +11,18 @@ TrackInfo::TrackInfo()
       m_parId(0),
       m_p4(0),
       m_cal(false),
-      m_updateWTrk(false),
-      m_wtrk(0) {}
+      m_updateWTrk(false)
+      {}
 
 TrackInfo::TrackInfo(const int &pid)
-    : m_parId(pid), m_cal(false), m_updateWTrk(false), m_wtrk(0) {}
+    : m_parId(pid), m_cal(false), m_updateWTrk(false) {}
 
 TrackInfo::TrackInfo(const EvtRecTrack *track)
-    : m_cal(false), m_updateWTrk(false), m_wtrk(0), {
+    : m_cal(false), m_updateWTrk(false) {
     m_track = const_cast<EvtRecTrack *>(track);
 }
 TrackInfo::TrackInfo(const CDCandidate &aTrk)
-    : m_cal(false), m_updateWTrk(false), m_wtrk(0) {
+    : m_cal(false), m_updateWTrk(false) {
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
     m_track = const_cast<EvtRecTrack *>(track);
 }
@@ -55,7 +55,7 @@ void TrackInfo::SetTrack(const EvtRecTrack *track) {
 }
 
 HepLorentzVector TrackInfo::p4() {
-    if (m_wtrk != NULL) {
+    if (m_updateWTrk) {
         return m_p4;
     }
     if (!m_cal) calculate();
@@ -98,7 +98,7 @@ WTrackParameter TrackInfo::wtrk(const int &pid) {
 }
 
 WTrackParameter TrackInfo::wtrk() {
-    if (m_wtrk != NULL) return m_wtrk;
+    if (m_updateWTrk) return m_wtrk;
     calculate();
     return m_wtrk;
 }
@@ -222,7 +222,7 @@ TrackInfo &TrackInfo::operator=(TrackInfo &aTrackInfo) {
     m_track = aTrackInfo.m_track;
     return *this;
 }*/
-void TrackInfo::updateWTrk(const WTrackParameter *newWtrk) {
+void TrackInfo::updateWTrk(const WTrackParameter& newWtrk) {
     m_wtrk = newWtrk;
     m_p4 = newWtrk.p();
     m_mass = newWtrk.mass();
