@@ -101,6 +101,12 @@ class CombInfo : public AvailableInfo {
         m_vpar = m_vertexFit->vpar(0);
         m_firstInfo.updateWTrk(m_vertexFit->wtrk(0));
         m_secondInfo.updateWTrk(m_vertexFit->wtrk(1));
+        if (m_firstInfo.DoVertexFit()) {
+            m_firstInfo.setPrimaryVertex(m_vpar);
+        }
+        if (m_secondInfo.DoVertexFit()) {
+            m_secondInfo.setPrimaryVertex(m_vpar);
+        }
 
         m_mass = m_p4.m();
         m_vertexFitChisq = m_vertexFit->chisq(0);
