@@ -26,12 +26,14 @@ TrackInfo::TrackInfo(const CDCandidate &aTrk)
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
     m_track = const_cast<EvtRecTrack *>(track);
 }
-TrackInfo::Feed(const EvtRecTrack *track)
-    : m_cal(false), m_updateWTrk(false) {
+void TrackInfo::Feed(const EvtRecTrack *track){
+    m_cal = false;
+    m_updateWTrk = false;
     m_track = const_cast<EvtRecTrack *>(track);
 }
-TrackInfo::Feed(const CDCandidate &aTrk)
-    : m_cal(false), m_updateWTrk(false) {
+void TrackInfo::Feed(const CDCandidate &aTrk) { 
+    m_cal = false;
+    m_updateWTrk = false;
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
     m_track = const_cast<EvtRecTrack *>(track);
 }

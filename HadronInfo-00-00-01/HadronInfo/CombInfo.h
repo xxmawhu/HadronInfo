@@ -40,7 +40,7 @@ class CombInfo : public AvailableInfo {
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
         m_calculate = false;
     }
-    Feed(const CDCandidate& combParticle) {
+    void Feed(const CDCandidate& combParticle) {
         if (combParticle.decay().children().size() != 2) {
             cout << "Error: the numberChildren is not equal 2!" << endl;
         }
@@ -63,7 +63,7 @@ class CombInfo : public AvailableInfo {
         //     std::cout << "did not perform vertexfit!!!" << std::endl;
         // }
     }
-    Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) {
+    void Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
         m_pid = pid;
