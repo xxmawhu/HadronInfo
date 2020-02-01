@@ -40,7 +40,30 @@ class CombInfo : public AvailableInfo {
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
         m_calculate = false;
     }
+    Feed(const CDCandidate& combParticle) {
+        if (combParticle.decay().children().size() != 2) {
+            cout << "Error: the numberChildren is not equal 2!" << endl;
+        }
+        // cout << "init with CDCandidate" << endl;
+        m_firstInfo = FirstInfo(combParticle.decay().child(0));
+        m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_calculate = false;
+    }
     CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) {
+        m_firstInfo = firsInfo;
+        m_secondInfo = secondInfo;
+        m_pid = pid;
+        std::cout << "init CombInfo successful" << std::endl;
+        m_calculate = false;
+        // std::cout << "CombInfo " << endl;
+        // std::cout <<  firsInfo.GetName() << " and"
+        //    << secondInfo.GetName() << endl;
+        // cout << "name : "  << m_pid <<  endl;
+        // if (!doVertexFit) {
+        //     std::cout << "did not perform vertexfit!!!" << std::endl;
+        // }
+    }
+    Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
         m_pid = pid;

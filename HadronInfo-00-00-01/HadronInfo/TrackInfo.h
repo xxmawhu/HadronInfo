@@ -30,6 +30,8 @@ class TrackInfo : public AvailableInfo {
     TrackInfo(const int &);
     TrackInfo(const EvtRecTrack *);
     TrackInfo(const CDCandidate &aTrk);
+    Feed(const EvtRecTrack *);
+    Feed(const CDCandidate &aTrk);
     ~TrackInfo();
 
     inline const int Charge() { return m_track->mdcKalTrack()->charge(); }

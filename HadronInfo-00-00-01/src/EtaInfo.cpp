@@ -27,14 +27,29 @@ EtaInfo::EtaInfo(vector<const EvtRecTrack *> shower) {
     this->setchild(0, shower[0]);
     this->setchild(1, shower[1]);
 }
+EtaInfo::Feed(vector<const EvtRecTrack *> shower) {
+    m_calculate = false;
+    this->setchild(0, shower[0]);
+    this->setchild(1, shower[1]);
+}
 
 EtaInfo::EtaInfo(const EvtRecTrack *shower0, const EvtRecTrack *shower1) {
     m_calculate = false;
     this->setchild(0, shower0);
     this->setchild(1, shower1);
 }
+EtaInfo::Feed(const EvtRecTrack *shower0, const EvtRecTrack *shower1) {
+    m_calculate = false;
+    this->setchild(0, shower0);
+    this->setchild(1, shower1);
+}
 
 EtaInfo::EtaInfo(const CDCandidate &aPi0) {
+    m_calculate = false;
+    this->setchild(0, aPi0.finalChildren().second[0]);
+    this->setchild(1, aPi0.finalChildren().second[1]);
+}
+EtaInfo::Feed(const CDCandidate &aPi0) {
     m_calculate = false;
     this->setchild(0, aPi0.finalChildren().second[0]);
     this->setchild(1, aPi0.finalChildren().second[1]);

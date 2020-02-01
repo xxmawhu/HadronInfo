@@ -18,6 +18,9 @@ class Pi0Info : public GGInfo {
     Pi0Info(const EvtRecTrack *, const EvtRecTrack *);
     Pi0Info(vector<const EvtRecTrack *>);
     Pi0Info(const CDCandidate &);
+    Feed(const EvtRecTrack*, const EvtRecTrack*);
+    Feed(vector<const EvtRecTrack *>);
+    Feed(const CDCandidate &);
     ~Pi0Info();
     virtual bool calculate();
     virtual bool isGoodPhoton(EvtRecTrack *);

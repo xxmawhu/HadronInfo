@@ -18,6 +18,9 @@ class EtaInfo : public GGInfo {
     EtaInfo(const EvtRecTrack *, const EvtRecTrack *);
     EtaInfo(vector<const EvtRecTrack *>);
     EtaInfo(const CDCandidate &);
+    Feed(const EvtRecTrack *, const EvtRecTrack *);
+    Feed(vector<const EvtRecTrack *>);
+    Feed(const CDCandidate &);
     ~EtaInfo();
     virtual bool calculate();
     // virtual bool isGoodPhoton(EvtRecTrack *);
