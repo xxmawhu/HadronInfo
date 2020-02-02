@@ -14,27 +14,26 @@
 #include "CLHEP/Vector/LorentzVector.h"
 #include <string>
 #include <vector>
-using std::string;
-using std::vector;
+#include <map>
 using CLHEP::HepLorentzVector;
 class AvailableInfo {
    public:
     AvailableInfo() {};
     ~AvailableInfo();
-    virtual const string GetName() {
+    virtual const std::string GetName() {
         return "AvailableInfo";
     };
-    virtual const double& GetDoubleInfo(const string&);
-    virtual const HepLorentzVector& GetLorentzVector(const string&);
-    const vector<string>& GetDoubleInf();
-    const vector<string>& GetIntInf();
-    const vector<string>& GetP4Inf();
-    void add(const string& info_name, const string& type = "double");
+    virtual const double& GetDoubleInfo(const std::string&);
+    const std::vector<std::string>& GetType(const std::string&);
+    virtual const HepLorentzVector& GetLorentzVector(const std::string&);
+    const std::vector<std::string>& GetDoubleInf();
+    const std::vector<std::string>& GetIntInf();
+    const std::vector<std::string>& GetP4Inf();
+    const std::vector<std::string>& GetVectorInf();
+    void add(const std::string& info_name, const std::string& type = "double");
 
    private:
-    vector<string> m_doubleInfo;
-    vector<string> m_intInfo;
-    vector<string> m_P4Info;
+    std::map<std::string, std::vector<std::string> > m_allInfo;
 };
 
 #endif  // _AVAILABLEInfo_H

@@ -17,10 +17,7 @@ using std::string;
 using std::vector;
 using CLHEP::HepLorentzVector;
 
-AvailableInfo::~AvailableInfo() {
-    m_doubleInfo.clear();
-    m_P4Info.clear();
-}
+AvailableInfo::~AvailableInfo() { m_allInfo.clear(); }
 
 const double& AvailableInfo::GetDoubleInfo(const string&) { return -999; }
 
@@ -29,14 +26,25 @@ const HepLorentzVector& AvailableInfo::GetLorentzVector(const string&) {
 }
 
 void AvailableInfo::add(const string& info_name, const string& type) {
-    if (type == "double") {
-        m_doubleInfo.push_back(info_name);
-    } else if (type == "int") {
-        m_intInfo.push_back(info_name);
+    // check wether the type exist in the map
+    if (m_allInfo.find(type) == m_allInfo.end()) {
+        vector<string> tmp;
+        tmp.push_back(info_name);
+        m_allInfo.insert(std::make_pair(type, tmp));
     } else {
-        m_P4Info.push_back(info_name);
+        m_allInfo[type].push_back(info_name);
     }
 }
-const vector<string>& AvailableInfo::GetDoubleInf() { return m_doubleInfo; }
-const vector<string>& AvailableInfo::GetIntInf() { return m_intInfo; }
-const vector<string>& AvailableInfo::GetP4Inf() { return m_P4Info; }
+const vector<string>& AvailableInfo::GetDoubleInf() {
+    return m_allInfo["double"];
+}
+const vector<string>& AvailableInfo::GetIntInf() { return m_allInfo["int"]; }
+const vector<string>& AvailableInfo::GetP4Inf() {
+    return m_allInfo["HepLorentzVector"];
+}
+const vector<string>& AvailableInfo::GetVectorInf() {
+    return m_allInfo["vector"];
+}
+const vector<string>& AvailableInfo::GetType(const std::string& type) {
+    return m_allInfo[type];
+}

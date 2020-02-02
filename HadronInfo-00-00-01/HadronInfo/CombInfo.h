@@ -49,6 +49,8 @@ class CombInfo : public AvailableInfo {
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
         m_calculate = false;
     }
+    CombInfo() {
+    }
     CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;

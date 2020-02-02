@@ -21,6 +21,7 @@
 
 #include "BesDChain/CDDecay.h"
 #include "HadronInfo/AvailableInfo.h"
+#include "VertexFit/VertexFit.h"
 #include <iostream>
 
 using namespace std;
@@ -34,10 +35,17 @@ class TrackInfo : public AvailableInfo {
     void Feed(const CDCandidate &aTrk);
     ~TrackInfo();
 
-    inline const int Charge() { return m_track->mdcKalTrack()->charge(); }
+    const int Charge() { return m_track->mdcKalTrack()->charge(); }
     virtual const string GetName() { return "ChargedTrack"; }
     virtual const double &GetDoubleInfo(const string &);
     virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+
+    virtual const bool DoVertexFit() {
+        return false;
+    } 
+
+    void setPrimaryVertex(VertexParameter& vpar) {
+    }
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);
