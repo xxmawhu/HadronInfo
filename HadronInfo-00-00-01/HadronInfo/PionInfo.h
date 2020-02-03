@@ -28,20 +28,15 @@ using namespace std;
 class PionInfo : public TrackInfo {
    public:
     PionInfo() : TrackInfo(211) {
-       //cout << "TrackInfo::GetName()" << TrackInfo::GetName() << endl;
-       //cout << "PionInfo::GetName()" << GetName() << endl;
+        SetName("Pion");
     }
-    PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(211); }
-    PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(211); }
+    PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(211);
+        SetName("Pion");
+    }
+    PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(211); 
+        SetName("Pion");
+    }
     ~PionInfo() {};
 
-    virtual const string GetName() {
-        if (TrackInfo::Charge() > 0) {
-            return "PionP"; 
-        }
-        else {
-            return "PionM";
-        }
-    }
 };
 #endif

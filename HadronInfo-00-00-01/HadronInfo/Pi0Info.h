@@ -18,10 +18,12 @@ class Pi0Info : public GGInfo {
     Pi0Info(const EvtRecTrack *, const EvtRecTrack *);
     Pi0Info(vector<const EvtRecTrack *>);
     Pi0Info(const CDCandidate &);
+    void Feed(const EvtRecTrack*, const EvtRecTrack*);
+    void Feed(vector<const EvtRecTrack *>);
+    void Feed(const CDCandidate &);
     ~Pi0Info();
     virtual bool calculate();
     virtual bool isGoodPhoton(EvtRecTrack *);
-    virtual const string GetName() { return "Pi0"; }
     // virtual const double& GetDoubleInfo(const string &);
     // virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);

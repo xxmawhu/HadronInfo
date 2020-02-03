@@ -21,6 +21,7 @@
 
 #include "BesDChain/CDDecay.h"
 #include "HadronInfo/AvailableInfo.h"
+#include "VertexFit/VertexFit.h"
 #include <iostream>
 
 using namespace std;
@@ -30,14 +31,40 @@ class TrackInfo : public AvailableInfo {
     TrackInfo(const int &);
     TrackInfo(const EvtRecTrack *);
     TrackInfo(const CDCandidate &aTrk);
+    void Feed(const EvtRecTrack *);
+    void Feed(const CDCandidate &aTrk);
     ~TrackInfo();
 
-    inline const int Charge() {
-        return m_track->mdcKalTrack()->charge();
+    const int Charge() { return m_track->mdcKalTrack()->charge(); }
+    // virtual const double &GetDoubleInfo(const string &);
+    // virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+    virtual void GetInfo(const std::string&info_name, double& targe){
+        if (info_name == "Rxy") {
+            targe = this->m_Rxy;
+            return ; 
+        }
+        if (info_name == "Rz") {
+            targe = this->m_Rz;
+            return; 
+        }
+        if (info_name == "CosTheta") {
+            targe = this->m_costheta;
+            return; 
+        }
     }
-    virtual const string GetName() { return "ChargedTrack"; }
-    virtual const double &GetDoubleInfo(const string &);
-    virtual const HepLorentzVector& GetLorentzVector(const string &info_name);
+    virtual void GetInfo(const std::string&info_name, HepLorentzVector& targe){
+        if (info_name == "p4") {
+            targe = this->p4();
+            return; 
+        }
+    }
+
+    virtual const bool DoVertexFit() {
+        return false;
+    } 
+
+    void setPrimaryVertex(VertexParameter& vpar) {
+    }
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);
@@ -53,14 +80,18 @@ class TrackInfo : public AvailableInfo {
     WTrackParameter wtrk();
     WTrackParameter wtrkc(const EvtRecTrack *, const int &);
     const HepPoint3D &getIP();
+    void updateWTrk(const WTrackParameter& newWtrk);
 
    private:
+    bool m_cal;
+    bool m_updateWTrk;
     void calculate();
     EvtRecTrack *m_track;
     WTrackParameter m_wtrk;
     int m_parId;
     double m_Rxy, m_Rz, m_costheta;
     HepLorentzVector m_p4;
+    double m_mass;
     void addAvialInfo() {
         AvailableInfo::add("Rxy", "double");
         AvailableInfo::add("Rz", "double");

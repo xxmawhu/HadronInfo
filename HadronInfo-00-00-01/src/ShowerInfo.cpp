@@ -7,9 +7,21 @@ ShowerInfo::ShowerInfo() : m_shower(0) {
     m_costheta_e1 = 0.86;
     m_costheta_e2 = 0.92;
     m_cal = false;
+    SetName("photon");
 }
 ShowerInfo::ShowerInfo(const CDCandidate &aTrk) {
-    m_shower= const_cast<EvtRecTrack* >(aTrk.finalChildren().second[0]);
+    m_shower = const_cast<EvtRecTrack *>(aTrk.finalChildren().second[0]);
+    m_energyThreshold_e = 0.05;
+    m_energyThreshold_b = 0.025;
+    m_costheta_b = 0.8;
+    m_costheta_e1 = 0.86;
+    m_costheta_e2 = 0.92;
+    m_cal = false;
+    SetName("photon");
+}
+void ShowerInfo::Feed(const CDCandidate &aTrk) {
+    m_shower = const_cast<EvtRecTrack *>(aTrk.finalChildren().second[0]);
+    m_cal = false;
 }
 
 ShowerInfo::~ShowerInfo() {
@@ -58,12 +70,12 @@ ShowerInfo &ShowerInfo::operator=(ShowerInfo &aShowerInfo) {
     m_p4 = aShowerInfo.p4();
     return *this;
 }
-const double &ShowerInfo::GetDoubleInfo(const string &info_name) {
+// const double &ShowerInfo::GetDoubleInfo(const string &info_name) {
     // if (info_name == "decayLengthError") return this->decayLengthError();
-    return -110;
-}
+//    return -110;
+// }
 
-const HepLorentzVector &ShowerInfo::GetLorentzVector(const string &info_name) {
-    if (info_name == "p4") return this->p4();
-    return HepLorentzVector(0, 0, 0, -110);
-}
+// const HepLorentzVector &ShowerInfo::GetLorentzVector(const string &info_name) {
+//    if (info_name == "p4") return this->p4();
+//    return HepLorentzVector(0, 0, 0, -110);
+// }

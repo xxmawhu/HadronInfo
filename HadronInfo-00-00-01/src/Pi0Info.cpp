@@ -8,6 +8,7 @@ using std::vector;
 
 Pi0Info::Pi0Info() {
     m_calculate = false;
+    SetName("Pi0");
     m_shower[0] = NULL;
     m_shower[1] = NULL;
 }
@@ -22,19 +23,40 @@ void Pi0Info::setchilds(const EvtRecTrack *shower0,
     this->setchild(1, shower1);
 }
 EvtRecTrack *Pi0Info::getchild(const int &n) { return m_shower[n]; }
+
 Pi0Info::Pi0Info(vector<const EvtRecTrack *> shower) {
     m_calculate = false;
+    SetName("Pi0");
     this->setchild(0, shower[0]);
     this->setchild(1, shower[1]);
 }
 
 Pi0Info::Pi0Info(const EvtRecTrack *shower0, const EvtRecTrack *shower1) {
     m_calculate = false;
+    SetName("Pi0");
     this->setchild(0, shower0);
     this->setchild(1, shower1);
 }
 
 Pi0Info::Pi0Info(const CDCandidate &aPi0) {
+    m_calculate = false;
+    SetName("Pi0");
+    this->setchild(0, aPi0.finalChildren().second[0]);
+    this->setchild(1, aPi0.finalChildren().second[1]);
+}
+void Pi0Info::Feed(vector<const EvtRecTrack *> shower) {
+    m_calculate = false;
+    this->setchild(0, shower[0]);
+    this->setchild(1, shower[1]);
+}
+
+void Pi0Info::Feed(const EvtRecTrack *shower0, const EvtRecTrack *shower1) {
+    m_calculate = false;
+    this->setchild(0, shower0);
+    this->setchild(1, shower1);
+}
+
+void Pi0Info::Feed(const CDCandidate &aPi0) {
     m_calculate = false;
     this->setchild(0, aPi0.finalChildren().second[0]);
     this->setchild(1, aPi0.finalChildren().second[1]);

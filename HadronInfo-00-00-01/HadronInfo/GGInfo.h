@@ -27,7 +27,6 @@ class GGInfo : public AvailableInfo {
    public:
     GGInfo() : AvailableInfo() {};
     ~GGInfo() {};
-    virtual const string GetName() { return "GG"; }
     virtual const double& GetDoubleInfo(const string& info_name);
     virtual const HepLorentzVector& GetLorentzVector(const string& info_name);
     const double& m();
@@ -37,6 +36,7 @@ class GGInfo : public AvailableInfo {
     const double& helicity();
     const HepLorentzVector& p4();
     const HepLorentzVector& p41C();
+    const HepLorentzVector& p41c() { return this->p41C(); }
     const HepLorentzVector& p4child(const int& i);
     const HepLorentzVector& p4GammaHigh();
     const HepLorentzVector& p4GammaLow();

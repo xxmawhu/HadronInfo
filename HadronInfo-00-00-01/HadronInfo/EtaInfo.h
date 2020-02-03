@@ -18,13 +18,15 @@ class EtaInfo : public GGInfo {
     EtaInfo(const EvtRecTrack *, const EvtRecTrack *);
     EtaInfo(vector<const EvtRecTrack *>);
     EtaInfo(const CDCandidate &);
+    void Feed(const EvtRecTrack *, const EvtRecTrack *);
+    void Feed(vector<const EvtRecTrack *>);
+    void Feed(const CDCandidate &);
     ~EtaInfo();
     virtual bool calculate();
     // virtual bool isGoodPhoton(EvtRecTrack *);
     //  virtual const double& GetDoubleInfo(const string &);
     //  virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);
-    virtual const string GetName() { return "Eta"; }
     void setchild(const int &, const EvtRecTrack *);
     void setchilds(const EvtRecTrack *, const EvtRecTrack *);
     EvtRecTrack *getchild(const int &i);

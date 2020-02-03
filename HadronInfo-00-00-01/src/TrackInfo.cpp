@@ -6,14 +6,34 @@
 #include "HadronInfo/TrackInfo.h"
 #include "HadronInfo/util.h"
 
-TrackInfo::TrackInfo() : m_track(0), m_parId(0), m_p4(0) {}
+TrackInfo::TrackInfo()
+    : m_track(0),
+      m_parId(0),
+      m_p4(0),
+      m_cal(false),
+      m_updateWTrk(false)
+      {}
 
-TrackInfo::TrackInfo(const int &pid) : m_parId(pid) {}
+TrackInfo::TrackInfo(const int &pid)
+    : m_parId(pid), m_cal(false), m_updateWTrk(false) {}
 
-TrackInfo::TrackInfo(const EvtRecTrack *track) {
+TrackInfo::TrackInfo(const EvtRecTrack *track)
+    : m_cal(false), m_updateWTrk(false) {
     m_track = const_cast<EvtRecTrack *>(track);
 }
-TrackInfo::TrackInfo(const CDCandidate &aTrk) {
+TrackInfo::TrackInfo(const CDCandidate &aTrk)
+    : m_cal(false), m_updateWTrk(false) {
+    const EvtRecTrack *track = aTrk.finalChildren().first[0];
+    m_track = const_cast<EvtRecTrack *>(track);
+}
+void TrackInfo::Feed(const EvtRecTrack *track){
+    m_cal = false;
+    m_updateWTrk = false;
+    m_track = const_cast<EvtRecTrack *>(track);
+}
+void TrackInfo::Feed(const CDCandidate &aTrk) { 
+    m_cal = false;
+    m_updateWTrk = false;
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
     m_track = const_cast<EvtRecTrack *>(track);
 }
@@ -23,7 +43,7 @@ TrackInfo::~TrackInfo() {
     m_parId = 0;
     m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
-
+/*
 const double &TrackInfo::GetDoubleInfo(const string &info_name) {
     if (info_name == "Rxy") return this->m_Rxy;
     if (info_name == "Rz") return this->m_Rz;
@@ -31,10 +51,11 @@ const double &TrackInfo::GetDoubleInfo(const string &info_name) {
     return -999;
 }
 
-const HepLorentzVector& TrackInfo::GetLorentzVector(const string &info_name) {
+const HepLorentzVector &TrackInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -999);
 }
+*/
 
 void TrackInfo::SetTrack(const int &parId, const EvtRecTrack *track) {
     m_parId = abs(parId);
@@ -46,7 +67,10 @@ void TrackInfo::SetTrack(const EvtRecTrack *track) {
 }
 
 HepLorentzVector TrackInfo::p4() {
-    calculate();
+    if (m_updateWTrk) {
+        return m_p4;
+    }
+    if (!m_cal) calculate();
     return m_p4;
 }
 
@@ -86,6 +110,7 @@ WTrackParameter TrackInfo::wtrk(const int &pid) {
 }
 
 WTrackParameter TrackInfo::wtrk() {
+    if (m_updateWTrk) return m_wtrk;
     calculate();
     return m_wtrk;
 }
@@ -209,3 +234,10 @@ TrackInfo &TrackInfo::operator=(TrackInfo &aTrackInfo) {
     m_track = aTrackInfo.m_track;
     return *this;
 }*/
+void TrackInfo::updateWTrk(const WTrackParameter& newWtrk) {
+    m_wtrk = newWtrk;
+    m_p4 = newWtrk.p();
+    m_mass = newWtrk.mass();
+    m_updateWTrk = true;
+    m_cal = false;
+}
