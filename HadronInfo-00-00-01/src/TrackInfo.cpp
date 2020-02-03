@@ -43,7 +43,7 @@ TrackInfo::~TrackInfo() {
     m_parId = 0;
     m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
-
+/*
 const double &TrackInfo::GetDoubleInfo(const string &info_name) {
     if (info_name == "Rxy") return this->m_Rxy;
     if (info_name == "Rz") return this->m_Rz;
@@ -55,6 +55,7 @@ const HepLorentzVector &TrackInfo::GetLorentzVector(const string &info_name) {
     if (info_name == "p4") return this->p4();
     return HepLorentzVector(0, 0, 0, -999);
 }
+*/
 
 void TrackInfo::SetTrack(const int &parId, const EvtRecTrack *track) {
     m_parId = abs(parId);

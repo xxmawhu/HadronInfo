@@ -39,6 +39,8 @@ class CombInfo : public AvailableInfo {
         SetName(HadronTool::Name(m_pid));
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_firstInfo.SetName(m_firstInfo.GetName()+HadronTool::Name(m_pid));
+        m_secondInfo.SetName(m_secondInfo.GetName()+HadronTool::Name(m_pid));
         m_calculate = false;
     }
     void Feed(const CDCandidate& combParticle) {
@@ -48,6 +50,8 @@ class CombInfo : public AvailableInfo {
         // cout << "init with CDCandidate" << endl;
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_firstInfo.SetName(m_firstInfo.GetName()+HadronTool::Name(m_pid));
+        m_secondInfo.SetName(m_secondInfo.GetName()+HadronTool::Name(m_pid));
         m_calculate = false;
     }
     CombInfo() {
@@ -56,6 +60,8 @@ class CombInfo : public AvailableInfo {
     CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
+        m_firstInfo.SetName(m_firstInfo.GetName()+HadronTool::Name(m_pid));
+        m_secondInfo.SetName(m_secondInfo.GetName()+HadronTool::Name(m_pid));
         m_pid = pid;
         SetName(HadronTool::Name(m_pid));
         std::cout << "init CombInfo successful" << std::endl;
@@ -71,6 +77,8 @@ class CombInfo : public AvailableInfo {
     void Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
+        m_firstInfo.SetName(m_firstInfo.GetName()+HadronTool::Name(m_pid));
+        m_secondInfo.SetName(m_secondInfo.GetName()+HadronTool::Name(m_pid));
         m_pid = pid;
         std::cout << "init CombInfo successful" << std::endl;
         m_calculate = false;
