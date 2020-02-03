@@ -25,7 +25,8 @@ const HepLorentzVector& AvailableInfo::GetLorentzVector(const string&) {
     return HepLorentzVector(0, 0, 0, -999);
 }
 
-void AvailableInfo::add(const string& info_name, const string& type) {
+void AvailableInfo::add(const string& info_name, const string& type, 
+        const std::string& index) {
     // check wether the type exist in the map
     if (m_allInfo.find(type) == m_allInfo.end()) {
         vector<string> tmp;
@@ -34,17 +35,50 @@ void AvailableInfo::add(const string& info_name, const string& type) {
     } else {
         m_allInfo[type].push_back(info_name);
     }
+    // store the length and index
+    m_indexInfo.insert(std::make_pair(info_name, index));
+    // the default length is 4 for HepLorentzVector, 1 for others
+    if (type == "HepLorentzVector") {
+        m_lengthInfo.insert(std::make_pair(info_name, 4));
+    } else {
+        m_lengthInfo.insert(std::make_pair(info_name, 1));
+    }
 }
-const vector<string>& AvailableInfo::GetDoubleInf() {
-    return m_allInfo["double"];
+
+void AvailableInfo::add(const string& info_name, const string& type, 
+        const int& length) {
+    // check wether the type exist in the map
+    if (m_allInfo.find(type) == m_allInfo.end()) {
+        vector<string> tmp;
+        tmp.push_back(info_name);
+        m_allInfo.insert(std::make_pair(type, tmp));
+    } else {
+        m_allInfo[type].push_back(info_name);
+    }
+    // store the length and index
+    // the default index is "NULL"
+    m_indexInfo.insert(std::make_pair(info_name, "NULL"));
+
+    // the default length is 4 for HepLorentzVector, 1 for others
+    if (type == "HepLorentzVector") {
+        m_lengthInfo.insert(std::make_pair(info_name, 4));
+    } else {
+        m_lengthInfo.insert(std::make_pair(info_name, length));
+    }
 }
-const vector<string>& AvailableInfo::GetIntInf() { return m_allInfo["int"]; }
-const vector<string>& AvailableInfo::GetP4Inf() {
-    return m_allInfo["HepLorentzVector"];
+
+const vector<string> AvailableInfo::GetType(const std::string& type) {
+    if (m_allInfo.find(type) != m_allInfo.end()) {
+        return m_allInfo[type];
+    } else {
+        vector<string> tmp;
+        return tmp;
+    }
 }
-const vector<string>& AvailableInfo::GetVectorInf() {
-    return m_allInfo["vector"];
+
+const int AvailableInfo::GetLength(const std::string& info_name) {
+    return m_lengthInfo[info_name];
 }
-const vector<string>& AvailableInfo::GetType(const std::string& type) {
-    return m_allInfo[type];
+const string AvailableInfo::GetIndex(const std::string& info_name) {
+    return m_indexInfo[info_name];
 }
