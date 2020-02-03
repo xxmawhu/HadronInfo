@@ -23,14 +23,17 @@
 #include "HadronInfo/TrackInfo.h"
 #include <iostream>
 
-using namespace std;
 class ProtonInfo : public TrackInfo {
    public:
-    ProtonInfo() : TrackInfo(2212) {};
-    ProtonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(2212); }
-    ProtonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(2212); }
+    ProtonInfo() : TrackInfo(2212) { SetName("Proton"); }
+    ProtonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
+        setPID(2212);
+        SetName("Proton");
+    }
+    ProtonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) {
+        setPID(2212);
+        SetName("Proton");
+    }
     ~ProtonInfo() {};
-
-    virtual const string GetName() { return "Proton"; }
 };
 #endif

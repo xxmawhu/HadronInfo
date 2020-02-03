@@ -36,6 +36,7 @@ class CombInfo : public AvailableInfo {
             cout << "Error: the numberChildren is not equal 2!" << endl;
         }
         // cout << "init with CDCandidate" << endl;
+        SetName(HadronTool::Name(m_pid));
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
         m_calculate = false;
@@ -50,11 +51,13 @@ class CombInfo : public AvailableInfo {
         m_calculate = false;
     }
     CombInfo() {
+        SetName("Combinate");
     }
     CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
         m_pid = pid;
+        SetName(HadronTool::Name(m_pid));
         std::cout << "init CombInfo successful" << std::endl;
         m_calculate = false;
         // std::cout << "CombInfo " << endl;
@@ -79,7 +82,6 @@ class CombInfo : public AvailableInfo {
         //     std::cout << "did not perform vertexfit!!!" << std::endl;
         // }
     }
-    virtual const string GetName() { return HadronTool::Name(m_pid); }
     virtual const bool& DoVertexFit() {
         // do vertexfit
         // after vertex the children information will be update,

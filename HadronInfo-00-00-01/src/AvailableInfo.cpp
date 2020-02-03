@@ -19,11 +19,11 @@ using CLHEP::HepLorentzVector;
 
 AvailableInfo::~AvailableInfo() { m_allInfo.clear(); }
 
-const double& AvailableInfo::GetDoubleInfo(const string&) { return -999; }
+// const double& AvailableInfo::GetDoubleInfo(const string&) { return -999; }
 
-const HepLorentzVector& AvailableInfo::GetLorentzVector(const string&) {
-    return HepLorentzVector(0, 0, 0, -999);
-}
+// const HepLorentzVector& AvailableInfo::GetLorentzVector(const string&) {
+//    return HepLorentzVector(0, 0, 0, -999);
+// }
 
 void AvailableInfo::add(const string& info_name, const string& type, 
         const std::string& index) {

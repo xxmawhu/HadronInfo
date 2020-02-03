@@ -21,10 +21,16 @@ class ShowerInfo : public AvailableInfo {
    public:
     ShowerInfo();
     ShowerInfo(const CDCandidate &aTrk);
+    void Feed(const CDCandidate &aTrk);
     ~ShowerInfo();
-    virtual const string GetName() { return "Shower"; }
-    virtual const double &GetDoubleInfo(const string &);
-    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+    //  virtual const double &GetDoubleInfo(const std::string &);
+    // virtual const HepLorentzVector &GetLorentzVector(const std::string &info_name);
+    virtual void GetInfo(const std::string& info_name, HepLorentzVector& targe){
+        if (info_name == "p4") {
+            targe = this->p4();
+            return;
+        }
+    }
 
     void setchild(EvtRecTrack *shower) { m_shower = shower; }
     EvtRecTrack *getchild() { return m_shower; }
@@ -46,7 +52,6 @@ class ShowerInfo : public AvailableInfo {
 
    private:
     EvtRecTrack *m_shower;
-
     HepLorentzVector m_p4;
     double m_energyThreshold_b;
     double m_energyThreshold_e;

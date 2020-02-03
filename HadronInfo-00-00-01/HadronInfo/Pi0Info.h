@@ -24,7 +24,6 @@ class Pi0Info : public GGInfo {
     ~Pi0Info();
     virtual bool calculate();
     virtual bool isGoodPhoton(EvtRecTrack *);
-    virtual const string GetName() { return "Pi0"; }
     // virtual const double& GetDoubleInfo(const string &);
     // virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);

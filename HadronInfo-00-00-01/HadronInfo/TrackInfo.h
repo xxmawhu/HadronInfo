@@ -36,9 +36,28 @@ class TrackInfo : public AvailableInfo {
     ~TrackInfo();
 
     const int Charge() { return m_track->mdcKalTrack()->charge(); }
-    virtual const string GetName() { return "ChargedTrack"; }
-    virtual const double &GetDoubleInfo(const string &);
-    virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+    // virtual const double &GetDoubleInfo(const string &);
+    // virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
+    virtual void GetInfo(const std::string&info_name, double& targe){
+        if (info_name == "Rxy") {
+            targe = this->m_Rxy;
+            return ; 
+        }
+        if (info_name == "Rz") {
+            targe = this->m_Rz;
+            return; 
+        }
+        if (info_name == "CosTheta") {
+            targe = this->m_costheta;
+            return; 
+        }
+    }
+    virtual void GetInfo(const std::string&info_name, HepLorentzVector& targe){
+        if (info_name == "p4") {
+            targe = this->p4();
+            return; 
+        }
+    }
 
     virtual const bool DoVertexFit() {
         return false;
