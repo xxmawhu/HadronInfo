@@ -24,7 +24,7 @@
 #include "VertexFit/VertexFit.h"
 #include <iostream>
 
-class TrackInfo : virtual public AvailableInfo {
+class TrackInfo : public AvailableInfo {
    public:
     TrackInfo();
     TrackInfo(const int &);

@@ -104,6 +104,7 @@ class CombInfo : virtual public AvailableInfo {
         std::string firstname = m_firstInfo.GetName();
         std::string tmpname = info_name.substr(0, length);
         m_firstInfo.GetInfoInt(firstname, length);
+        m_firstInfo.GetInfo(firstname, length);
     //   // firsInfo 
     //   std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
     //   if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
