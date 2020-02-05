@@ -24,7 +24,7 @@
 #include <iostream>
 
 using namespace std;
-class KaonInfo : public TrackInfo {
+class KaonInfo : public TrackInfo, virtual public AvailableInfo {
    public:
     KaonInfo() : TrackInfo(321) { SetName("Kaon"); }
     KaonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {

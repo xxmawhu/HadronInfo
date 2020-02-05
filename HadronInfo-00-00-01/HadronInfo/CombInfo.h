@@ -31,13 +31,13 @@ using std::string;
 using std::cout;
 using std::endl;
 template <class FirstInfo, class SecondInfo, int pid = 0, int doVertexFit = 0>
-class CombInfo : public AvailableInfo {
+class CombInfo : virtual public AvailableInfo {
    public:
     CombInfo() {
         m_pid = pid;
         SetName(HadronTool::Name(m_pid));
-        m_firstInfo = FirstInfo;
-        m_secondInfo = SecondInfo;
+        m_firstInfo = FirstInfo();
+        m_secondInfo = SecondInfo();
         AddAvialInfo();
         m_calculate = true;
     }
@@ -99,6 +99,25 @@ class CombInfo : public AvailableInfo {
         return doVertexFit;
     }
     int Charge() { return m_firstInfo.Charge() + m_secondInfo.Charge(); }
+    virtual void GetInfo(const std::string& info_name, int& targe) {
+        int length = info_name.size() - (this->GetName()).size();
+        std::string firstname = m_firstInfo.GetName();
+        std::string tmpname = info_name.substr(0, length);
+        m_firstInfo.GetInfoInt(firstname, length);
+    //   // firsInfo 
+    //   std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
+    //   if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+    //       m_firstInfo.GetInfo(tmpname, targe);
+    //       return;
+    //   }
+    //   tmpAllInfo = m_secondInfo.GetType("int");
+    //   if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+    //       m_secondInfo.GetInfo(tmpname, targe);
+    //       return;
+    //   }
+    //   return;
+    }
+    /*
     virtual void GetInfo(const std::string& info_name, double& targe) {
         if (info_name == string("decayLength")) {
             targe = m_decayLength;
@@ -160,22 +179,6 @@ class CombInfo : public AvailableInfo {
         }
         return;
     }
-    virtual void GetInfo(const std::string& info_name, int& targe) {
-        int length = info_name.size() - (this->GetName()).size();
-        std::string tmpname = info_name.substr(0, length);
-        // firsInfo 
-        std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_firstInfo.GetInfo(tmpname, targe);
-            return;
-        }
-        tmpAllInfo = m_secondInfo.GetType("int");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_secondInfo.GetInfo(tmpname, targe);
-            return;
-        }
-        return;
-    }
     virtual void GetInfo(const std::string& info_name, std::vector<int>& targe) {
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
@@ -208,6 +211,7 @@ class CombInfo : public AvailableInfo {
         }
         return;
     }
+    */
 
     virtual bool Calculate() {
         if (m_calculate) {
@@ -249,8 +253,8 @@ class CombInfo : public AvailableInfo {
         m_p4Child[1] = m_vertexFit->pfit(1);
         m_p4 = m_p4Child[0] + m_p4Child[1];
         m_vpar = m_vertexFit->vpar(0);
-        m_firstInfo.UpdateWTrk(m_vertexFit->WTrk(0));
-        m_secondInfo.UpdateWTrk(m_vertexFit->WTrk(1));
+        m_firstInfo.UpdateWTrk(m_vertexFit->wtrk(0));
+        m_secondInfo.UpdateWTrk(m_vertexFit->wtrk(1));
         if (m_firstInfo.DoVertexFit()) {
             m_firstInfo.SetPrimaryVertex(m_vpar);
         }
@@ -290,18 +294,18 @@ class CombInfo : public AvailableInfo {
         } else {
             primaryVertex = m_privtxpar;
         }
-        m_2ndVtxFit->SetPrimaryVertex(primaryVertex);
+        m_2ndVtxFit->setPrimaryVertex(primaryVertex);
         m_2ndVtxFit->Fit();
         m_secondVertexFitChisq = m_2ndVtxFit->chisq();
-        m_decayLength = m_2ndVtxFit->DecayLength();
-        m_decayLError = m_2ndVtxFit->DecayLengthError();
+        m_decayLength = m_2ndVtxFit->decayLength();
+        m_decayLError = m_2ndVtxFit->decayLengthError();
         return true;
     }
 
     void UpdateWTrk(const WTrackParameter& newWtrk) {
         m_wVirtualTrack = newWtrk;
         m_p4 = newWtrk.p();
-        m_mass = newWtrk.Mass();
+        m_mass = newWtrk.mass();
     }
     const WTrackParameter& WTrk() {
         if (!m_calculate) Calculate();
@@ -328,7 +332,7 @@ class CombInfo : public AvailableInfo {
         if (!m_calculate) Calculate();
         return m_mass;
     }
-    const double& RawMassMass() {
+    const double& RawMass() {
         if (!m_calculate) Calculate();
         return m_rawMass;
     }
@@ -392,7 +396,7 @@ class CombInfo : public AvailableInfo {
         }
         string index;
         int length;
-        for (vector<string>::iterator itr = allInfo.begin();
+        for (vector<string>::const_iterator itr = allInfo.begin();
              itr != allInfo.end(); ++itr) {
             index = m_firstInfo.GetIndex(*itr);
             if (index != string("NULL")) {

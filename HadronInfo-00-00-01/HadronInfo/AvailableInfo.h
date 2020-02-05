@@ -28,13 +28,14 @@ class AvailableInfo {
     //  virtual const double& GetDoubleInfo(const std::string&);
     //  virtual const HepLorentzVector& GetLorentzVector(const std::string&);
     // only five type are allowed in the code
-    virtual void GetInfo(const std::string& info_name, int& targe) {};
-    virtual void GetInfo(const std::string& info_name, double& targe) {};
-    virtual void GetInfo(const std::string& info_name,
+    void GetInfo(const std::string& info_name, int& targe){};
+    void GetInfoInt(const std::string& info_name, int& targe){};
+    void GetInfo(const std::string& info_name, double& targe) {};
+    void GetInfo(const std::string& info_name,
                          HepLorentzVector& targe) {};
-    virtual void GetInfo(const std::string& info_name,
+    void GetInfo(const std::string& info_name,
                          std::vector<int>& targe) {};
-    virtual void GetInfo(const std::string& info_name,
+    void GetInfo(const std::string& info_name,
                          std::vector<double>& targe) {};
     // if you want to store more than one, please insrease the length.
     // For example,

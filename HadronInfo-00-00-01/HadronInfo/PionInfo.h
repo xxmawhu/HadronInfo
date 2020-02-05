@@ -24,14 +24,14 @@
 #include <iostream>
 #include <string>
 
-class PionInfo : public TrackInfo {
+class PionInfo : public TrackInfo, virtual public AvailableInfo {
    public:
-    PionInfo() : TrackInfo(211) { SetName("Pion"); }
+    PionInfo() : TrackInfo(211), AvailableInfo() { SetName("Pion"); }
     PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
         SetPID(211);
         SetName("Pion");
     }
-    PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) {
+    PionInfo(const CDCandidate& aTrk) : TrackInfo(aTrk), AvailableInfo() {
         SetPID(211);
         SetName("Pion");
     }
