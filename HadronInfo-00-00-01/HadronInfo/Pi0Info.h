@@ -11,36 +11,35 @@
 
 #include <iostream>
 
-using namespace std;
 class Pi0Info : public GGInfo {
    public:
     Pi0Info();
     Pi0Info(const EvtRecTrack *, const EvtRecTrack *);
     Pi0Info(vector<const EvtRecTrack *>);
     Pi0Info(const CDCandidate &);
-    void Feed(const EvtRecTrack*, const EvtRecTrack*);
+    void Feed(const EvtRecTrack *, const EvtRecTrack *);
     void Feed(vector<const EvtRecTrack *>);
     void Feed(const CDCandidate &);
     ~Pi0Info();
-    virtual bool calculate();
+    virtual bool Calculate();
     virtual bool isGoodPhoton(EvtRecTrack *);
     // virtual const double& GetDoubleInfo(const string &);
     // virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);
-    void setchild(const int &, const EvtRecTrack *);
-    void setchilds(const EvtRecTrack *, const EvtRecTrack *);
-    EvtRecTrack *getchild(const int &i);
+    void SetChild(const int &, const EvtRecTrack *);
+    void SetChildren(const EvtRecTrack *, const EvtRecTrack *);
+    EvtRecTrack *GetChild(const int &i);
     // double m();
     // double m1c();
-    // double angle();
+    // double Angle();
     // double openAngle();
-    // double helicity();
-    // HepLorentzVector p4();
+    // double Helicity();
+    // HepLorentzVector P4();
     // HepLorentzVector p41c();
-    // HepLorentzVector p4child(const int &);
+    // HepLorentzVector P4Child(const int &);
     // double chisq();
     // bool isGoodPi0();
-    // WTrackParameter wtrk();
+    // WTrackParameter WTrk();
     // Pi0Info &operator=(Pi0Info &aPi0Info);
 
    private:

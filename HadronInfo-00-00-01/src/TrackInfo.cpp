@@ -7,12 +7,7 @@
 #include "HadronInfo/util.h"
 
 TrackInfo::TrackInfo()
-    : m_track(0),
-      m_parId(0),
-      m_p4(0),
-      m_cal(false),
-      m_updateWTrk(false)
-      {}
+    : m_track(0), m_parId(0), m_p4(0), m_cal(false), m_updateWTrk(false) {}
 
 TrackInfo::TrackInfo(const int &pid)
     : m_parId(pid), m_cal(false), m_updateWTrk(false) {}
@@ -26,12 +21,12 @@ TrackInfo::TrackInfo(const CDCandidate &aTrk)
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
     m_track = const_cast<EvtRecTrack *>(track);
 }
-void TrackInfo::Feed(const EvtRecTrack *track){
+void TrackInfo::Feed(const EvtRecTrack *track) {
     m_cal = false;
     m_updateWTrk = false;
     m_track = const_cast<EvtRecTrack *>(track);
 }
-void TrackInfo::Feed(const CDCandidate &aTrk) { 
+void TrackInfo::Feed(const CDCandidate &aTrk) {
     m_cal = false;
     m_updateWTrk = false;
     const EvtRecTrack *track = aTrk.finalChildren().first[0];
@@ -52,7 +47,7 @@ const double &TrackInfo::GetDoubleInfo(const string &info_name) {
 }
 
 const HepLorentzVector &TrackInfo::GetLorentzVector(const string &info_name) {
-    if (info_name == "p4") return this->p4();
+    if (info_name == "p4") return this->P4();
     return HepLorentzVector(0, 0, 0, -999);
 }
 */
@@ -66,56 +61,56 @@ void TrackInfo::SetTrack(const EvtRecTrack *track) {
     m_track = const_cast<EvtRecTrack *>(track);
 }
 
-HepLorentzVector TrackInfo::p4() {
+HepLorentzVector TrackInfo::P4() {
     if (m_updateWTrk) {
         return m_p4;
     }
-    if (!m_cal) calculate();
+    if (!m_cal) Calculate();
     return m_p4;
 }
 
-HepLorentzVector TrackInfo::p4(const int &pid) {
+HepLorentzVector TrackInfo::P4(const int &pid) {
     m_parId = abs(pid);
-    calculate();
+    Calculate();
     return m_p4;
 }
-HepLorentzVector TrackInfo::p4(EvtRecTrack *atrk, const int &pid) {
+HepLorentzVector TrackInfo::P4(EvtRecTrack *atrk, const int &pid) {
     m_parId = abs(pid);
     m_track = atrk;
-    calculate();
+    Calculate();
     return m_p4;
 }
-HepLorentzVector TrackInfo::p4c(const EvtRecTrack *atrk, const int &pid) {
+HepLorentzVector TrackInfo::P4c(const EvtRecTrack *atrk, const int &pid) {
     m_parId = abs(pid);
     m_track = const_cast<EvtRecTrack *>(atrk);
-    calculate();
+    Calculate();
     return m_p4;
 }
-WTrackParameter TrackInfo::wtrkc(const EvtRecTrack *atrk, const int &pid) {
+WTrackParameter TrackInfo::WTrkc(const EvtRecTrack *atrk, const int &pid) {
     m_parId = abs(pid);
     m_track = const_cast<EvtRecTrack *>(atrk);
-    calculate();
+    Calculate();
     return m_wtrk;
 }
-WTrackParameter TrackInfo::wtrk(EvtRecTrack *atrk, const int &pid) {
+WTrackParameter TrackInfo::WTrk(EvtRecTrack *atrk, const int &pid) {
     m_parId = abs(pid);
     m_track = atrk;
-    calculate();
+    Calculate();
     return m_wtrk;
 }
-WTrackParameter TrackInfo::wtrk(const int &pid) {
+WTrackParameter TrackInfo::WTrk(const int &pid) {
     m_parId = abs(pid);
-    calculate();
+    Calculate();
     return m_wtrk;
 }
 
-WTrackParameter TrackInfo::wtrk() {
+WTrackParameter TrackInfo::WTrk() {
     if (m_updateWTrk) return m_wtrk;
-    calculate();
+    Calculate();
     return m_wtrk;
 }
 
-const HepPoint3D &TrackInfo::getIP() {
+const HepPoint3D &TrackInfo::GetIP() {
     Hep3Vector xorigin(0, 0, 0);
     IVertexDbSvc *vtxsvc;
     Gaudi::svcLocator()->service("VertexDbSvc", vtxsvc);
@@ -129,7 +124,7 @@ const HepPoint3D &TrackInfo::getIP() {
     return IP;
 }
 
-void TrackInfo::calculate() {
+void TrackInfo::Calculate() {
     m_p4 = HepLorentzVector(0, 0, 0, 0);
     if (m_parId == 22) {
         RecEmcShower *shower = m_track->emcShower();
@@ -148,7 +143,7 @@ void TrackInfo::calculate() {
         return;
     } else {
         RecMdcKalTrack *mdcTrk = m_track->mdcKalTrack();
-        const HepPoint3D &ip = getIP();
+        const HepPoint3D &ip = GetIP();
         HepPoint3D point0(0., 0., 0.);
         HepVector a;
         HepSymMatrix Ea;
@@ -234,7 +229,7 @@ TrackInfo &TrackInfo::operator=(TrackInfo &aTrackInfo) {
     m_track = aTrackInfo.m_track;
     return *this;
 }*/
-void TrackInfo::updateWTrk(const WTrackParameter& newWtrk) {
+void TrackInfo::UpdateWTrk(const WTrackParameter &newWtrk) {
     m_wtrk = newWtrk;
     m_p4 = newWtrk.p();
     m_mass = newWtrk.mass();

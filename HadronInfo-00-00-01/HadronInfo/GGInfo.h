@@ -27,34 +27,40 @@ class GGInfo : public AvailableInfo {
    public:
     GGInfo() : AvailableInfo() {};
     ~GGInfo() {};
+    int Charge() { return 0; }
     virtual const double& GetDoubleInfo(const string& info_name);
     virtual const HepLorentzVector& GetLorentzVector(const string& info_name);
-    const double& m();
-    const double& m1c();
-    const double& angle();
-    const double& openAngle();
-    const double& helicity();
-    const HepLorentzVector& p4();
+    virtual void GetInfo(const std::string& info_name, double& targe);
+    virtual void GetInfo(const std::string& info_name, HepLorentzVector& targe);
+    const double& Mass();
+    const double& Chisq();
+    const double& Angle();
+    const double& OpenAngle();
+    const double& Helicity();
+    const HepLorentzVector& P4();
     const HepLorentzVector& p41C();
     const HepLorentzVector& p41c() { return this->p41C(); }
-    const HepLorentzVector& p4child(const int& i);
-    const HepLorentzVector& p4GammaHigh();
-    const HepLorentzVector& p4GammaLow();
-    const double& chisq();
+    const HepLorentzVector& P4Child(const int& i);
+    const HepLorentzVector& P4GammaHigh();
+    const HepLorentzVector& P4GammaLow();
     const bool& isGood();
-    const WTrackParameter& wtrk();
+    const WTrackParameter& WTrk();
+    // for compatiable
+    const double& m() { return this->Mass(); }
+    const double& chisq() { return this->Chisq(); }
+    // ...
 
-    virtual bool calculate();
+    virtual bool Calculate();
     virtual bool isGoodPhoton(EvtRecTrack*);
-    void setWTrackParameter(const WTrackParameter& wtrk);
-    void setRawMass(const double& mass);
-    void setHelicity(const double& helicity);
-    void setHelicityAngle(const double& helicityAngle);
-    void setOpenAngle(const double& openangle);
-    void setChisq(const double& chisq);
-    void setP41C(const HepLorentzVector& p4);
-    void setRawP4(const HepLorentzVector& p4);
-    void setP4Child(const HepLorentzVector& p4, const int& i);
+    void SetWTrackParameter(const WTrackParameter& wtrk);
+    void SetRawMass(const double& mass);
+    void SetHelicity(const double& helicity);
+    void SetHelicityAngle(const double& helicityAngle);
+    void SetOpenAngle(const double& openangle);
+    void SetChisq(const double& chisq);
+    void SetP41C(const HepLorentzVector& p4);
+    void SetRawP4(const HepLorentzVector& p4);
+    void SetP4Child(const HepLorentzVector& p4, const int& i);
 
    private:
     WTrackParameter m_wtrk;
@@ -68,6 +74,6 @@ class GGInfo : public AvailableInfo {
     double m_openAngle, m_helicityAngle;
     double m_chisq;
     bool m_isgoodpi0, m_calculate;
-    void addAvialInfo();
+    void AddAvialInfo();
 };
 #endif

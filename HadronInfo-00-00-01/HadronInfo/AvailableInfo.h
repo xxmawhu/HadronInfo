@@ -18,45 +18,42 @@
 using CLHEP::HepLorentzVector;
 class AvailableInfo {
    public:
-    AvailableInfo() {
-        m_name = "NULL";
-    }
+    AvailableInfo() { m_name = "NULL"; }
     ~AvailableInfo();
-    void SetName(const std::string& name) {
-        m_name = name;
-    }
-    const std::string GetName() {
-        return m_name;
-    }
+    void SetName(const std::string& name) { m_name = name; }
+    const std::string GetName() { return m_name; }
     const std::vector<std::string> GetType(const std::string&);
     const int GetLength(const std::string&);
     const std::string GetIndex(const std::string&);
     //  virtual const double& GetDoubleInfo(const std::string&);
     //  virtual const HepLorentzVector& GetLorentzVector(const std::string&);
     // only five type are allowed in the code
-    virtual void GetInfo(const std::string&info_name, int& targe){};
-    virtual void GetInfo(const std::string&info_name, double& targe){};
-    virtual void GetInfo(const std::string&info_name, HepLorentzVector& targe){};
-    virtual void GetInfo(const std::string&info_name, std::vector<int>& targe){};
-    virtual void GetInfo(const std::string&info_name, std::vector<double>& targe){};
+    virtual void GetInfo(const std::string& info_name, int& targe) {};
+    virtual void GetInfo(const std::string& info_name, double& targe) {};
+    virtual void GetInfo(const std::string& info_name,
+                         HepLorentzVector& targe) {};
+    virtual void GetInfo(const std::string& info_name,
+                         std::vector<int>& targe) {};
+    virtual void GetInfo(const std::string& info_name,
+                         std::vector<double>& targe) {};
     // if you want to store more than one, please insrease the length.
-    // For example, 
+    // For example,
     // the length of one info, for HepLorentzVector, the length is 4
     // for mass the length is 1
-    void add(const std::string& info_name, const std::string& type,
+    void Add(const std::string& info_name, const std::string& type,
              const int& length = 1);
     // it's designed to store variable info, such as the decay chain.
     // use the "index" to store the length
     // the index also should be stored first.
-    void add(const std::string& info_name, const std::string& type,
+    void Add(const std::string& info_name, const std::string& type,
              const std::string& index);
 
    private:
     // the name
     std::string m_name;
     // key: type of info, must in [int, double, HepLorentzVector]
-    // HepLorentzVector is sepcially because it's used freauently 
-    // value: name, i.e PionP4 
+    // HepLorentzVector is sepcially because it's used freauently
+    // value: name, i.e PionP4
     std::map<std::string, std::vector<std::string> > m_allInfo;
     // the length of one info, for HepLorentzVector, the length is 4
     // for mass the length is 1

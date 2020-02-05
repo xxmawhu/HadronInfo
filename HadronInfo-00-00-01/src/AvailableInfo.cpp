@@ -25,8 +25,8 @@ AvailableInfo::~AvailableInfo() { m_allInfo.clear(); }
 //    return HepLorentzVector(0, 0, 0, -999);
 // }
 
-void AvailableInfo::add(const string& info_name, const string& type, 
-        const std::string& index) {
+void AvailableInfo::Add(const string& info_name, const string& type,
+                        const std::string& index) {
     // check wether the type exist in the map
     if (m_allInfo.find(type) == m_allInfo.end()) {
         vector<string> tmp;
@@ -45,8 +45,8 @@ void AvailableInfo::add(const string& info_name, const string& type,
     }
 }
 
-void AvailableInfo::add(const string& info_name, const string& type, 
-        const int& length) {
+void AvailableInfo::Add(const string& info_name, const string& type,
+                        const int& length) {
     // check wether the type exist in the map
     if (m_allInfo.find(type) == m_allInfo.end()) {
         vector<string> tmp;

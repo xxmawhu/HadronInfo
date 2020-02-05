@@ -26,17 +26,15 @@
 using namespace std;
 class ElectronInfo : public TrackInfo {
    public:
-    ElectronInfo() : TrackInfo(11) 
-    {
+    ElectronInfo() : TrackInfo(11) { SetName("Electron"); }
+    ElectronInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
+        SetPID(11);
         SetName("Electron");
     }
-    ElectronInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { setPID(11);
-        SetName("Electron");
-    }
-    ElectronInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { setPID(11); 
+    ElectronInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) {
+        SetPID(11);
         SetName("Electron");
     }
     ~ElectronInfo() {};
-
 };
 #endif

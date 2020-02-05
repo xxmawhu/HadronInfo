@@ -27,11 +27,11 @@ class ProtonInfo : public TrackInfo {
    public:
     ProtonInfo() : TrackInfo(2212) { SetName("Proton"); }
     ProtonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
-        setPID(2212);
+        SetPID(2212);
         SetName("Proton");
     }
     ProtonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) {
-        setPID(2212);
+        SetPID(2212);
         SetName("Proton");
     }
     ~ProtonInfo() {};

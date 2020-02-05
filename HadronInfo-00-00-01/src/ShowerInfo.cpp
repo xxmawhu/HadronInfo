@@ -28,7 +28,7 @@ ShowerInfo::~ShowerInfo() {
     m_shower = 0;
     m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
-bool ShowerInfo::calculate() {
+bool ShowerInfo::Calculate() {
     if (m_cal) {
         return true;
     }
@@ -56,26 +56,27 @@ bool ShowerInfo::calculate() {
     return true;
 }
 
-HepLorentzVector ShowerInfo::p4() {
+HepLorentzVector ShowerInfo::P4() {
     if (m_cal) {
         return m_p4;
     } else {
-        this->calculate();
+        this->Calculate();
         return m_p4;
     }
 }
 
 ShowerInfo &ShowerInfo::operator=(ShowerInfo &aShowerInfo) {
-    m_shower = aShowerInfo.getchild();
-    m_p4 = aShowerInfo.p4();
+    m_shower = aShowerInfo.GetChild();
+    m_p4 = aShowerInfo.P4();
     return *this;
 }
 // const double &ShowerInfo::GetDoubleInfo(const string &info_name) {
-    // if (info_name == "decayLengthError") return this->decayLengthError();
+// if (info_name == "decayLengthError") return this->DecayLengthError();
 //    return -110;
 // }
 
-// const HepLorentzVector &ShowerInfo::GetLorentzVector(const string &info_name) {
-//    if (info_name == "p4") return this->p4();
+// const HepLorentzVector &ShowerInfo::GetLorentzVector(const string &info_name)
+// {
+//    if (info_name == "p4") return this->P4();
 //    return HepLorentzVector(0, 0, 0, -110);
 // }

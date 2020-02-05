@@ -22,14 +22,14 @@ class EtaInfo : public GGInfo {
     void Feed(vector<const EvtRecTrack *>);
     void Feed(const CDCandidate &);
     ~EtaInfo();
-    virtual bool calculate();
+    virtual bool Calculate();
     // virtual bool isGoodPhoton(EvtRecTrack *);
     //  virtual const double& GetDoubleInfo(const string &);
     //  virtual const HepLorentzVector& GetLorentzVector(const string
     // &info_name);
-    void setchild(const int &, const EvtRecTrack *);
-    void setchilds(const EvtRecTrack *, const EvtRecTrack *);
-    EvtRecTrack *getchild(const int &i);
+    void SetChild(const int &, const EvtRecTrack *);
+    void SetChildren(const EvtRecTrack *, const EvtRecTrack *);
+    EvtRecTrack *GetChild(const int &i);
 
    private:
     EvtRecTrack *m_shower[2];

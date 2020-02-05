@@ -24,7 +24,6 @@
 #include "VertexFit/VertexFit.h"
 #include <iostream>
 
-using namespace std;
 class TrackInfo : public AvailableInfo {
    public:
     TrackInfo();
@@ -36,67 +35,63 @@ class TrackInfo : public AvailableInfo {
     ~TrackInfo();
 
     const int Charge() { return m_track->mdcKalTrack()->charge(); }
-    // virtual const double &GetDoubleInfo(const string &);
-    // virtual const HepLorentzVector &GetLorentzVector(const string &info_name);
-    virtual void GetInfo(const std::string&info_name, double& targe){
+    virtual void GetInfo(const std::string &info_name, double &targe) {
         if (info_name == "Rxy") {
             targe = this->m_Rxy;
-            return ; 
+            return;
         }
         if (info_name == "Rz") {
             targe = this->m_Rz;
-            return; 
+            return;
         }
         if (info_name == "CosTheta") {
             targe = this->m_costheta;
-            return; 
+            return;
         }
     }
-    virtual void GetInfo(const std::string&info_name, HepLorentzVector& targe){
+    virtual void GetInfo(const std::string &info_name,
+                         HepLorentzVector &targe) {
         if (info_name == "p4") {
-            targe = this->p4();
-            return; 
+            targe = this->P4();
+            return;
         }
     }
 
-    virtual const bool DoVertexFit() {
-        return false;
-    } 
+    virtual const bool DoVertexFit() { return false; }
 
-    void setPrimaryVertex(VertexParameter& vpar) {
-    }
+    void SetPrimaryVertex(VertexParameter &vpar) {}
 
     void SetTrack(const int &parId, const EvtRecTrack *);
     void SetTrack(const EvtRecTrack *);
     // TrackInfo &operator=(TrackInfo &aTrackInfo);
 
-    void setPID(const int &pid) { m_parId = pid; }
-    HepLorentzVector p4();
-    HepLorentzVector p4(const int &PID);
-    HepLorentzVector p4(EvtRecTrack *, const int &);
-    HepLorentzVector p4c(const EvtRecTrack *, const int &);
-    WTrackParameter wtrk(EvtRecTrack *, const int &);
-    WTrackParameter wtrk(const int &PID);
-    WTrackParameter wtrk();
-    WTrackParameter wtrkc(const EvtRecTrack *, const int &);
-    const HepPoint3D &getIP();
-    void updateWTrk(const WTrackParameter& newWtrk);
+    void SetPID(const int &pid) { m_parId = pid; }
+    HepLorentzVector P4();
+    HepLorentzVector P4(const int &PID);
+    HepLorentzVector P4(EvtRecTrack *, const int &);
+    HepLorentzVector P4c(const EvtRecTrack *, const int &);
+    WTrackParameter WTrk(EvtRecTrack *, const int &);
+    WTrackParameter WTrk(const int &PID);
+    WTrackParameter WTrk();
+    WTrackParameter WTrkc(const EvtRecTrack *, const int &);
+    const HepPoint3D &GetIP();
+    void UpdateWTrk(const WTrackParameter &newWtrk);
 
    private:
     bool m_cal;
     bool m_updateWTrk;
-    void calculate();
+    void Calculate();
     EvtRecTrack *m_track;
     WTrackParameter m_wtrk;
     int m_parId;
     double m_Rxy, m_Rz, m_costheta;
     HepLorentzVector m_p4;
     double m_mass;
-    void addAvialInfo() {
-        AvailableInfo::add("Rxy", "double");
-        AvailableInfo::add("Rz", "double");
-        AvailableInfo::add("CosTheta", "double");
-        AvailableInfo::add("p4", "HepLorentzVector");
+    void AddAvialInfo() {
+        AvailableInfo::Add("Rxy", "double");
+        AvailableInfo::Add("Rz", "double");
+        AvailableInfo::Add("CosTheta", "double");
+        AvailableInfo::Add("p4", "HepLorentzVector");
     }
 };
 #endif

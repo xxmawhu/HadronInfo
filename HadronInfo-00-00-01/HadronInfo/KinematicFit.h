@@ -15,31 +15,27 @@
 
 #include "BesDChain/CDDecay.h"
 #include <iostream>
-using namespace std;
-const double Ksinfo_mpi = 0.139570;
 
 class KinematicFit {
    public:
     KinematicFit();
-    KinematicFit(EvtRecTrack *, EvtRecTrack *);
     KinematicFit(const CDCandidate &aKs);
+    Feed(const CDCandidate &aKs);
     ~KinematicFit();
 
-    KinematicFit &operator=(KinematicFit &aKinematicFit);
-
-    void setchild(int n, EvtRecTrack *track);
-    void setchilds(EvtRecTrack *track0, EvtRecTrack *track1);
-    EvtRecTrack *getchild(int n);
-    bool calculate();
+    void SetChild(int n, EvtRecTrack *track);
+    void SetChildren(EvtRecTrack *track0, EvtRecTrack *track1);
+    EvtRecTrack *GetChild(int n);
+    bool Calculate();
     double m();
-    double mksp4();
+    double mksP4();
     double vtxChi2();
     double chi2();
-    double decayLength();
-    double decayLengthRatio();
-    double decayLengthError();
-    HepLorentzVector p4();
-    HepLorentzVector p4child(int i);
+    double DecayLength();
+    double DecayLengthRatio();
+    double DecayLengthError();
+    HepLorentzVector P4();
+    HepLorentzVector P4Child(int i);
     HepLorentzVector pfit(int i);
     HepPoint3D sndvtx();
     WTrackParameter wVirtualTrack();
@@ -49,6 +45,7 @@ class KinematicFit {
     bool init();
 
    private:
+    KinematicFit &operator=(KinematicFit &aKinematicFit);
     EvtRecTrack *m_track0;
     EvtRecTrack *m_track1;
     HepLorentzVector m_p4;

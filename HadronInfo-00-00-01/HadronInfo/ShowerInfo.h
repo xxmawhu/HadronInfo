@@ -16,7 +16,6 @@
 #include "BesDChain/CDDecay.h"
 #include "HadronInfo/AvailableInfo.h"
 
-using namespace std;
 class ShowerInfo : public AvailableInfo {
    public:
     ShowerInfo();
@@ -24,31 +23,34 @@ class ShowerInfo : public AvailableInfo {
     void Feed(const CDCandidate &aTrk);
     ~ShowerInfo();
     //  virtual const double &GetDoubleInfo(const std::string &);
-    // virtual const HepLorentzVector &GetLorentzVector(const std::string &info_name);
-    virtual void GetInfo(const std::string& info_name, HepLorentzVector& targe){
+    // virtual const HepLorentzVector &GetLorentzVector(const std::string
+    // &info_name);
+    virtual void GetInfo(const std::string &info_name,
+                         HepLorentzVector &targe) {
         if (info_name == "p4") {
-            targe = this->p4();
+            targe = this->P4();
             return;
         }
     }
+    int Charge() { return 0; }
 
-    void setchild(EvtRecTrack *shower) { m_shower = shower; }
-    EvtRecTrack *getchild() { return m_shower; }
-    HepLorentzVector p4();
-    void setEnergyThreshold(double energyThreshold_b,
+    void SetChild(EvtRecTrack *shower) { m_shower = shower; }
+    EvtRecTrack *GetChild() { return m_shower; }
+    HepLorentzVector P4();
+    void SetEnergyThreshold(double energyThreshold_b,
                             double energyThreshold_e) {
         m_energyThreshold_b = energyThreshold_b;
         m_energyThreshold_e = energyThreshold_e;
     }
-    void setCosTheta(double costheta_b, double costheta_e1,
+    void SetCosTheta(double costheta_b, double costheta_e1,
                      double costheta_e2) {
         m_costheta_b = costheta_b;
         m_costheta_e1 = costheta_e1;
         m_costheta_e2 = costheta_e2;
     }
-    bool isBad() { return m_badshower; }
+    bool IsBad() { return m_badshower; }
     ShowerInfo &operator=(ShowerInfo &aShowerInfo);
-    bool calculate();
+    bool Calculate();
 
    private:
     EvtRecTrack *m_shower;
@@ -60,6 +62,6 @@ class ShowerInfo : public AvailableInfo {
     double m_costheta_e2;
     bool m_badshower;
     bool m_cal;
-    void addAvialInfo() { AvailableInfo::add("p4", "HepLorentzVector"); }
+    void AddAvialInfo() { AvailableInfo::Add("p4", "HepLorentzVector"); }
 };
 #endif

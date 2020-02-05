@@ -27,13 +27,14 @@ using namespace std;
 class KaonInfo : public TrackInfo {
    public:
     KaonInfo() : TrackInfo(321) { SetName("Kaon"); }
-    KaonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) { 
-        setPID(321); 
+    KaonInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
+        SetPID(321);
         SetName("Kaon");
     }
-    KaonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) { 
-        setPID(321); 
-        SetName("Kaon");}
+    KaonInfo(const CDCandidate& aTrk) : TrackInfo(aTrk) {
+        SetPID(321);
+        SetName("Kaon");
+    }
     ~KaonInfo() {};
 };
 #endif
