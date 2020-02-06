@@ -20,14 +20,35 @@
 #include "HadronInfo/ProtonInfo.h"
 #include "HadronInfo/Pi0Info.h"
 #include "HadronInfo/EtaInfo.h"
-#include "HadronInfo/LamInfo.h"
+#include "HadronInfo/LambdaInfo.h"
 #include "HadronInfo/KsInfo.h"
 #include "HadronInfo/OmegamInfo.h"
-#include <cstdlib>
+#include "HadronInfo/SigmamInfo.h"
+#include "HadronInfo/Sigma0Info.h"
+#include "HadronInfo/XimInfo.h"
+#include "HadronInfo/Xi0Info.h"
 
-static EtaInfo ggEtaInfo;
+#include "HadronInfo/OmegaInfo.h"
+#include "HadronInfo/PhiInfo.h"
+// #include <cstdlib>
+static PionInfo gPionInfo;
+static KaonInfo gKaonInfo;
+static ProtonInfo gProtonInfo;
+static ElectronInfo gElectronInfo;
+static ShowerInfo gShowerInfo;
+
 static Pi0Info gPi0Info;
-static OmegamInfo gOmegamInfo;
+static EtaInfo ggEtaInfo;
+
 static KsInfo gKsInfo;
-LamInfo gLamInfo;
+static LambdaInfo gLambdaInfo;
+
+static OmegamInfo gOmegamInfo;
+static Sigma0Info gSigma0Info;
+static SigmamInfo gSigmapInfo;
+static XimInfo gXimInfo;
+static Xi0Info gXi0Info;
+
+static OmegaInfo gOmegaInfo; 
+static PhiInfo gPhiInfo;
 #endif

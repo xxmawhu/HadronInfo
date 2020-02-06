@@ -33,6 +33,8 @@ inline string Name(const int &pid) {
     if (pid == 3122) return string("Lambda");
     if (pid == -3122) return string("Lambdabar");
     if (pid == 333) return string("Phi");
+    if (pid == 3112) return string("Sigmap");
+    if (pid == -3112) return string("Sigmabarm");
     if (pid == 3212) return string("Sigma0");
     if (pid == -3212) return string("Sigmabar0");
     if (pid == 411) return string("D+");
