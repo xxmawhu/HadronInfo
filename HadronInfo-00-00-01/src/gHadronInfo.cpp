@@ -15,6 +15,6 @@ void hhhh(){
     kaonInfo.GetName();
     PionInfo pionInfo;
     pionInfo.GetName();
-    gLamInfo.GetName();
+    gLambdaInfo.GetName();
 }
 

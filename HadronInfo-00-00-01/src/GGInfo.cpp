@@ -170,3 +170,10 @@ bool GGInfo::isGoodPhoton(EvtRecTrack* track) {
     }
     return false;
 }
+void GGInfo::UpdateWTrk(const WTrackParameter &newWtrk) {
+    m_wtrk = newWtrk;
+    m_P41C = newWtrk.p();
+    m_mpi0 = newWtrk.mass();
+    m_updateWTrk = true;
+    m_calculate = false;
+}

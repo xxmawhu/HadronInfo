@@ -8,6 +8,8 @@
 //#include "GaudiKernel/IDataProviderSvc.h"
 
 #include "EvtRecEvent/EvtRecTrack.h"
+#include "VertexFit/WTrackParameter.h"
+#include "VertexFit/VertexFit.h"
 //#include "EvtRecEvent/EvtRecDTag.h"
 
 #include <iostream>
@@ -48,12 +50,32 @@ class ShowerInfo : virtual public AvailableInfo {
         m_costheta_e1 = costheta_e1;
         m_costheta_e2 = costheta_e2;
     }
+    WTrackParameter& WTrk() {
+        RecEmcShower *shower = m_shower->emcShower();
+        double eraw = shower->energy();
+        double phi = shower->phi();
+        double the = shower->theta();
+        m_p4.setPx(eraw * sin(the) * cos(phi));
+        m_p4.setPy(eraw * sin(the) * sin(phi));
+        m_p4.setPz(eraw * cos(the));
+        m_p4.setE(eraw);
+
+        double dphi = shower->dphi();
+        double dtheta = shower->dtheta();
+        double dE = shower->dE();
+        m_wtrk = WTrackParameter(m_p4, dphi, dtheta, dE);
+        return m_wtrk;
+    }
+    virtual bool DoVertexFit() {return false;}
+    void SetPrimaryVertex(VertexParameter &vpar) {};
+    void UpdateWTrk(const WTrackParameter &newWtrk){};
     bool IsBad() { return m_badshower; }
-    ShowerInfo &operator=(ShowerInfo &aShowerInfo);
+    // ShowerInfo &operator=(ShowerInfo &aShowerInfo);
     bool Calculate();
 
    private:
     EvtRecTrack *m_shower;
+    WTrackParameter m_wtrk;
     HepLorentzVector m_p4;
     double m_energyThreshold_b;
     double m_energyThreshold_e;

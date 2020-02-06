@@ -19,6 +19,7 @@ ShowerInfo::ShowerInfo(const CDCandidate &aTrk) {
     m_cal = false;
     SetName("photon");
 }
+
 void ShowerInfo::Feed(const CDCandidate &aTrk) {
     m_shower = const_cast<EvtRecTrack *>(aTrk.finalChildren().second[0]);
     m_cal = false;
@@ -65,11 +66,11 @@ HepLorentzVector ShowerInfo::P4() {
     }
 }
 
-ShowerInfo &ShowerInfo::operator=(ShowerInfo &aShowerInfo) {
-    m_shower = aShowerInfo.GetChild();
-    m_p4 = aShowerInfo.P4();
-    return *this;
-}
+// ShowerInfo &ShowerInfo::operator=(ShowerInfo &aShowerInfo) {
+//    m_shower = aShowerInfo.GetChild();
+//    m_p4 = aShowerInfo.P4();
+//    return *this;
+// }
 // const double &ShowerInfo::GetDoubleInfo(const string &info_name) {
 // if (info_name == "decayLengthError") return this->DecayLengthError();
 //    return -110;

@@ -23,13 +23,15 @@
 #include "HadronInfo/LambdaInfo.h"
 #include "HadronInfo/KsInfo.h"
 #include "HadronInfo/OmegamInfo.h"
-#include "HadronInfo/SigmamInfo.h"
+// #include "HadronInfo/SigmamInfo.h"
 #include "HadronInfo/Sigma0Info.h"
+#include "HadronInfo/SigmapInfo.h"
 #include "HadronInfo/XimInfo.h"
 #include "HadronInfo/Xi0Info.h"
 
 #include "HadronInfo/OmegaInfo.h"
 #include "HadronInfo/PhiInfo.h"
+#include "HadronInfo/EtaV3PiInfo.h"
 // #include <cstdlib>
 static PionInfo gPionInfo;
 static KaonInfo gKaonInfo;
@@ -45,10 +47,32 @@ static LambdaInfo gLambdaInfo;
 
 static OmegamInfo gOmegamInfo;
 static Sigma0Info gSigma0Info;
-static SigmamInfo gSigmapInfo;
+static SigmapInfo gSigmapInfo;
 static XimInfo gXimInfo;
 static Xi0Info gXi0Info;
 
-static OmegaInfo gOmegaInfo; 
+static OmegaInfo gOmegaInfo;
 static PhiInfo gPhiInfo;
+static EtaV3PiInfo gEtaV3PiInfo;
+namespace Type {
+enum PID {
+    ElectronInfo = 1,
+    ShowerInfo = 22,
+    Pi0Info = 111,
+    PionInfo = 211,
+    EtaInfo = 221,
+    OmegaInfo = 223,
+    KsInfo = 310,
+    KaonInfo = 321,
+    PhiInfo = 333,
+    ProtonInfo = 2212,
+    LambdaInfo = 3122,
+    SigmapInfo = 3112,
+    Sigma0Info = 3212,
+    XimInfo = 3312,
+    Xi0Info = 3322,
+    OmegamInfo = 3334,
+    EtaV3PiInfo = 2212211,
+};
+}
 #endif

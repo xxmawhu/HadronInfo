@@ -14,6 +14,6 @@
 #include "HadronInfo/CombInfo.h"
 #include "HadronInfo/LamInfo.h"
 #include "HadronInfo/Pi0Info.h"
-typedef CombInfo<LamInfo, Pi0Info, 3322, 0> Sigma0Info;
+typedef CombInfo<LamInfo, Pi0Info, 3322, 0> Xi0Info;
 
 #endif  // _SIGMA0Info_H

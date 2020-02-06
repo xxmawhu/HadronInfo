@@ -242,7 +242,7 @@ class CombThreeInfo : virtual public AvailableInfo {
         }
         tmpAllInfo = m_thirdInfo.GetType("double");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_thirdInfo.GetInfoVi(tmpname, targe);
+            m_thirdInfo.GetInfoVd(tmpname, targe);
             return;
         }
         return;
@@ -411,7 +411,7 @@ class CombThreeInfo : virtual public AvailableInfo {
         m_isSetPriVtx = true;
         m_calculate = false;
     }
-    std::pair <std::pair <std::pair<FirstInfo, SecondInfo>, ThirdInfo>& Decay() {
+    std::pair< std::pair<FirstInfo, SecondInfo>, ThirdInfo>& Decay() {
         if (!m_calculate) Calculate();
         return std::make_pair(std::make_pair(m_firstInfo, m_secondInfo), m_thirdInfo);
     }
@@ -426,7 +426,7 @@ class CombThreeInfo : virtual public AvailableInfo {
     double m_vertexFitChisq, m_secondVertexFitChisq;
     FirstInfo m_firstInfo;
     SecondInfo m_secondInfo;
-    ThirdInfo m_thirdInfo
+    ThirdInfo m_thirdInfo;
     WTrackParameter m_wVirtualTrack;
     VertexParameter m_vpar;
     VertexParameter m_privtxpar;

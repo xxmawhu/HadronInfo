@@ -14,6 +14,7 @@
 #define CLASS_HadronInfo_GGInfo_H
 
 #include "EvtRecEvent/EvtRecTrack.h"
+#include "VertexFit/VertexFit.h"
 
 #include "CLHEP/Vector/LorentzVector.h"
 #include "VertexFit/KalmanKinematicFit.h"
@@ -51,6 +52,9 @@ class GGInfo : virtual public AvailableInfo {
     // ...
 
     virtual bool Calculate();
+    void UpdateWTrk(const WTrackParameter &newWtrk);
+    void SetPrimaryVertex(VertexParameter &vpar) {};
+    virtual const bool DoVertexFit() { return false; }
     virtual bool isGoodPhoton(EvtRecTrack*);
     void SetWTrackParameter(const WTrackParameter& wtrk);
     void SetRawMass(const double& mass);
@@ -64,6 +68,7 @@ class GGInfo : virtual public AvailableInfo {
 
    private:
     WTrackParameter m_wtrk;
+    bool m_updateWTrk;
     HepLorentzVector m_rawP4;
     HepLorentzVector m_P41C;
     HepLorentzVector m_rawP4Child[2];

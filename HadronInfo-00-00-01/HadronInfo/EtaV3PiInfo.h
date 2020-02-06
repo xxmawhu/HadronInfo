@@ -14,6 +14,6 @@
 #include "HadronInfo/CombThreeInfo.h"
 #include "HadronInfo/Pi0Info.h"
 #include "HadronInfo/PionInfo.h"
-typedef CombThreeInfo<PionInfo, PionInfo, Pi0Info, 2212211, 0> EtaV3piInfo;
+typedef CombThreeInfo<PionInfo, PionInfo, Pi0Info, 2212211, 0> EtaV3PiInfo;
 
 #endif
