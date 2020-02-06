@@ -99,27 +99,27 @@ class CombInfo : virtual public AvailableInfo {
         return doVertexFit;
     }
     int Charge() { return m_firstInfo.Charge() + m_secondInfo.Charge(); }
-    virtual void GetInfo(const std::string& info_name, int& targe) {
+    virtual void GetInfoI(const std::string& info_name, int& targe) {
         int length = info_name.size() - (this->GetName()).size();
-        std::string firstname = m_firstInfo.GetName();
+        // std::string firstname = m_firstInfo.GetName();
         std::string tmpname = info_name.substr(0, length);
-        m_firstInfo.GetInfoInt(firstname, length);
-        m_firstInfo.GetInfo(firstname, length);
-    //   // firsInfo 
-    //   std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
-    //   if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-    //       m_firstInfo.GetInfo(tmpname, targe);
-    //       return;
-    //   }
-    //   tmpAllInfo = m_secondInfo.GetType("int");
-    //   if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-    //       m_secondInfo.GetInfo(tmpname, targe);
-    //       return;
-    //   }
-    //   return;
+      //  m_firstInfo.GetInfoInt(firstname, length);
+      //  m_firstInfo.GetInfo(firstname, length);
+       // firsInfo 
+       std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
+       if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+           m_firstInfo.GetInfoI(tmpname, targe);
+           return;
+       }
+       tmpAllInfo = m_secondInfo.GetType("int");
+       if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+           m_secondInfo.GetInfoI(tmpname, targe);
+           return;
+       }
+       return;
     }
-    /*
-    virtual void GetInfo(const std::string& info_name, double& targe) {
+
+    virtual void GetInfoD(const std::string& info_name, double& targe) {
         if (info_name == string("decayLength")) {
             targe = m_decayLength;
             return;
@@ -147,17 +147,17 @@ class CombInfo : virtual public AvailableInfo {
         // firsInfo 
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("double");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_firstInfo.GetInfo(tmpname, targe);
+            m_firstInfo.GetInfoD(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("double");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_secondInfo.GetInfo(tmpname, targe);
+            m_secondInfo.GetInfoD(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfo(const std::string& info_name, HepLorentzVector& targe) {
+    virtual void GetInfoH(const std::string& info_name, HepLorentzVector& targe) {
         if (info_name == string("p4")) {
             targe = this->P4();
             return;
@@ -170,49 +170,48 @@ class CombInfo : virtual public AvailableInfo {
         // firsInfo 
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("HepLorentzVector");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_firstInfo.GetInfo(tmpname, targe);
+            m_firstInfo.GetInfoH(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("HepLorentzVector");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_secondInfo.GetInfo(tmpname, targe);
+            m_secondInfo.GetInfoH(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfo(const std::string& info_name, std::vector<int>& targe) {
+    virtual void GetInfoVi(const std::string& info_name, std::vector<int>& targe) {
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
         // firsInfo 
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_firstInfo.GetInfo(tmpname, targe);
+            m_firstInfo.GetInfoVi(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("int");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_secondInfo.GetInfo(tmpname, targe);
+            m_secondInfo.GetInfoVi(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfo(const std::string& info_name, std::vector<double>& targe) {
+    virtual void GetInfoVd(const std::string& info_name, std::vector<double>& targe) {
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
         // firsInfo 
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("double");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_firstInfo.GetInfo(tmpname, targe);
+            m_firstInfo.GetInfoVd(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("double");
         if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-            m_secondInfo.GetInfo(tmpname, targe);
+            m_secondInfo.GetInfoVd(tmpname, targe);
             return;
         }
         return;
     }
-    */
 
     virtual bool Calculate() {
         if (m_calculate) {

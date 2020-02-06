@@ -23,15 +23,15 @@
 #include <iostream>
 #include <string>
 
-class GGInfo : public AvailableInfo {
+class GGInfo : virtual public AvailableInfo {
    public:
     GGInfo() : AvailableInfo() {};
     ~GGInfo() {};
     int Charge() { return 0; }
     virtual const double& GetDoubleInfo(const string& info_name);
     virtual const HepLorentzVector& GetLorentzVector(const string& info_name);
-    virtual void GetInfo(const std::string& info_name, double& targe);
-    virtual void GetInfo(const std::string& info_name, HepLorentzVector& targe);
+    virtual void GetInfoD(const std::string& info_name, double& targe);
+    virtual void GetInfoH(const std::string& info_name, HepLorentzVector& targe);
     const double& Mass();
     const double& Chisq();
     const double& Angle();

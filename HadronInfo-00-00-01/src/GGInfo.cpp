@@ -31,7 +31,7 @@ void GGInfo::AddAvialInfo() {
     AvailableInfo::Add("p4GammaHigh", "HepLorentzVector");
     AvailableInfo::Add("p4GammaLow", "HepLorentzVector");
 }
-void GGInfo::GetInfo(const std::string& info_name, double& targe) {
+void GGInfo::GetInfoD(const std::string& info_name, double& targe) {
     if (info_name == "mass") {
         targe = this->Mass();
     } else if (info_name == "openAngle") {
@@ -41,7 +41,7 @@ void GGInfo::GetInfo(const std::string& info_name, double& targe) {
         targe = this->Helicity();
     }
 }
-void GGInfo::GetInfo(const std::string& info_name,
+void GGInfo::GetInfoH(const std::string& info_name,
                              HepLorentzVector& targe) {
     if (info_name == "p4") {
         targe = this->P4();

@@ -24,7 +24,7 @@
 #include "VertexFit/VertexFit.h"
 #include <iostream>
 
-class TrackInfo : public AvailableInfo {
+class TrackInfo : virtual public AvailableInfo {
    public:
     TrackInfo();
     TrackInfo(const int &);
@@ -35,7 +35,7 @@ class TrackInfo : public AvailableInfo {
     ~TrackInfo();
 
     const int Charge() { return m_track->mdcKalTrack()->charge(); }
-    void GetInfo(const std::string &info_name, double &targe) {
+    virtual void GetInfoD(const std::string &info_name, double &targe) {
         if (info_name == "Rxy") {
             targe = this->m_Rxy;
             return;
@@ -49,7 +49,7 @@ class TrackInfo : public AvailableInfo {
             return;
         }
     }
-    void GetInfo(const std::string &info_name,
+    virtual void GetInfoH(const std::string &info_name,
                          HepLorentzVector &targe) {
         if (info_name == "p4") {
             targe = this->P4();

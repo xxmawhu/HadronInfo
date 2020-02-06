@@ -16,7 +16,7 @@
 #include "BesDChain/CDDecay.h"
 #include "HadronInfo/AvailableInfo.h"
 
-class ShowerInfo : public AvailableInfo {
+class ShowerInfo : virtual public AvailableInfo {
    public:
     ShowerInfo();
     ShowerInfo(const CDCandidate &aTrk);
@@ -25,7 +25,7 @@ class ShowerInfo : public AvailableInfo {
     //  virtual const double &GetDoubleInfo(const std::string &);
     // virtual const HepLorentzVector &GetLorentzVector(const std::string
     // &info_name);
-    virtual void GetInfo(const std::string &info_name,
+    virtual void GetInfoH(const std::string &info_name,
                          HepLorentzVector &targe) {
         if (info_name == "p4") {
             targe = this->P4();

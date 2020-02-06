@@ -24,7 +24,7 @@
 #include <iostream>
 #include <string>
 
-class PionInfo : public TrackInfo, virtual public AvailableInfo {
+class PionInfo : public TrackInfo{
    public:
     PionInfo() : TrackInfo(211), AvailableInfo() { SetName("Pion"); }
     PionInfo(const EvtRecTrack* aTrack) : TrackInfo(aTrack) {
