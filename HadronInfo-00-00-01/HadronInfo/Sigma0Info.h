@@ -14,7 +14,6 @@
 #include "HadronInfo/CombInfo.h"
 #include "HadronInfo/LamInfo.h"
 #include "HadronInfo/ShowerInfo.h"
-bool doVertexFit = false;
 typedef CombInfo<LamInfo, ShowerInfo, 3212, 0> Sigma0Info;
 
 #endif  // _SIGMA0Info_H
