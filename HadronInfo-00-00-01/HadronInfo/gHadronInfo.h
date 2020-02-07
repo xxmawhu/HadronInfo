@@ -40,7 +40,7 @@ static ElectronInfo gElectronInfo;
 static ShowerInfo gShowerInfo;
 
 static Pi0Info gPi0Info;
-static EtaInfo ggEtaInfo;
+static EtaInfo gEtaInfo;
 
 static KsInfo gKsInfo;
 static LambdaInfo gLambdaInfo;

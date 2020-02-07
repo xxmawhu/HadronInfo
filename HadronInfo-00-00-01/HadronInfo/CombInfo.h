@@ -99,7 +99,7 @@ class CombInfo : virtual public AvailableInfo {
         return doVertexFit;
     }
     int Charge() { return m_firstInfo.Charge() + m_secondInfo.Charge(); }
-    virtual void GetInfoI(const std::string& info_name, int& targe) {
+    virtual void GetInfoI(const std::string& info_name, int& targe){
         int length = info_name.size() - (this->GetName()).size();
         // std::string firstname = m_firstInfo.GetName();
         std::string tmpname = info_name.substr(0, length);
@@ -119,7 +119,7 @@ class CombInfo : virtual public AvailableInfo {
        return;
     }
 
-    virtual void GetInfoD(const std::string& info_name, double& targe) {
+    virtual void GetInfoD(const std::string& info_name, double& targe){
         if (info_name == string("decayLength")) {
             targe = m_decayLength;
             return;
@@ -180,7 +180,7 @@ class CombInfo : virtual public AvailableInfo {
         }
         return;
     }
-    virtual void GetInfoVi(const std::string& info_name, std::vector<int>& targe) {
+    virtual void GetInfoVi(const std::string& info_name, std::vector<int>& targe){
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
         // firsInfo 

@@ -13,6 +13,7 @@
 #include "HadronInfo/AvailableInfo.h"
 #include <string>
 #include <vector>
+using std::map;
 using std::string;
 using std::vector;
 using CLHEP::HepLorentzVector;
@@ -67,18 +68,24 @@ void AvailableInfo::Add(const string& info_name, const string& type,
     }
 }
 
-const vector<string> AvailableInfo::GetType(const std::string& type) {
-    if (m_allInfo.find(type) != m_allInfo.end()) {
-        return m_allInfo[type];
+const vector<string>& AvailableInfo::GetType(const std::string& type) const{
+    map<string, vector<string> > ::const_iterator itr = m_allInfo.find(type);
+    if (itr != m_allInfo.end()) {
+        return itr->second;
     } else {
-        vector<string> tmp;
-        return tmp;
+        return empty;
     }
 }
 
-const int AvailableInfo::GetLength(const std::string& info_name) {
-    return m_lengthInfo[info_name];
+const int AvailableInfo::GetLength(const std::string& info_name) const {
+    map<string, int>::const_iterator itr = m_lengthInfo.find(info_name);
+    if (itr == m_lengthInfo.end()){
+        return 0;
+    }else {
+        return itr->second;
+    }
 }
-const string AvailableInfo::GetIndex(const std::string& info_name) {
-    return m_indexInfo[info_name];
+const string AvailableInfo::GetIndex(const std::string& info_name) const{
+    map<string, string>::const_iterator itr = m_indexInfo.find(info_name);
+    return m_indexInfo.find(info_name)->second;
 }
