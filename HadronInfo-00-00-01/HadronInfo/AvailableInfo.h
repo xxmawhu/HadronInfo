@@ -48,6 +48,11 @@ class AvailableInfo {
     // the index also should be stored first.
     void Add(const std::string& info_name, const std::string& type,
              const std::string& index);
+    void Clear(){
+        m_allInfo.clear();
+        m_lengthInfo.clear();
+        m_indexInfo.clear();
+    }
 
    private:
     // the name
