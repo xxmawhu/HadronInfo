@@ -12,7 +12,6 @@
 
 #ifndef HadronInfo_gHadromInfo_H
 #define HadronInfo_gHadromInfo_H
-#include "HadronInfo/TrackInfo.h"
 #include "HadronInfo/ShowerInfo.h"
 #include "HadronInfo/ElectronInfo.h"
 #include "HadronInfo/KaonInfo.h"

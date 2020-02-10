@@ -44,6 +44,12 @@ void AvailableInfo::Add(const string& info_name, const string& type,
     } else {
         m_lengthInfo.insert(std::make_pair(info_name, 1));
     }
+    if (index != "NULL") {
+        if (std::find(m_allindex.begin(), m_allindex.end(), index) ==
+            m_allindex.end()) {
+            m_allindex.push_back(index);
+        }
+    }
 }
 
 void AvailableInfo::Add(const string& info_name, const string& type,
@@ -68,8 +74,8 @@ void AvailableInfo::Add(const string& info_name, const string& type,
     }
 }
 
-const vector<string>& AvailableInfo::GetType(const std::string& type) const{
-    map<string, vector<string> > ::const_iterator itr = m_allInfo.find(type);
+const vector<string>& AvailableInfo::GetType(const std::string& type) const {
+    map<string, vector<string> >::const_iterator itr = m_allInfo.find(type);
     if (itr != m_allInfo.end()) {
         return itr->second;
     } else {
@@ -79,13 +85,13 @@ const vector<string>& AvailableInfo::GetType(const std::string& type) const{
 
 const int AvailableInfo::GetLength(const std::string& info_name) const {
     map<string, int>::const_iterator itr = m_lengthInfo.find(info_name);
-    if (itr == m_lengthInfo.end()){
+    if (itr == m_lengthInfo.end()) {
         return 0;
-    }else {
+    } else {
         return itr->second;
     }
 }
-const string AvailableInfo::GetIndex(const std::string& info_name) const{
+const string AvailableInfo::GetIndex(const std::string& info_name) const {
     map<string, string>::const_iterator itr = m_indexInfo.find(info_name);
     return m_indexInfo.find(info_name)->second;
 }

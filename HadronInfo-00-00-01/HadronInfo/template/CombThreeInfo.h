@@ -3,15 +3,15 @@
 #
 #   Author        : Xin-Xin MA
 #   Email         : xxmawhu@163.com
-#   File Name     : CombInfo.h
+#   File Name     : CombThreeInfo.h
 #   Create Time   : 2019-12-11 10:37
-#   Last Modified : 2019-12-12 12:33
+#   Last Modified : 2020-02-06 18:13
 #   Describe      :
 # get the combinate information of two particles, three particles
 # for example, (pi0, pi0), (pi+, pi-, eta)
 # ====================================================*/
-#ifndef HadronInfo_COMBInfo_H
-#define HadronInfo_COMBInfo_H
+#ifndef HadronInfo_COMBThreeInfo_H
+#define HadronInfo_COMBThreeInfo_H
 // #include "TupleSvc/DecayTree.h"
 #include "GaudiKernel/Bootstrap.h"
 #include "VertexFit/VertexFit.h"
@@ -30,41 +30,48 @@ using CLHEP::HepLorentzVector;
 using std::string;
 using std::cout;
 using std::endl;
-template <class FirstInfo, class SecondInfo, int pid = 0, int doVertexFit = 0>
-class CombInfo : virtual public AvailableInfo {
+template <class FirstInfo, class SecondInfo, class ThirdInfo, int pid = 0,
+          int doVertexFit = 0>
+class CombThreeInfo : virtual public AvailableInfo {
    public:
-    CombInfo() {
+    CombThreeInfo() {
         m_pid = pid;
         SetName(HadronTool::Name(m_pid));
         m_firstInfo = FirstInfo();
         m_secondInfo = SecondInfo();
+        m_thirdInfo = ThirdInfo();
         AddAvialInfo();
         m_calculate = true;
     }
-    CombInfo(const CDCandidate& combParticle) {
-        if (combParticle.decay().children().size() != 2) {
-            cout << "Error: the numberChildren is not equal 2!" << endl;
+    CombThreeInfo(const CDCandidate& combParticle) {
+        if (combParticle.decay().children().size() < 3) {
+            cout << "Error: the numberChildren less than 3!" << endl;
         }
         // cout << "init with CDCandidate" << endl;
         SetName(HadronTool::Name(m_pid));
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_thirdInfo = ThirdInfo(combParticle.decay().child(2));
         m_firstInfo.SetName(m_firstInfo.GetName() + HadronTool::Name(m_pid));
         m_secondInfo.SetName(m_secondInfo.GetName() + HadronTool::Name(m_pid));
+        m_thirdInfo.SetName(m_thirdInfo.GetName() + HadronTool::Name(m_pid));
         AddAvialInfo();
         m_calculate = false;
     }
-    CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) {
+    CombThreeInfo(FirstInfo& firsInfo, SecondInfo& secondInfo,
+                  ThirdInfo& thirdInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
+        m_thirdInfo = thirdInfo;
         m_firstInfo.SetName(m_firstInfo.GetName() + HadronTool::Name(m_pid));
         m_secondInfo.SetName(m_secondInfo.GetName() + HadronTool::Name(m_pid));
+        m_thirdInfo.SetName(m_thirdInfo.GetName() + HadronTool::Name(m_pid));
         m_pid = pid;
         SetName(HadronTool::Name(m_pid));
-        std::cout << "init CombInfo successful" << std::endl;
+        std::cout << "init CombThreeInfo successful" << std::endl;
         AddAvialInfo();
         m_calculate = false;
-        // std::cout << "CombInfo " << endl;
+        // std::cout << "CombThreeInfo " << endl;
         // std::cout <<  firsInfo.GetName() << " and"
         //    << secondInfo.GetName() << endl;
         // cout << "name : "  << m_pid <<  endl;
@@ -79,17 +86,22 @@ class CombInfo : virtual public AvailableInfo {
         // cout << "init with CDCandidate" << endl;
         m_firstInfo = FirstInfo(combParticle.decay().child(0));
         m_secondInfo = SecondInfo(combParticle.decay().child(1));
+        m_thirdInfo = ThirdInfo(combParticle.decay().child(2));
         m_firstInfo.SetName(m_firstInfo.GetName() + HadronTool::Name(m_pid));
         m_secondInfo.SetName(m_secondInfo.GetName() + HadronTool::Name(m_pid));
+        m_thirdInfo.SetName(m_thirdInfo.GetName() + HadronTool::Name(m_pid));
         m_calculate = false;
     }
-    void Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) {
+    void Feed(FirstInfo& firsInfo, SecondInfo& secondInfo,
+              ThirdInfo& thirdInfo) {
         m_firstInfo = firsInfo;
         m_secondInfo = secondInfo;
+        m_thirdInfo = thirdInfo;
         m_firstInfo.SetName(m_firstInfo.GetName() + HadronTool::Name(m_pid));
         m_secondInfo.SetName(m_secondInfo.GetName() + HadronTool::Name(m_pid));
+        m_thirdInfo.SetName(m_thirdInfo.GetName() + HadronTool::Name(m_pid));
         m_pid = pid;
-        std::cout << "init CombInfo successful" << std::endl;
+        std::cout << "init CombThreeInfo successful" << std::endl;
         m_calculate = false;
     }
     virtual const bool& DoVertexFit() {
@@ -98,28 +110,39 @@ class CombInfo : virtual public AvailableInfo {
         // except pi0, eta, kaon...
         return doVertexFit;
     }
-    int Charge() { return m_firstInfo.Charge() + m_secondInfo.Charge(); }
-    virtual void GetInfoI(const std::string& info_name, int& targe){
+    int Charge() {
+        return m_firstInfo.Charge() + m_secondInfo.Charge() +
+               m_thirdInfo.Charge();
+    }
+    virtual void GetInfoI(const std::string& info_name, int& targe) {
         int length = info_name.size() - (this->GetName()).size();
         // std::string firstname = m_firstInfo.GetName();
         std::string tmpname = info_name.substr(0, length);
-      //  m_firstInfo.GetInfoInt(firstname, length);
-      //  m_firstInfo.GetInfo(firstname, length);
-       // firsInfo 
-       std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
-       if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-           m_firstInfo.GetInfoI(tmpname, targe);
-           return;
-       }
-       tmpAllInfo = m_secondInfo.GetType("int");
-       if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
-           m_secondInfo.GetInfoI(tmpname, targe);
-           return;
-       }
-       return;
+        //  m_firstInfo.GetInfoInt(firstname, length);
+        //  m_firstInfo.GetInfo(firstname, length);
+        // firsInfo
+        std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_firstInfo.GetInfoI(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_secondInfo.GetType("int");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_secondInfo.GetInfoI(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_thirdInfo.GetType("int");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_thirdInfo.GetInfoI(tmpname, targe);
+            return;
+        }
+        return;
     }
 
-    virtual void GetInfoD(const std::string& info_name, double& targe){
+    virtual void GetInfoD(const std::string& info_name, double& targe) {
         if (info_name == string("decayLength")) {
             targe = m_decayLength;
             return;
@@ -141,73 +164,109 @@ class CombInfo : virtual public AvailableInfo {
         } else if (info_name == string("Mass")) {
             targe = this->Mass();
             return;
-        } 
+        }
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
-        // firsInfo 
+        // firsInfo
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("double");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_firstInfo.GetInfoD(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("double");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_secondInfo.GetInfoD(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_thirdInfo.GetType("double");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_thirdInfo.GetInfoD(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfoH(const std::string& info_name, HepLorentzVector& targe) {
+    virtual void GetInfoH(const std::string& info_name,
+                          HepLorentzVector& targe) {
         if (info_name == string("p4")) {
             targe = this->P4();
             return;
         } else if (info_name == string("RawP4")) {
             targe = this->RawP4();
             return;
-        } 
+        }
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
-        // firsInfo 
-        std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("HepLorentzVector");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        // firsInfo
+        std::vector<std::string> tmpAllInfo =
+            m_firstInfo.GetType("HepLorentzVector");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_firstInfo.GetInfoH(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("HepLorentzVector");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_secondInfo.GetInfoH(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_thirdInfo.GetType("HepLorentzVector");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_thirdInfo.GetInfoH(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfoVi(const std::string& info_name, std::vector<int>& targe){
+    virtual void GetInfoVi(const std::string& info_name,
+                           std::vector<int>& targe) {
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
-        // firsInfo 
+        // firsInfo
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_firstInfo.GetInfoVi(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("int");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_secondInfo.GetInfoVi(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_thirdInfo.GetType("int");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_thirdInfo.GetInfoVi(tmpname, targe);
             return;
         }
         return;
     }
-    virtual void GetInfoVd(const std::string& info_name, std::vector<double>& targe) {
+    virtual void GetInfoVd(const std::string& info_name,
+                           std::vector<double>& targe) {
         int length = info_name.size() - (this->GetName()).size();
         std::string tmpname = info_name.substr(0, length);
-        // firsInfo 
+        // firsInfo
         std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("double");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_firstInfo.GetInfoVd(tmpname, targe);
             return;
         }
         tmpAllInfo = m_secondInfo.GetType("double");
-        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) != tmpAllInfo.end()) {
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
             m_secondInfo.GetInfoVd(tmpname, targe);
+            return;
+        }
+        tmpAllInfo = m_thirdInfo.GetType("double");
+        if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
+            tmpAllInfo.end()) {
+            m_thirdInfo.GetInfoVd(tmpname, targe);
             return;
         }
         return;
@@ -217,10 +276,10 @@ class CombInfo : virtual public AvailableInfo {
         if (m_calculate) {
             return true;
         }
-        m_rawp4 = m_firstInfo.P4() + m_secondInfo.P4();
-        m_rawMass = m_rawp4.m(); 
+        m_rawp4 = m_firstInfo.P4() + m_secondInfo.P4() + m_thirdInfo.P4();
+        m_rawMass = m_rawp4.m();
         if (!doVertexFit) {
-            m_p4 = m_firstInfo.P4() + m_secondInfo.P4();
+            m_p4 = m_firstInfo.P4() + m_secondInfo.P4() + m_thirdInfo.P4();
             m_mass = m_p4.m();
             m_calculate = true;
             return true;
@@ -232,6 +291,7 @@ class CombInfo : virtual public AvailableInfo {
         // m_vertexFit -> setChisqCut(1000);
         m_vertexFit->AddTrack(0, m_firstInfo.WTrk());
         m_vertexFit->AddTrack(1, m_secondInfo.WTrk());
+        m_vertexFit->AddTrack(2, m_thirdInfo.WTrk());
 
         VertexParameter wideVertex;
         HepPoint3D vWideVertex(0., 0., 0.);
@@ -255,17 +315,21 @@ class CombInfo : virtual public AvailableInfo {
         m_vpar = m_vertexFit->vpar(0);
         m_firstInfo.UpdateWTrk(m_vertexFit->wtrk(0));
         m_secondInfo.UpdateWTrk(m_vertexFit->wtrk(1));
+        m_thirdInfo.UpdateWTrk(m_vertexFit->wtrk(2));
         if (m_firstInfo.DoVertexFit()) {
             m_firstInfo.SetPrimaryVertex(m_vpar);
         }
         if (m_secondInfo.DoVertexFit()) {
             m_secondInfo.SetPrimaryVertex(m_vpar);
         }
+        if (m_thirdInfo.DoVertexFit()) {
+            m_thirdInfo.SetPrimaryVertex(m_vpar);
+        }
 
         m_mass = m_p4.m();
         m_vertexFitChisq = m_vertexFit->chisq(0);
         m_calculate = true;
-        // cout << "CombInfo " << __func__ << __LINE__ << endl;
+        // cout << "CombThreeInfo " << __func__ << __LINE__ << endl;
         // perform second vertex fit now!
         SecondVertexFit* m_2ndVtxFit = SecondVertexFit::instance();
         m_2ndVtxFit->init();
@@ -371,9 +435,10 @@ class CombInfo : virtual public AvailableInfo {
         m_isSetPriVtx = true;
         m_calculate = false;
     }
-    std::pair<FirstInfo, SecondInfo>& Decay() {
+    std::pair<std::pair<FirstInfo, SecondInfo>, ThirdInfo>& Decay() {
         if (!m_calculate) Calculate();
-        return std::make_pair<m_firstInfo, m_secondInfo>;
+        return std::make_pair(std::make_pair(m_firstInfo, m_secondInfo),
+                              m_thirdInfo);
     }
 
    private:
@@ -386,6 +451,7 @@ class CombInfo : virtual public AvailableInfo {
     double m_vertexFitChisq, m_secondVertexFitChisq;
     FirstInfo m_firstInfo;
     SecondInfo m_secondInfo;
+    ThirdInfo m_thirdInfo;
     WTrackParameter m_wVirtualTrack;
     VertexParameter m_vpar;
     VertexParameter m_privtxpar;
@@ -417,6 +483,10 @@ class CombInfo : virtual public AvailableInfo {
                 m_secondInfo.GetName());
         AddInfo(m_secondInfo.GetType("HepLorentzVector"), "HepLorentzVector",
                 m_secondInfo.GetName());
+        AddInfo(m_thirdInfo.GetType("int"), "int", m_thirdInfo.GetName());
+        AddInfo(m_thirdInfo.GetType("double"), "double", m_thirdInfo.GetName());
+        AddInfo(m_thirdInfo.GetType("HepLorentzVector"), "HepLorentzVector",
+                m_thirdInfo.GetName());
         if (DoVertexFit()) {
             Add("decayLength", "double");
             Add("decayLengthError", "double");

@@ -28,7 +28,7 @@ class ShowerInfo : virtual public AvailableInfo {
     // virtual const HepLorentzVector &GetLorentzVector(const std::string
     // &info_name);
     virtual void GetInfoH(const std::string &info_name,
-                         HepLorentzVector &targe) {
+                          HepLorentzVector &targe) {
         if (info_name == "p4") {
             targe = this->P4();
             return;
@@ -50,7 +50,7 @@ class ShowerInfo : virtual public AvailableInfo {
         m_costheta_e1 = costheta_e1;
         m_costheta_e2 = costheta_e2;
     }
-    WTrackParameter& WTrk() {
+    WTrackParameter &WTrk() {
         RecEmcShower *shower = m_shower->emcShower();
         double eraw = shower->energy();
         double phi = shower->phi();
@@ -66,9 +66,9 @@ class ShowerInfo : virtual public AvailableInfo {
         m_wtrk = WTrackParameter(m_p4, dphi, dtheta, dE);
         return m_wtrk;
     }
-    virtual bool DoVertexFit() {return false;}
+    virtual bool DoVertexFit() { return false; }
     void SetPrimaryVertex(VertexParameter &vpar) {};
-    void UpdateWTrk(const WTrackParameter &newWtrk){};
+    void UpdateWTrk(const WTrackParameter &newWtrk) {};
     bool IsBad() { return m_badshower; }
     // ShowerInfo &operator=(ShowerInfo &aShowerInfo);
     bool Calculate();
