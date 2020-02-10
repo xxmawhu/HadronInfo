@@ -1,31 +1,3 @@
-/* ====================================================
-#   Copyright (C)2019 All rights reserved.
-#
-#   Author        : Xin-Xin MA
-#   Email         : xxmawhu@163.com
-#   File Name     : CombInfo.h
-#   Create Time   : 2019-12-11 10:37
-#   Last Modified : 2019-12-12 12:33
-#   Describe      :
-# get the combinate information of two particles, three particles
-# for example, (pi0, pi0), (pi+, pi-, eta)
-# ====================================================*/
-#ifndef HadronInfo_COMBInfo_H
-#define HadronInfo_COMBInfo_H
-// #include "TupleSvc/DecayTree.h"
-#include "GaudiKernel/Bootstrap.h"
-#include "VertexFit/VertexFit.h"
-#include "VertexFit/SecondVertexFit.h"
-#include "VertexFit/IVertexDbSvc.h"
-#include "CLHEP/Vector/LorentzVector.h"
-#include "BesDChain/CDCandidate.h"
-#include "BesDChain/CDDecay.h"
-#include "HadronInfo/AvailableInfo.h"
-#include "HadronInfo/util.h"
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
 using CLHEP::HepLorentzVector;
 using std::string;
 using std::cout;
@@ -342,11 +314,13 @@ void CombInfo<T1, T2, pid, doFit>::UpdateWTrk(const WTrackParameter& newWtrk) {
     m_p4 = newWtrk.p();
     m_mass = newWtrk.mass();
 }
+
 template <class T1, class T2, int pid, int doFit>
-const WTrackParameter& WTrk() {
+const WTrackParameter& CombInfo<T1, T2, pid, doFit>::WTrk() {
     if (!m_calculate) Calculate();
     return m_wVirtualTrack;
 }
+
 template <class T1, class T2, int pid, int doFit>
 const HepLorentzVector& CombInfo<T1, T2, pid, doFit>::P4() {
     if (!m_calculate) Calculate();

@@ -49,7 +49,7 @@ class CombInfo : virtual public AvailableInfo {
                            std::vector<int>& targe) ;
     virtual void GetInfoVd(const std::string& info_name,
                            std::vector<double>& targe) ;
-    virtual bool Calculate() ;
+    virtual bool Calculate();
     void UpdateWTrk(const WTrackParameter& newWtrk) ;
     const WTrackParameter& WTrk() ;
     const HepLorentzVector& P4() ;
