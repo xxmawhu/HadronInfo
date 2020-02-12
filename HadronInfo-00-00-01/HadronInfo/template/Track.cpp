@@ -25,8 +25,6 @@ void Track<pid>::Calculate() {
     if (m_calculate) {
         return;
     }
-    m_PID = pid;
-    m_p4 = HepLorentzVector(0, 0, 0, 0);
     RecMdcKalTrack *mdcTrk = m_track->mdcKalTrack();
     // const HepPoint3D &ip = GetIP();
     double mass = PDG::mass(pid);
@@ -74,6 +72,7 @@ void Track<pid>::Calculate() {
     m_Rz = fabs(vecipa[3]);
     m_costheta = cos(mdcTrk->theta());
     m_calculate = true;
+    m_p4 = m_wtrk.p(); 
     return;
 }
 
@@ -82,7 +81,7 @@ HepLorentzVector Track<pid>::P4() {
     if (m_updateWTrk) {
         return m_p4;
     }
-    if (!m_calculate) Calculate();
+    Calculate();
     return m_p4;
 }
 
@@ -91,6 +90,23 @@ WTrackParameter Track<pid>::WTrk() {
     if (m_updateWTrk) return m_wtrk;
     Calculate();
     return m_wtrk;
+}
+template <int pid>
+double Track<pid>::GetRxy() {
+    Calculate();
+    return m_Rxy;
+}
+
+template <int pid>
+double Track<pid>::GetRz() {
+    Calculate();
+    return m_Rz;
+}
+
+template <int pid>
+double Track<pid>::GetCosTheta() {
+    Calculate();
+    return m_costheta;
 }
 
 template <int pid>
@@ -138,17 +154,20 @@ void Track<pid>::SetTrack(const EvtRecTrack *track) {
 
 template <int pid>
 void Track<pid>::GetInfoD(const std::string &info_name, double &targe) {
+   //cout << "Info in Track::GetInfoD: " 
+   //    << "info_name = " << info_name << endl;
     if (info_name == "Rxy") {
-        targe = this->m_Rxy;
-        return;
-    }
-    if (info_name == "Rz") {
-        targe = this->m_Rz;
-        return;
-    }
-    if (info_name == "CosTheta") {
-        targe = this->m_costheta;
-        return;
+        targe = this->GetRxy();
+   //    cout << "Info in Track::GetInfoD: " 
+   //        << "targe = " << targe << endl;
+    } else if (info_name == "Rz") {
+        targe = this->GetRz();
+   ///    cout << "Info in Track::GetInfoD: " 
+   ///        << "targe = " << targe << endl;
+    } else if (info_name == "CosTheta") {
+        targe = this->GetCosTheta();
+    ///   cout << "Info in Track::GetInfoD: " 
+    ///       << "targe = " << targe << endl;
     }
 }
 

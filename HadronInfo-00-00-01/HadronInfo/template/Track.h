@@ -53,14 +53,11 @@ class Track : virtual public AvailableInfo {
     void SetTrack(const EvtRecTrack *);
     // TrackInfo &operator=(TrackInfo &aTrackInfo);
 
+    double GetRxy();
+    double GetRz();
+    double GetCosTheta();
     HepLorentzVector P4();
-    HepLorentzVector P4(const int &PID);
-    HepLorentzVector P4(EvtRecTrack *, const int &);
-    HepLorentzVector P4c(const EvtRecTrack *, const int &);
-    WTrackParameter WTrk(EvtRecTrack *, const int &);
-    WTrackParameter WTrk(const int &PID);
     WTrackParameter WTrk();
-    WTrackParameter WTrkc(const EvtRecTrack *, const int &);
     void UpdateWTrk(const WTrackParameter &newWtrk);
 
    private:

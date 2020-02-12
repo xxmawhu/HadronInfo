@@ -60,7 +60,7 @@ class CombInfo : virtual public AvailableInfo {
     void SetP4(const HepLorentzVector& p4);
     const double& DecayLength();
     const double& DecayLengthError();
-    const double& DecayLengthRatio();
+    double DecayLengthRatio();
     const double& VertexFitChisq();
     const double& SecondVertexFitChisq();
     // for compatiable
