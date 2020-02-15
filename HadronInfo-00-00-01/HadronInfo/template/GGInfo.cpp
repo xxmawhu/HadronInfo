@@ -3,6 +3,7 @@ template <int pid>
 GGInfo<pid>::GGInfo() {
     m_PID = pid;
     m_massPDG = PDG::mass(m_PID);
+    AddAvialInfo();
 }
 template <int pid>
 GGInfo<pid>::GGInfo(const CDCandidate& sig)
@@ -12,6 +13,7 @@ GGInfo<pid>::GGInfo(const CDCandidate& sig)
     m_calculate = false;
     this->SetChild(0, sig.finalChildren().second[0]);
     this->SetChild(1, sig.finalChildren().second[1]);
+    AddAvialInfo();
 }
 
 template <int pid>
@@ -22,6 +24,7 @@ GGInfo<pid>::GGInfo(const EvtRecTrack* trk1, const EvtRecTrack* trk2)
     m_calculate = false;
     this->SetChild(0, trk1);
     this->SetChild(1, trk2);
+    AddAvialInfo();
 }
 template <int pid>
 GGInfo<pid>::GGInfo(vector<const EvtRecTrack*> trks)
@@ -31,6 +34,7 @@ GGInfo<pid>::GGInfo(vector<const EvtRecTrack*> trks)
     m_calculate = false;
     this->SetChild(0, trks[0]);
     this->SetChild(1, trks[1]);
+    this->AddAvialInfo();
 }
 
 template <int pid>

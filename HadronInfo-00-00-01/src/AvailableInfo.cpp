@@ -42,7 +42,7 @@ void AvailableInfo::Add(const string& info_name, const string& type,
     if (type == "HepLorentzVector") {
         m_lengthInfo.insert(std::make_pair(info_name, 4));
     } else {
-        m_lengthInfo.insert(std::make_pair(info_name, 1));
+        m_lengthInfo.insert(std::make_pair(info_name, 0));
     }
     if (index != "NULL") {
         if (std::find(m_allindex.begin(), m_allindex.end(), index) ==

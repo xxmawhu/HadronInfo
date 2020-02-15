@@ -55,7 +55,7 @@ static PhiInfo gPhiInfo;
 static EtaV3PiInfo gEtaV3PiInfo;
 namespace Type {
 enum PID {
-    ElectronInfo = 1,
+    ElectronInfo = 11,
     ShowerInfo = 22,
     Pi0Info = 111,
     PionInfo = 211,

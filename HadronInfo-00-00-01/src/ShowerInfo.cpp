@@ -8,6 +8,7 @@ ShowerInfo::ShowerInfo() : m_shower(0) {
     m_costheta_e2 = 0.92;
     m_cal = false;
     SetName("photon");
+    this->AddAvialInfo();
 }
 ShowerInfo::ShowerInfo(const CDCandidate &aTrk) {
     m_shower = const_cast<EvtRecTrack *>(aTrk.finalChildren().second[0]);
@@ -18,6 +19,7 @@ ShowerInfo::ShowerInfo(const CDCandidate &aTrk) {
     m_costheta_e2 = 0.92;
     m_cal = false;
     SetName("photon");
+    this->AddAvialInfo();
 }
 
 void ShowerInfo::Feed(const CDCandidate &aTrk) {
