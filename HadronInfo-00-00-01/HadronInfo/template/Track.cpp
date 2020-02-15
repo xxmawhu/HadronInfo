@@ -27,7 +27,7 @@ void Track<pid>::Calculate() {
     }
     RecMdcKalTrack *mdcTrk = m_track->mdcKalTrack();
     // const HepPoint3D &ip = GetIP();
-    double mass = PDG::mass(pid);
+    double mass = PDG::mass(m_PID);
     HepVector helix;
     HepSymMatrix helixError;
     switch (m_PID) {

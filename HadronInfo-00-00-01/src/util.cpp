@@ -53,21 +53,21 @@ std::string HadronTool::Name(const int& pid) {
 double PDG::mass(int pid) {
     switch (pid) {
         case 0:
-            return mElectron;
+            return PDG::mElectron;
         case 1:
-            return mMuon;
+            return PDG::mMuon;
         case 2:
-            return mPion;
+            return PDG::mPion;
         case 3:
-            return mKaon;
+            return PDG::mKaon;
         case 4:
-            return mProton;
+            return PDG::mProton;
         case 111:
-            return mPi0;
+            return PDG::mPi0;
         case 221:
-            return mEta;
+            return PDG::mEta;
         default:
-            return mPion;
+            return PDG::mPion;
     }
 }
 
