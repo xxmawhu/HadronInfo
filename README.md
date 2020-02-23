@@ -37,11 +37,9 @@ class CombInfo : public AvailableInfo {
 ```
 Then we can build all others, for example
 ```c++
-bool doVertexFit = true;
-typedef CombInfo<ProtonInfo, PionInfo, 3312, doVertexFit> LamInfo;
-typedef CombInfo<LamInfo, KaonInfo, 3334, doVertexFit> OmegamInfo;
+typedef CombInfo<ProtonInfo, PionInfo, 3312, 1> LamInfo;
+typedef CombInfo<LamInfo, KaonInfo, 3334, 1> OmegamInfo;
 ```
-It's cool! Is not it?
 
 ### the common method
 One principle is that all class must pose some methods to providing
@@ -51,14 +49,15 @@ necessary information of the short-life particles.
 
 > The name is important to show our respect to the particles.
 
-* p4()
-* mass()
+* P4()
+* Mass()
 ...
 
 
 
 ## How
 ### usage
+
 Create an instance is very easy. You can create one PionInfo instance
 from the track,
 ```c++
@@ -80,5 +79,18 @@ pionInfo.setTrack(aTrack);
 HepLorentzVector p4 = pionInfo.p4();
 ...
 ```
-
-
+### suggestion
+* use the glob avariable defined in the header "gHadronInfo.h"
+```c++
+gKs.Feed(aKsCandidate);
+aKs.chisq();
+aKs.Mass();
+aKs.RawMass();
+...
+```
+* use the TupleSvc
+Please see the [TupleSvc](https://github.com/xxmawhu/TupleSvc)
+```
+aKs.Feed(aKsCandidate);
+aTupleSvc << aKs;
+```
