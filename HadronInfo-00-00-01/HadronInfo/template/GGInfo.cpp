@@ -3,6 +3,7 @@ template <int pid>
 GGInfo<pid>::GGInfo() {
     m_PID = pid;
     m_massPDG = PDG::mass(m_PID);
+    SetName(HadronTool::Name(m_PID));
     AddAvialInfo();
 }
 template <int pid>
@@ -10,6 +11,7 @@ GGInfo<pid>::GGInfo(const CDCandidate& sig)
     : AvailableInfo() {
     m_PID = pid;
     m_massPDG = PDG::mass(m_PID);
+    SetName(HadronTool::Name(m_PID));
     m_calculate = false;
     this->SetChild(0, sig.finalChildren().second[0]);
     this->SetChild(1, sig.finalChildren().second[1]);
@@ -21,6 +23,7 @@ GGInfo<pid>::GGInfo(const EvtRecTrack* trk1, const EvtRecTrack* trk2)
     : AvailableInfo() {
     m_PID = pid;
     m_massPDG = PDG::mass(m_PID);
+    SetName(HadronTool::Name(m_PID));
     m_calculate = false;
     this->SetChild(0, trk1);
     this->SetChild(1, trk2);
@@ -31,6 +34,7 @@ GGInfo<pid>::GGInfo(vector<const EvtRecTrack*> trks)
     : AvailableInfo() {
     m_PID = pid;
     m_massPDG = PDG::mass(m_PID);
+    SetName(HadronTool::Name(m_PID));
     m_calculate = false;
     this->SetChild(0, trks[0]);
     this->SetChild(1, trks[1]);
@@ -142,7 +146,9 @@ void GGInfo<pid>::GetInfoD(const std::string& info_name, double& targe) {
 template <int pid>
 void GGInfo<pid>::GetInfoH(const std::string& info_name,
                            HepLorentzVector& targe) {
+    /// cout << GetName() << "GetInfoH : info_name " << info_name << endl;
     if (info_name == "p4") {
+        ///  cout << "GetInfoH : p4 " << this->P4() << endl;
         targe = this->P4();
     } else if (info_name == "p41C") {
         targe = this->p41C();

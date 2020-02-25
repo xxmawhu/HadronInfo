@@ -16,3 +16,25 @@ void hhhh() {
     //  pionInfo.GetName();
     //  gLambdaInfo.GetName();
 }
+PionInfo gPionInfo;
+KaonInfo gKaonInfo;
+ProtonInfo gProtonInfo;
+ElectronInfo gElectronInfo;
+ShowerInfo gShowerInfo;
+
+Pi0Info gPi0Info;
+EtaInfo gEtaInfo;
+
+KsInfo gKsInfo;
+LambdaInfo gLambdaInfo;
+
+OmegamInfo gOmegamInfo;
+Sigma0Info gSigma0Info;
+SigmapInfo gSigmapInfo;
+XimInfo gXimInfo;
+Xi0Info gXi0Info;
+
+PhiInfo gPhiInfo;
+
+OmegaInfo gOmegaInfo;
+EtaV3PiInfo gEtaV3PiInfo;

@@ -5,6 +5,7 @@ using std::endl;
 template <class T1, class T2, int pid, int doFit>
 CombInfo<T1, T2, pid, doFit>::CombInfo() {
     m_pid = pid;
+    m_doFit = doFit;
     AvailableInfo::SetName(HadronTool::Name(m_pid));
     m_firstInfo = T1();
     m_secondInfo = T2();
@@ -31,6 +32,7 @@ CombInfo<T1, T2, pid, doFit>::CombInfo(const CDCandidate& combParticle) {
     }
     AddAvialInfo();
     m_calculate = false;
+    m_doFit = doFit;
 }
 
 template <class T1, class T2, int pid, int doFit>
@@ -45,6 +47,7 @@ CombInfo<T1, T2, pid, doFit>::CombInfo(T1& firsInfo, T2& secondInfo) {
     SetName(HadronTool::Name(m_pid));
     AddAvialInfo();
     m_calculate = false;
+    m_doFit = doFit;
 }
 
 template <class T1, class T2, int pid, int doFit>
@@ -83,22 +86,28 @@ template <class T1, class T2, int pid, int doFit>
 void CombInfo<T1, T2, pid, doFit>::GetInfoI(const std::string& info_name,
                                             int& targe) {
     int length = info_name.size() - (m_firstInfo.GetName()).size();
-    if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+    int Case = 2;
+    if (length >= 0) {
+        if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+            Case = 1;
+        }
+    }
+    if (Case == 1) {
         std::string tmpname = info_name.substr(0, length);
-     ///  std::cout << "Info in CombInfo::GetInfoI: " 
-     ///      << "info_name = " << info_name << std::endl;
-     ///  std::cout << "Info in CombInfo::GetInfoI: " 
-     ///      << "tmpname = " << tmpname << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoI: " ;
+        ///  std::cout << "info_name = " << info_name << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoI: " ;
+        ///  std::cout << "tmpname = " << tmpname << std::endl;
         m_firstInfo.GetInfoI(tmpname, targe);
-     ///  std::cout << "Info in CombInfo::GetInfoI: " 
-     ///      << "targe = " << targe << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoI: ";
+        /// std::cout << "targe = " << targe << std::endl;
         return;
-    } else {
+    }else {
         int length = info_name.size() - (m_secondInfo.GetName()).size();
         std::string tmpname = info_name.substr(0, length);
         m_secondInfo.GetInfoI(tmpname, targe);
-     ///  std::cout << "Info in CombInfo::GetInfoI: " 
-     ///      << "targe = " << targe << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoI: " ;
+        ///  std::cout << "targe = " << targe << std::endl;
         return;
     }
     return;
@@ -107,6 +116,8 @@ void CombInfo<T1, T2, pid, doFit>::GetInfoI(const std::string& info_name,
 template <class T1, class T2, int pid, int doFit>
 void CombInfo<T1, T2, pid, doFit>::GetInfoD(const std::string& info_name,
                                             double& targe) {
+    /// std::cout << "Info in CombInfo::GetInfoD: "; 
+    /// cout << "info_name = " << info_name << std::endl;
     if (info_name == string("decayLength")) {
         targe = this->DecayLength();
         return;
@@ -126,26 +137,37 @@ void CombInfo<T1, T2, pid, doFit>::GetInfoD(const std::string& info_name,
         targe = this->RawMass();
         return;
     } else if (info_name == string("Mass")) {
+        /// cout << "Mass = " << this->Mass();
         targe = this->Mass();
         return;
     }
     int length = info_name.size() - (m_firstInfo.GetName()).size();
-    if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+    int Case = 2;
+    if (length >= 0) {
+        if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+            Case = 1;
+        }
+    }
+    if (Case == 1) {
         std::string tmpname = info_name.substr(0, length);
-     ///  std::cout << "Info in CombInfo::GetInfoD: " 
-     ///      << "info_name = " << info_name << std::endl;
-     ///  std::cout << "Info in CombInfo::GetInfoD: " 
-     ///      << "tmpname = " << tmpname << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoD: " ;
+        ///  std::cout << "info_name = " << info_name << std::endl;
+        ///  std::cout << "Info in CombInfo::GetInfoD: "; 
+        ///  std::cout << "tmpname = " << tmpname << std::endl;
         m_firstInfo.GetInfoD(tmpname, targe);
-     ///  std::cout << "Info in CombInfo::GetInfoD: " 
-     ///      << "targe = " << targe << std::endl;
+        /// std::cout << "Info in CombInfo::GetInfoD: "; 
+        /// cout  << "targe = " << targe << std::endl;
         return;
-    } else {
+    }  else {
         int length = info_name.size() - (m_secondInfo.GetName()).size();
+        ///  std::cout << "Info in CombInfo::GetInfoD: " ;
+        ///  std::cout << "info_name = " << info_name << std::endl;
         std::string tmpname = info_name.substr(0, length);
+        ///  std::cout << "Info in CombInfo::GetInfoD: "; 
+        ///  std::cout << "tmpname = " << tmpname << std::endl;
         m_secondInfo.GetInfoD(tmpname, targe);
-     ///  std::cout << "Info in CombInfo::GetInfoD: " 
-     ///      << "targe = " << targe << std::endl;
+        /// std::cout << "Info in CombInfo::GetInfoD: "; 
+        /// cout << "targe = " << targe << std::endl;
         return;
     }
     return;
@@ -162,22 +184,28 @@ void CombInfo<T1, T2, pid, doFit>::GetInfoH(const std::string& info_name,
         return;
     }
     int length = info_name.size() - (m_firstInfo.GetName()).size();
-    if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
-        std::string tmpname = info_name.substr(0, length);
-      /// std::cout << "Info in CombInfo::GetInfoH: " 
-      ///     << "info_name = " << info_name << std::endl;
-      /// std::cout << "Info in CombInfo::GetInfoH: " 
-      ///     << "tmpname = " << tmpname << std::endl;
-        m_firstInfo.GetInfoH(tmpname, targe);
-      /// std::cout << "Info in CombInfo::GetInfoD: " 
-      ///     << "targe = " << targe << std::endl;
-        return;
+    int Case = 2;
+    if (length >= 0) {
+        if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+            Case = 1;
+        }
+    }
+    if (Case == 1) {
+            std::string tmpname = info_name.substr(0, length);
+            /// std::cout << "Info in CombInfo::GetInfoH: "; 
+            /// cout << "info_name = " << info_name << std::endl;
+            /// std::cout << "Info in CombInfo::GetInfoH: "; 
+            /// cout << "tmpname = " << tmpname << std::endl;
+            m_firstInfo.GetInfoH(tmpname, targe);
+            /// std::cout << "Info in CombInfo::GetInfoH: " ;
+            /// cout << "targe = " << targe << std::endl;
+            return;
     } else {
         int length = info_name.size() - (m_secondInfo.GetName()).size();
         std::string tmpname = info_name.substr(0, length);
         m_secondInfo.GetInfoH(tmpname, targe);
-      /// std::cout << "Info in CombInfo::GetInfoH: " 
-      ///     << "targe = " << targe << std::endl;
+        /// std::cout << "Info in CombInfo::GetInfoH: "; 
+        /// cout  << "targe = " << targe << std::endl;
         return;
     }
     return;
@@ -185,44 +213,42 @@ void CombInfo<T1, T2, pid, doFit>::GetInfoH(const std::string& info_name,
 
 template <class T1, class T2, int pid, int doFit>
 void CombInfo<T1, T2, pid, doFit>::GetInfoVi(const std::string& info_name,
-                                             std::vector<int>& targe) {
-    int length = info_name.size() - (this->GetName()).size();
-    std::string tmpname = info_name.substr(0, length);
-    // firsInfo
-    std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("int");
-    if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
-        tmpAllInfo.end()) {
+        std::vector<int>& targe) {
+    int length = info_name.size() - (m_firstInfo.GetName()).size();
+    int Case = 2;
+    if (length >= 0) {
+        if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+            Case = 1;
+        }
+    }
+    if (Case == 1) {
+        std::string tmpname = info_name.substr(0, length);
         m_firstInfo.GetInfoVi(tmpname, targe);
-        return;
+    } else {
+        int length = info_name.size() - (m_secondInfo.GetName()).size();
+        std::string tmpname = info_name.substr(0, length);
+        m_firstInfo.GetInfoVi(tmpname, targe);
     }
-    tmpAllInfo = m_secondInfo.GetType("int");
-    if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
-        tmpAllInfo.end()) {
-        m_secondInfo.GetInfoVi(tmpname, targe);
-        return;
-    }
-    return;
 }
 
 template <class T1, class T2, int pid, int doFit>
 void CombInfo<T1, T2, pid, doFit>::GetInfoVd(const std::string& info_name,
                                              std::vector<double>& targe) {
-    int length = info_name.size() - (this->GetName()).size();
-    std::string tmpname = info_name.substr(0, length);
-    // firsInfo
-    std::vector<std::string> tmpAllInfo = m_firstInfo.GetType("double");
-    if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
-        tmpAllInfo.end()) {
+    int length = info_name.size() - (m_firstInfo.GetName()).size();
+    int Case = 2;
+    if (length >= 0) {
+        if (info_name.substr(length, info_name.size()) == m_firstInfo.GetName()) {
+            Case = 1;
+        }
+    }
+    if (Case == 1) {
+        std::string tmpname = info_name.substr(0, length);
         m_firstInfo.GetInfoVd(tmpname, targe);
-        return;
+    } else {
+        int length = info_name.size() - (m_secondInfo.GetName()).size();
+        std::string tmpname = info_name.substr(0, length);
+        m_firstInfo.GetInfoVd(tmpname, targe);
     }
-    tmpAllInfo = m_secondInfo.GetType("double");
-    if (std::find(tmpAllInfo.begin(), tmpAllInfo.end(), tmpname) !=
-        tmpAllInfo.end()) {
-        m_secondInfo.GetInfoVd(tmpname, targe);
-        return;
-    }
-    return;
 }
 
 template <class T1, class T2, int pid, int doFit>
@@ -232,7 +258,7 @@ bool CombInfo<T1, T2, pid, doFit>::Calculate() {
     }
     m_rawp4 = m_firstInfo.P4() + m_secondInfo.P4();
     m_rawMass = m_rawp4.m();
-    if (!doFit) {
+    if (!m_doFit) {
         m_p4 = m_firstInfo.P4() + m_secondInfo.P4();
         m_mass = m_p4.m();
         m_calculate = true;
@@ -335,8 +361,8 @@ const HepLorentzVector& CombInfo<T1, T2, pid, doFit>::P4() {
 }
 template <class T1, class T2, int pid, int doFit>
 const HepLorentzVector& CombInfo<T1, T2, pid, doFit>::RawP4() {
-  /// cout << "Info in " << GetName() << "::RawP4:" 
-  ///     << " rawp4 = " << m_rawp4 << endl;
+    /// cout << "Info in " << GetName() << "::RawP4:"; 
+    /// cout << " rawp4 = " << m_rawp4 << endl;
     return m_rawp4;
 }
 template <class T1, class T2, int pid, int doFit>
@@ -407,11 +433,11 @@ void CombInfo<T1, T2, pid, doFit>::AddInfo(
     const vector<string>& allInfo, const std::map<string, string>& allindexInfo,
     const std::map<string, int>& allLengthInfo, const string& type,
     const string& name) {
-  /// cout << "Info in <CombInfo::AddInfo>: "
-  ///      << "type = " << type << endl;
+    /// cout << "Info in <CombInfo::AddInfo>: ";
+    /// cout << "type = " << type << endl;
     if (allInfo.empty()) {
-      /// cout << "Info in <CombInfo::AddInfo>: "
-      ///      << "allInfo is empty " << endl;
+      /// cout << "Info in <CombInfo::AddInfo>: ";
+      /// cout << "allInfo is empty " << endl;
         return;
     }
     string index;
@@ -431,7 +457,7 @@ template <class T1, class T2, int pid, int doFit>
 void CombInfo<T1, T2, pid, doFit>::AddAvialInfo() {
     AddInfo(m_firstInfo);
     AddInfo(m_secondInfo);
-    if (DoVertexFit()) {
+    if (doFit) {
         Add("decayLength", "double");
         Add("decayLengthError", "double");
         Add("decayLengthRatio", "double");

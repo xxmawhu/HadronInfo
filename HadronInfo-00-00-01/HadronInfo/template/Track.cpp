@@ -146,7 +146,8 @@ void Track<pid>::Feed(const CDCandidate &aTrk) {
     m_track = const_cast<EvtRecTrack *>(track);
 }
 template <int pid>
-Track<pid>::~Track() {}
+Track<pid>::~Track() {
+}
 template <int pid>
 void Track<pid>::SetTrack(const EvtRecTrack *track) {
     m_track = const_cast<EvtRecTrack *>(track);

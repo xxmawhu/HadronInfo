@@ -37,7 +37,8 @@ class GGInfo : virtual public AvailableInfo {
     void Feed(const EvtRecTrack*, const EvtRecTrack*);
     void Feed(vector<const EvtRecTrack*>);
     void Feed(const CDCandidate&);
-    ~GGInfo() {};
+    ~GGInfo() {
+    };
     int Charge();
     virtual void GetInfoD(const std::string&, double&);
     virtual void GetInfoH(const std::string&, HepLorentzVector&);

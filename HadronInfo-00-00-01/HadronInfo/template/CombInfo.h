@@ -33,9 +33,11 @@ using std::endl;
 template <class FirstInfo, class SecondInfo, int pid = 0, int doVertexFit = 0>
 class CombInfo : virtual public AvailableInfo {
    public:
-    CombInfo() ;
+    CombInfo();
     CombInfo(const CDCandidate& combParticle) ;
     CombInfo(FirstInfo& firsInfo, SecondInfo& secondInfo) ;
+    virtual ~CombInfo() {
+    };
     void Feed(const CDCandidate& combParticle) ;
     void Feed(FirstInfo& firsInfo, SecondInfo& secondInfo) ;
     virtual const bool DoVertexFit();
@@ -74,6 +76,7 @@ class CombInfo : virtual public AvailableInfo {
 
    private:
     bool m_calculate, m_isSetPriVtx;
+    bool m_doFit;
     int m_pid;
     HepLorentzVector m_p4, m_rawp4;
     HepLorentzVector m_p4Child[2];

@@ -33,6 +33,120 @@ vector<int> ParticleInf::ChargedChildren(int pid) {
     }
 }
 
+void ParticleInf::GetDaughterList(const int& pid, vector<int> & pidList) {
+    // e+ e- pi K mu, p
+    if (pid == 11 || pid == 13 || pid == 321 || pid == 211 || pid == 2212
+        ||pid == -11 || pid == -13 || pid == -321 || pid == -211 
+        || pid == -2212 || pid == 22 || pid == 111 || pid == 221
+            ) {
+        pidList.push_back(pid);
+        return;
+    }
+    switch (pid) {
+        // Ks
+        case 310: 
+            pidList.push_back(211);
+            pidList.push_back(-211);
+            return;
+            // Lambda
+        case 3122:
+            pidList.push_back(2212);
+            pidList.push_back(-211);
+            return;
+            // anti-Lambda
+        case -3122:
+            pidList.push_back(-2212);
+            pidList.push_back(211);
+            return;
+            // pi0 111 -> 22 22
+        case 111:
+            pidList.push_back(22);
+        pidList.push_back(22);
+        return;
+        // eta 221 -> 22 22
+        case 221:
+        pidList.push_back(22);
+        pidList.push_back(22);
+        return;
+        // omega 223 -> 211 -211 111
+        case 223:
+        pidList.push_back(211);
+        pidList.push_back(-211);
+        pidList.push_back(111);
+        return;
+        // EtaV3P 2212211 -> 211, -211, 111
+        case 2212211:
+        pidList.push_back(-2212);
+        pidList.push_back(211);
+        pidList.push_back(111);
+        return;
+        // phi 333 -> 321, -321
+        case 333:
+        pidList.push_back(321);
+        pidList.push_back(-321);
+        return;
+        // Sigmap -> p pi0
+        case 3112:
+        pidList.push_back(2212);
+        pidList.push_back(111);
+        return;
+        case -3112:
+        pidList.push_back(-2212);
+        pidList.push_back(111);
+        return;
+        // Sigma0-> Lambda gamma 3122, 22
+        case 3212:
+        pidList.push_back(3122);
+        pidList.push_back(22);
+        return;
+        case -3212:
+        pidList.push_back(-3122);
+        pidList.push_back(22);
+        return;
+        // Xi0 -> Lambda pi0
+        case 3322:
+        pidList.push_back(3122);
+        pidList.push_back(111);
+        return;
+        case -3322:
+        pidList.push_back(-3122);
+        pidList.push_back(111);
+        return;
+        // Xi- -> Lambda pi-
+        case 3312:
+        pidList.push_back(3122);
+        pidList.push_back(-211);
+        return;
+        case -3312:
+        pidList.push_back(-3122);
+        pidList.push_back(211);
+        return;
+        // Omega- -> Lambda K
+        case 3334:
+        pidList.push_back(3122);
+        pidList.push_back(321);
+        return;
+        case -3334:
+        pidList.push_back(-3122);
+        pidList.push_back(-321);
+        return;
+        default:
+        pidList.push_back(pid);
+         return; 
+    }
+    vector<int> tmpList;
+    GetDaughterList(pid, tmpList);
+    if (tmpList.empty()) return;
+    for(vector<int>::iterator itr = tmpList.begin(); itr != tmpList.end();
+            ++ itr) {
+        GetDaughterList(*itr, pidList);
+    }
+}
+
+int ParticleInf::Need(const int& pid) const{
+    return std::count(m_daughterList.begin(), m_daughterList.end(), pid);
+}
+
 double ParticleInf::Mass(int pid) {
     int PID = pid > 0 ? pid : -pid;
     if (PID == 11) return 0.000510998928;
@@ -49,33 +163,34 @@ double ParticleInf::Mass(int pid) {
     return -1.0;
 }
 
-void ParticleInf::SetChildren(vector<int> pids) { m_pids = pids; }
-bool ParticleInf::Find(int pid) {
-    if (find(m_pids.begin(), m_pids.end(), pid) != m_pids.end()) {
-        return true;
-    } else {
-        return false;
+void ParticleInf::SetChildren(const vector<int>& pids) { 
+    m_pids = pids;
+    for(vector<int>::iterator itr = m_pids.begin();
+            itr != m_pids.end();
+            ++ itr) {
+        GetDaughterList(*itr, m_daughterList);
     }
 }
-bool ParticleInf::NeedPion() {
-    return Find(211) || Find(-211) || Find(331) || Find(223) || Find(2212211) ||
-           Find(3212) || Find(-3212) || Find(3122) || Find(-3122) ||
-           Find(3322) || Find(-3322);
+int ParticleInf::NeedPion() const{
+    return Need(211) + Need(-211);
 }
-bool ParticleInf::NeedKaon() { return Find(321) || Find(-321) || Find(333); }
-bool ParticleInf::NeedPi0() {
-    return Find(2212211) || Find(111) || Find(223) || Find(3322) || Find(-3322);
+int ParticleInf::NeedKaon() const{ 
+    return Need(321) + Need(-321);
 }
-bool ParticleInf::NeedProton() {
-    return Find(2212) || Find(-2212) || Find(3212) || Find(-3212) ||
-           Find(3122) || Find(-3122) || Find(3322) || Find(-3322);
+int ParticleInf::NeedPi0() const{
+    return Need(111);
 }
-bool ParticleInf::NeedEta() { return Find(221) || Find(331); }
-bool ParticleInf::NeedKs() { return Find(310); }
-bool ParticleInf::NeedElectron() { return Find(11) || Find(-11); }
-bool ParticleInf::NeedMuon() { return Find(13) || Find(-13); }
-bool ParticleInf::NeedPhoton() {
-    return Find(22) || Find(331222) || Find(3212) || Find(-3212);
+int ParticleInf::NeedProton() const{
+    return Need(2212) + Need(-2212) ;
+}
+int ParticleInf::NeedEta() const{ return Need(221) + Need(331); }
+int ParticleInf::NeedKs() const{ 
+    return Need(310); }
+int ParticleInf::NeedElectron() const { 
+    return Need(11) + Need(-11); }
+int ParticleInf::NeedMuon() const { return Need(13) + Need(-13); }
+int ParticleInf::NeedPhoton() const{
+    return Need(22);
 }
 
 vector<int> ParticleInf::GammaCov() {

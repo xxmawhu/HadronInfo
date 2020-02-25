@@ -28,8 +28,6 @@ void ShowerInfo::Feed(const CDCandidate &aTrk) {
 }
 
 ShowerInfo::~ShowerInfo() {
-    m_shower = 0;
-    m_p4 = HepLorentzVector(0, 0, 0, 0);
 }
 bool ShowerInfo::Calculate() {
     if (m_cal) {

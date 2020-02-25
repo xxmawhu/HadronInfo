@@ -10,22 +10,24 @@ class ParticleInf {
    public:
     string Name(int);
     double Mass(int);
-    void SetChildren(vector<int>);
+    void SetChildren(const vector<int>&);
     vector<int> ChargedChildren(int);
     vector<int> GammaCov();
-    bool NeedPion();
-    bool NeedKaon();
-    bool NeedKs();
-    bool NeedPi0();
-    bool NeedEta();
-    bool NeedProton();
-    bool NeedPhoton();
-    bool NeedElectron();
-    bool NeedMuon();
-    bool Find(int);
+    int NeedPion() const;
+    int NeedKaon() const;
+    int NeedKs() const;
+    int NeedPi0() const;
+    int NeedEta() const;
+    int NeedProton() const;
+    int NeedPhoton() const;
+    int NeedElectron() const;
+    int NeedMuon() const;
+    int Need(const int&) const;
+    void GetDaughterList(const int&, vector<int>&);
 
    private:
     vector<int> m_pids;
+    vector<int> m_daughterList;
 };
 
 #endif

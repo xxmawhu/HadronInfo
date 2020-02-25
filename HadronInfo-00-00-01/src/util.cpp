@@ -47,6 +47,7 @@ std::string HadronTool::Name(const int& pid) {
     if (pid == -3322) return string("Xi0bar");
     if (pid == 3334) return string("Omegam");
     if (pid == -3334) return string("OmegaBarp");
+    if (pid == 62) return string("chi_c1p");
     return string("NULL");
 }
 

@@ -32,27 +32,28 @@
 #include "HadronInfo/PhiInfo.h"
 #include "HadronInfo/EtaV3PiInfo.h"
 // #include <cstdlib>
-static PionInfo gPionInfo;
-static KaonInfo gKaonInfo;
-static ProtonInfo gProtonInfo;
-static ElectronInfo gElectronInfo;
-static ShowerInfo gShowerInfo;
+extern PionInfo gPionInfo;
+extern KaonInfo gKaonInfo;
+extern ProtonInfo gProtonInfo;
+extern ElectronInfo gElectronInfo;
+extern ShowerInfo gShowerInfo;
 
-static Pi0Info gPi0Info;
-static EtaInfo gEtaInfo;
+extern Pi0Info gPi0Info;
+extern EtaInfo gEtaInfo;
 
-static KsInfo gKsInfo;
-static LambdaInfo gLambdaInfo;
+extern KsInfo gKsInfo;
+extern LambdaInfo gLambdaInfo;
 
-static OmegamInfo gOmegamInfo;
-static Sigma0Info gSigma0Info;
-static SigmapInfo gSigmapInfo;
-static XimInfo gXimInfo;
-static Xi0Info gXi0Info;
+extern OmegamInfo gOmegamInfo;
+extern Sigma0Info gSigma0Info;
+extern SigmapInfo gSigmapInfo;
+extern XimInfo gXimInfo;
+extern Xi0Info gXi0Info;
 
-static OmegaInfo gOmegaInfo;
-static PhiInfo gPhiInfo;
-static EtaV3PiInfo gEtaV3PiInfo;
+extern PhiInfo gPhiInfo;
+
+extern OmegaInfo gOmegaInfo;
+extern EtaV3PiInfo gEtaV3PiInfo;
 namespace Type {
 enum PID {
     ElectronInfo = 11,
