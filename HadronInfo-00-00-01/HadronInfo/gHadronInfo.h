@@ -38,19 +38,12 @@ extern ProtonInfo gProtonInfo;
 extern ElectronInfo gElectronInfo;
 extern ShowerInfo gShowerInfo;
 
-extern Pi0Info gPi0Info;
-extern EtaInfo gEtaInfo;
-
-extern KsInfo gKsInfo;
-extern LambdaInfo gLambdaInfo;
-
 extern OmegamInfo gOmegamInfo;
 extern Sigma0Info gSigma0Info;
 extern SigmapInfo gSigmapInfo;
 extern XimInfo gXimInfo;
 extern Xi0Info gXi0Info;
 
-extern PhiInfo gPhiInfo;
 
 extern OmegaInfo gOmegaInfo;
 extern EtaV3PiInfo gEtaV3PiInfo;

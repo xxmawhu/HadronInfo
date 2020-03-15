@@ -4,4 +4,5 @@
 #include "HadronInfo/ProtonInfo.h"
 #include "HadronInfo/PionInfo.h"
 typedef CombInfo<ProtonInfo, PionInfo, 3122, 1> LambdaInfo;
+extern LambdaInfo gLambdaInfo;
 #endif

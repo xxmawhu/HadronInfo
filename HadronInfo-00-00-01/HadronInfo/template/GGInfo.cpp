@@ -163,7 +163,7 @@ template <int pid>
 const double& GGInfo<pid>::Mass() {
     // turn the invarin mass of two gamma before 1C fit
     if (!m_calculate) Calculate();
-    return m_mpi0;
+    return m_rawMass;
 }
 
 template <int pid>
@@ -233,7 +233,7 @@ template <int pid>
 void GGInfo<pid>::UpdateWTrk(const WTrackParameter& newWtrk) {
     m_wtrk = newWtrk;
     m_P41C = newWtrk.p();
-    m_mpi0 = newWtrk.mass();
+    m_rawMass = newWtrk.mass();
     m_updateWTrk = true;
     m_calculate = false;
 }
